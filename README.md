@@ -1,36 +1,147 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Red Explorers - Travel Blog Frontend
+
+A modern, responsive travel blog website built with Next.js 14, TypeScript, and Tailwind CSS.
+
+## Features
+
+- **Home Page**: Hero section with featured content, popular posts, recent posts, and product recommendations
+- **About Us Page**: Company history, team information, customer testimonials, and partner logos
+- **Destination Page**: Interactive tabs for different continents with destination cards
+- **Travel Tips Page**: Blog grid layout with sidebar featuring categories, popular posts, and products
+- **Contact Page**: Contact form for user inquiries
+- **Responsive Design**: Mobile-first design that works on all devices
+- **Modern UI**: Clean, professional design with smooth transitions and hover effects
+
+## Tech Stack
+
+- **Next.js 16.1.3**: React framework with App Router
+- **React 19**: Latest React version
+- **TypeScript**: Type-safe development
+- **Tailwind CSS 4**: Utility-first CSS framework
+- **ESLint**: Code linting
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Node.js 18+ installed
+- npm or yarn package manager
+
+### Installation
+
+1. Clone the repository
+2. Install dependencies:
+
+```bash
+npm install
+```
+
+### Development
+
+Run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) in your browser to see the website.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Build
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Create a production build:
 
-## Learn More
+```bash
+npm run build
+```
 
-To learn more about Next.js, take a look at the following resources:
+### Start Production Server
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+After building, start the production server:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+npm start
+```
 
-## Deploy on Vercel
+## Project Structure
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```
+/
+├── app/
+│   ├── components/         # Reusable components
+│   │   ├── Header.tsx     # Navigation header
+│   │   ├── Footer.tsx     # Footer with links and social
+│   │   ├── Newsletter.tsx # Newsletter subscription
+│   │   └── InstagramFeed.tsx # Instagram feed display
+│   ├── about/             # About page
+│   ├── contact/           # Contact page
+│   ├── destination/       # Destination page
+│   ├── tips/              # Travel tips page
+│   ├── layout.tsx         # Root layout
+│   ├── page.tsx           # Home page
+│   └── globals.css        # Global styles
+├── public/                # Static assets
+└── package.json           # Dependencies
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Pages
+
+### Home (`/`)
+- Hero section with call-to-action
+- About Me section
+- Categories sidebar
+- Popular and Recent posts
+- Product recommendations
+- Social media links
+- Newsletter subscription
+
+### About Us (`/about`)
+- Company history and story
+- Team information
+- Cameraman section
+- Learning resources
+- Partner logos
+- Customer testimonials
+
+### Destination (`/destination`)
+- Tab navigation for continents (South America, North America, Europe, Africa, Asia)
+- Destination cards with images, dates, locations, and comments
+- Filtered view based on selected continent
+
+### Travel Tips (`/tips`)
+- Featured tip with full description
+- Grid of travel tip cards
+- Sidebar with:
+  - About section
+  - Categories
+  - Popular posts
+  - Recent posts
+  - Product recommendations
+  - Social media links
+
+### Contact (`/contact`)
+- Contact form with fields:
+  - First Name & Last Name
+  - Email & Subject
+  - Message
+- Form validation
+- Success notification
+
+## Customization
+
+### Colors
+The main brand colors can be customized in `globals.css` or using Tailwind's configuration.
+
+### Content
+Replace placeholder content and images with your actual content in each page component.
+
+### Images
+Update background images and card images with your own images. Current implementation uses placeholder URLs from Unsplash.
+
+## License
+
+This project is for educational and demonstration purposes.
+
+## Support
+
+For questions or issues, please use the contact form on the website.
+# travel-blog-frontend
