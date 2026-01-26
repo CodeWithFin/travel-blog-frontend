@@ -11,7 +11,7 @@ export default function Header() {
 
   return (
     <header className="absolute top-0 left-0 right-0 z-50">
-      <nav className="flex items-center justify-between py-5 max-w-[1400px] mx-auto" style={{ paddingLeft: '73.6px', paddingRight: '73.6px' }}>
+      <nav className="flex items-center justify-between py-5 max-w-[1400px] mx-auto" style={{ paddingLeft: '81px', paddingRight: '81px' }}>
         {/* Logo */}
         <Link href="/" className="flex items-center">
           <Image 

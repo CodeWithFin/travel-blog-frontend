@@ -14,7 +14,7 @@ export default function Newsletter() {
 
   return (
     <div className="bg-white py-16">
-      <div className="max-w-7xl mx-auto px-8">
+      <div className="max-w-7xl mx-auto" style={{ paddingLeft: '35px', paddingRight: '35px' }}>
         <div className="flex flex-col md:flex-row items-center justify-between gap-8">
           <div className="text-center md:text-left">
             <h2 className="text-3xl font-bold text-gray-800">

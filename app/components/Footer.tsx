@@ -33,7 +33,7 @@ export default function Footer() {
       
       {/* White Header Section */}
       <div className="bg-white" style={{ paddingTop: '31.2px', paddingBottom: '31.2px' }}>
-        <div className="max-w-[1200px] mx-auto px-8 grid grid-cols-[2fr_1fr_1fr_1fr] items-start" style={{ gap: '41.6px' }}>
+        <div className="max-w-[1200px] mx-auto grid grid-cols-[2fr_1fr_1fr_1fr] items-start" style={{ gap: '41.6px', paddingLeft: '35px', paddingRight: '35px' }}>
           {/* Logo */}
           <div>
             <Image 
@@ -65,7 +65,7 @@ export default function Footer() {
 
       {/* Gray Content Section */}
       <div style={{ background: '#555555', paddingTop: '62.4px', paddingBottom: '62.4px' }}>
-        <div className="max-w-[1200px] mx-auto px-8 grid grid-cols-[2fr_1fr_1fr_1fr]" style={{ gap: '41.6px' }}>
+        <div className="max-w-[1200px] mx-auto grid grid-cols-[2fr_1fr_1fr_1fr]" style={{ gap: '41.6px', paddingLeft: '35px', paddingRight: '35px' }}>
           {/* Column 1: About Us */}
           <div>
             <p className="text-white/90 leading-relaxed mb-4">
@@ -113,7 +113,7 @@ export default function Footer() {
 
       {/* Bottom Bar */}
       <div style={{ background: '#555555', paddingTop: '31.2px', paddingBottom: '31.2px' }}>
-        <div className="max-w-[1200px] mx-auto px-8 flex items-center justify-between">
+        <div className="max-w-[1200px] mx-auto flex items-center justify-between" style={{ paddingLeft: '35px', paddingRight: '35px' }}>
           {/* SideHustle Logo */}
           <div>
             <Image 
