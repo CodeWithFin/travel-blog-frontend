@@ -1,425 +1,355 @@
 'use client';
 
 import Link from 'next/link';
-import Newsletter from './components/Newsletter';
-import InstagramFeed from './components/InstagramFeed';
+import Image from 'next/image';
 
 export default function Home() {
+
   return (
-    <div style={{ background: '#FFFFFF' }}>
+    <div className="bg-white">
       {/* Hero Section */}
-      <section className="relative h-screen flex flex-col items-center justify-center text-white">
-        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1551632811-561732d1e306?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center">
-          <div className="absolute inset-0" style={{ background: 'rgba(0, 0, 0, 0.3)' }} />
-        </div>
-        
+      <section className="relative h-[620px] flex flex-col items-center justify-center">
+        {/* Background Image - Hiker on mountain */}
         <div 
-          className="relative z-10 text-center flex flex-col items-center justify-center"
-          style={{ 
-            width: '1438px',
-            height: '250px',
-            opacity: 1,
-            transform: 'rotate(0deg)'
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{
+            backgroundImage: 'url(https://images.unsplash.com/photo-1551632811-561732d1e306?w=1920&q=80)',
           }}
         >
-          {/* Counter Text */}
-          <div className="text-xl font-medium mb-1 tracking-wide uppercase">
-            THE COUNTER: <span className="font-bold" style={{ color: '#ffab00' }}>70</span> Countries{' '}
-            <span className="font-bold" style={{ color: '#ffab00' }}>1036</span> Cities
-          </div>
+          <div className="absolute inset-0 bg-black/20" />
+        </div>
+
+        {/* Hero Content - Centered */}
+        <div className="relative z-10 text-center px-8 mt-8">
+          {/* Counter */}
+          <p className="text-white text-lg tracking-wider mb-4">
+            THE COUNTER: <span className="text-[#FFAB00] font-bold">70</span> Countries &nbsp;&nbsp;<span className="text-[#FFAB00] font-bold">1036</span> Cities
+          </p>
           
           {/* Main Heading */}
-          <h1 className="text-6xl md:text-7xl font-bold mb-4 leading-tight" style={{ textShadow: '0 2px 10px rgba(0,0,0,0.2)' }}>
+          <h1 className="text-white text-4xl md:text-5xl font-bold leading-tight mb-8">
             Leave your mark on all<br />over the world
           </h1>
           
           {/* CTA Button */}
           <Link
-            href="/destination"
-            className="text-white text-center flex items-center justify-center rounded transition-colors"
-            style={{ 
-              width: '182px',
-              height: '71px',
-              opacity: 1,
-              transform: 'rotate(0deg)',
+            href="/read-more"
+            className="inline-block text-white text-lg font-medium px-16 py-5 transition-all hover:opacity-90"
+            style={{
               background: '#0047FF',
-              boxShadow: '0px 2.77px 6.23px 0px rgba(0, 0, 0, 0.05), 0px 6.65px 14.96px 0px rgba(0, 0, 0, 0.07), 0px 12.52px 28.17px 0px rgba(0, 0, 0, 0.09), 0px 22.34px 50.26px 0px rgba(0, 0, 0, 0.11), 0px 41.78px 94px 0px rgba(0, 0, 0, 0.13), 0px 100px 225px 0px rgba(0, 0, 0, 0.18)'
+              boxShadow: '0px 4px 20px rgba(0, 71, 255, 0.4)'
             }}
-            onMouseEnter={(e) => e.currentTarget.style.background = '#0036c4'}
-            onMouseLeave={(e) => e.currentTarget.style.background = '#0047FF'}
           >
             Read More
           </Link>
         </div>
 
-        {/* Scroll Indicator */}
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex flex-col items-center gap-3 z-10">
-          <span className="text-sm font-medium">Scroll Down to Continue</span>
-          <div 
-            className="w-8 h-8 bg-white rounded-full flex items-center justify-center text-lg shadow-md"
-            style={{ color: '#0047FF' }}
-          >
-            <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-              <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
-            </svg>
-          </div>
+        {/* Scroll Down Indicator */}
+        <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex flex-col items-center gap-1 z-10">
+          <span className="text-white text-sm font-medium">Scroll Down to Continue</span>
+          <svg className="w-6 h-6 text-[#0047FF]" fill="currentColor" viewBox="0 0 20 20">
+            <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
+          </svg>
         </div>
 
-        {/* Location Pin */}
-        <div 
-          className="absolute bottom-10 right-12 text-5xl cursor-pointer transition-transform z-10"
-          style={{ 
-            color: '#0047FF',
-            filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.3))'
-          }}
-          onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-5px)'}
-          onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}
-        >
-          <svg className="w-10 h-10" fill="currentColor" viewBox="0 0 20 20">
+        {/* Location Pin - Bottom Right */}
+        <div className="absolute bottom-6 right-12 z-10">
+          <svg className="w-10 h-10 text-[#0047FF]" fill="currentColor" viewBox="0 0 20 20">
             <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
           </svg>
         </div>
       </section>
 
       {/* Main Content Area */}
-      <section className="py-20 bg-white relative">
-        <div className="max-w-7xl mx-auto px-8">
-          <div className="grid lg:grid-cols-3 gap-8">
-            {/* Left Sidebar */}
-            <div className="lg:col-span-1 space-y-6 relative">
-              {/* About Me Card - Absolutely positioned above Categories */}
-              <div 
-                className="absolute bg-white rounded overflow-hidden z-10"
-                style={{
-                  width: '438.2314453125px',
-                  height: '598px',
-                  top: '0px',
-                  left: '0px',
-                  opacity: 1,
-                  transform: 'rotate(0deg)',
-                  boxShadow: '0px 2.77px 6.23px 0px rgba(0, 0, 0, 0.05), 0px 6.65px 14.96px 0px rgba(0, 0, 0, 0.07), 0px 12.52px 28.17px 0px rgba(0, 0, 0, 0.09), 0px 22.34px 50.26px 0px rgba(0, 0, 0, 0.11), 0px 41.78px 94px 0px rgba(0, 0, 0, 0.13), 0px 100px 225px 0px rgba(0, 0, 0, 0.18)'
-                }}
-              >
-                <div className="p-6 h-full flex flex-col">
-                  <h2 className="text-xl font-bold mb-4 text-gray-700">About Me</h2>
-                  <div className="w-full mb-4 overflow-hidden rounded" style={{ height: '200px' }}>
+      <section className="py-12 bg-[#f8f9fa]">
+        <div className="max-w-[1200px] mx-auto px-8">
+          <div className="flex gap-8">
+            {/* Left Sidebar - 280px */}
+            <aside className="w-[280px] flex-shrink-0 space-y-6">
+              {/* About Me Widget */}
+              <div className="bg-white rounded-lg shadow-sm overflow-hidden">
+                <div className="p-6">
+                  <h3 className="text-lg font-bold text-gray-800 mb-4">About Me</h3>
+                  <div className="mb-4">
                     <img 
-                      src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" 
-                      alt="Profile"
-                      className="w-full h-full object-cover"
+                      src="https://images.unsplash.com/photo-1539635278303-d4002c07eae3?w=400&q=80"
+                      alt="About Me"
+                      className="w-full h-48 object-cover rounded"
                     />
                   </div>
-                  <p className="text-sm text-gray-600 mb-4 flex-grow">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus pharetra ac erat commodo non leo eget gravida viverra. Phasellus pharetra.
+                  <p className="text-gray-600 text-sm leading-relaxed mb-4">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.
                   </p>
-                  {/* Read More Button */}
                   <Link
                     href="/about"
-                    className="text-white text-center flex items-center justify-center rounded transition-colors self-center"
-                    style={{ 
-                      width: '182px',
-                      height: '71px',
-                      opacity: 1,
-                      transform: 'rotate(0deg)',
-                      background: '#0047FF',
-                      boxShadow: '0px 2.77px 6.23px 0px rgba(0, 0, 0, 0.05), 0px 6.65px 14.96px 0px rgba(0, 0, 0, 0.07), 0px 12.52px 28.17px 0px rgba(0, 0, 0, 0.09), 0px 22.34px 50.26px 0px rgba(0, 0, 0, 0.11), 0px 41.78px 94px 0px rgba(0, 0, 0, 0.13), 0px 100px 225px 0px rgba(0, 0, 0, 0.18)'
-                    }}
-                    onMouseEnter={(e) => e.currentTarget.style.background = '#0036c4'}
-                    onMouseLeave={(e) => e.currentTarget.style.background = '#0047FF'}
+                    className="block w-full text-center bg-[#3B5BDB] text-white py-3 rounded-md font-medium hover:bg-[#2f4ab8] transition-colors"
                   >
                     Read More
                   </Link>
                 </div>
               </div>
 
-              {/* Categories - Below About Me */}
-              <div className="bg-gray-100 p-4 rounded" style={{ marginTop: '620px', position: 'relative', zIndex: 1 }}>
-                <h3 className="text-xl font-bold mb-4 text-gray-700">Categories</h3>
-                <div className="bg-white p-4 rounded">
-                  <ul className="space-y-2">
-                    {['Europe', 'Mountains', 'Traveling Video', 'Beauty of Seas', 'Cuisine', 'Guides for traveler', 'Other'].map((cat) => (
-                      <li key={cat}>
-                        <Link href={`/category/${cat.toLowerCase().replace(/\s+/g, '-')}`} className="flex justify-between text-gray-700 hover:text-blue-600">
-                          <span>{cat}</span>
-                          <span className="text-gray-400">(11)</span>
+              {/* Categories Widget */}
+              <div className="bg-white rounded-lg shadow-sm overflow-hidden">
+                <div className="bg-gray-100 px-4 py-3">
+                  <h3 className="font-bold text-gray-700">Categories</h3>
+                </div>
+                <div className="p-4">
+                  <ul className="space-y-3">
+                    {[
+                      { name: 'Europe', count: '(11)' },
+                      { name: 'Mountains', count: '(11)' },
+                      { name: 'Traveling Video', count: '(11)' },
+                      { name: 'Beauty of Seas', count: '(11)' },
+                      { name: 'Cuisine', count: '(11)' },
+                      { name: 'Guides for traveler', count: '(11)' },
+                      { name: 'Other', count: '(11)' },
+                    ].map((cat) => (
+                      <li key={cat.name} className="flex justify-between items-center">
+                        <Link href={`/category/${cat.name.toLowerCase()}`} className="text-gray-600 hover:text-[#3B5BDB] text-sm">
+                          {cat.name}
                         </Link>
+                        <span className="text-gray-400 text-sm">{cat.count}</span>
                       </li>
                     ))}
                   </ul>
                 </div>
               </div>
 
-              {/* Popular Post */}
-              <div className="bg-gray-100 p-4 rounded">
-                <h3 className="text-xl font-bold mb-4 text-gray-700">Popular Post</h3>
-                <div className="bg-white p-4 rounded">
+              {/* Popular Post Widget */}
+              <div className="bg-white rounded-lg shadow-sm overflow-hidden">
+                <div className="bg-gray-100 px-4 py-3">
+                  <h3 className="font-bold text-gray-700">Popular Post</h3>
+                </div>
+                <div className="p-4">
                   <div className="relative">
-                    <div className="w-full h-48 overflow-hidden rounded mb-2">
-                      <img 
-                        src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" 
-                        alt="Popular post"
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                    <h4 className="text-sm font-semibold">Finding Love & home in Tbilisi, Georgia</h4>
-                    <div className="flex gap-2 mt-2">
-                      <button className="p-1 bg-gray-200 rounded">←</button>
-                      <button className="p-1 bg-gray-200 rounded">→</button>
+                    <img 
+                      src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&q=80"
+                      alt="Popular Post"
+                      className="w-full h-40 object-cover rounded"
+                    />
+                    <div className="absolute bottom-2 left-2 right-2">
+                      <span className="text-[10px] text-white bg-black/50 px-2 py-1 rounded">September 17, 2025 - Tips & Tricks</span>
                     </div>
                   </div>
+                  <h4 className="font-semibold text-sm mt-3 text-gray-800">Finding Love & home in Tbilisi, Georgia</h4>
                 </div>
               </div>
 
-              {/* Recent Post */}
-              <div className="bg-gray-100 p-4 rounded">
-                <h3 className="text-xl font-bold mb-4 text-gray-700">Recent Post</h3>
-                <div className="bg-white p-4 rounded space-y-4">
+              {/* Recent Posts Widget */}
+              <div className="bg-white rounded-lg shadow-sm overflow-hidden">
+                <div className="bg-gray-100 px-4 py-3">
+                  <h3 className="font-bold text-gray-700">Recent Post</h3>
+                </div>
+                <div className="p-4 space-y-4">
                   {[1, 2, 3].map((i) => (
                     <div key={i} className="flex gap-3">
-                      <div className="w-20 h-20 bg-gray-300 rounded flex-shrink-0">
-                        <img 
-                          src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80" 
-                          alt="Recent post"
-                          className="w-full h-full object-cover rounded"
-                        />
-                      </div>
-                      <div className="flex-1">
-                        <div className="text-xs text-gray-500 mb-1">Sep 15, 2019 - Tips & Tricks</div>
-                        <h4 className="text-sm font-semibold">Finding Love & home in Tbilisi, Georgia</h4>
+                      <img 
+                        src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=100&q=80"
+                        alt="Recent Post"
+                        className="w-16 h-16 object-cover rounded flex-shrink-0"
+                      />
+                      <div>
+                        <p className="text-[10px] text-[#FFAB00] mb-1">September 17, 2025 - Tips & Tricks</p>
+                        <h4 className="text-xs font-semibold text-gray-800 leading-tight">Finding Love & home in Tbilisi, Georgia</h4>
                       </div>
                     </div>
                   ))}
                 </div>
               </div>
 
-              {/* Gear I Use */}
-              <div className="bg-gray-100 p-4 rounded">
-                <h3 className="text-xl font-bold mb-4 text-gray-700">Gear I Use</h3>
-                <div className="bg-white p-4 rounded">
-                  <h4 className="text-sm font-semibold mb-2">What&apos;s in My Bag??</h4>
-                  <p className="text-sm text-gray-600 mb-4">Unfortunately, there are no items to show in this category.</p>
-                  <Link
-                    href="/gear"
-                    className="block w-full text-center text-white py-2 rounded transition-colors"
-                    style={{ background: '#0047FF' }}
-                    onMouseEnter={(e) => e.currentTarget.style.background = '#0036c4'}
-                    onMouseLeave={(e) => e.currentTarget.style.background = '#0047FF'}
-                  >
-                    View Items
-                  </Link>
+              {/* Gear I Use Widget */}
+              <div className="bg-white rounded-lg shadow-sm overflow-hidden">
+                <div className="bg-gray-100 px-4 py-3">
+                  <h3 className="font-bold text-gray-700">Gear I Use</h3>
+                </div>
+                <div className="p-4">
+                  <p className="text-sm text-gray-600 mb-2">What&apos;s in My Bag?</p>
+                  <p className="text-xs text-gray-500">
+                    Get started by filling in the blanks ➜ then finish...
+                  </p>
                 </div>
               </div>
 
-              {/* Product That I Have */}
-              <div className="bg-gray-100 p-4 rounded">
-                <h3 className="text-xl font-bold mb-4 text-gray-700">Product That I Have</h3>
-                <div className="bg-white p-4 rounded space-y-4">
+              {/* Products Widget */}
+              <div className="bg-white rounded-lg shadow-sm overflow-hidden">
+                <div className="bg-gray-100 px-4 py-3">
+                  <h3 className="font-bold text-gray-700">Product That I Have</h3>
+                </div>
+                <div className="p-4 space-y-3">
                   {[
-                    { name: 'Apple Macbook Air MUVZELL/A 13-inch Laptop', price: '$514' },
-                    { name: 'iPhone Xs case, iPhone X case, SUPCASE', price: '$267' },
-                    { name: 'Master Sport band for Apple watch', price: '$378' },
+                    { name: 'Apple MacBook Air M1/EELLA 13-inch Laptop', price: '$999' },
+                    { name: 'AirPods Pro (2nd Generation)', price: '$249' },
+                    { name: 'i-Blason Arex, iPhone X case, SUPCASE', price: '$25' },
+                    { name: 'Nylon Sport Band for Apple wrist watch', price: '$35' },
                   ].map((product, i) => (
-                    <div key={i} className="flex gap-3">
-                      <div className="w-16 h-16 bg-gray-300 rounded flex-shrink-0" />
+                    <div key={i} className="flex items-center gap-3">
+                      <div className="w-10 h-10 bg-gray-100 rounded flex items-center justify-center">
+                        <svg className="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+                        </svg>
+                      </div>
                       <div className="flex-1">
-                        <h4 className="text-sm font-semibold mb-1">{product.name}</h4>
-                        <p className="text-sm font-bold" style={{ color: '#0047FF' }}>{product.price}</p>
+                        <p className="text-xs text-gray-700 leading-tight">{product.name}</p>
+                        <p className="text-xs text-[#3B5BDB] font-semibold">{product.price}</p>
                       </div>
                     </div>
                   ))}
                 </div>
               </div>
 
-              {/* Get In Touch */}
-              <div className="bg-gray-100 p-4 rounded">
-                <h3 className="text-xl font-bold mb-4 text-gray-700">Get In Touch</h3>
-                <div className="bg-white p-4 rounded">
+              {/* Get in Touch Widget */}
+              <div className="bg-white rounded-lg shadow-sm overflow-hidden">
+                <div className="bg-gray-100 px-4 py-3">
+                  <h3 className="font-bold text-gray-700">Get in Touch</h3>
+                </div>
+                <div className="p-4">
                   <div className="grid grid-cols-2 gap-2">
-                    {[
-                      { name: 'Facebook', color: '#1877F2', followers: '1.7M Followers' },
-                      { name: 'Twitter', color: '#1DA1F2', followers: '2.3M Followers' },
-                      { name: 'YouTube', color: '#FF0000', followers: '1.5M Subscribers' },
-                      { name: 'Instagram', color: '#E4405F', followers: '1.9M Followers' },
-                    ].map((social) => (
-                      <a
-                        key={social.name}
-                        href="#"
-                        className="p-3 rounded text-white text-center text-xs font-semibold"
-                        style={{ background: social.color }}
-                      >
-                        <div>{social.name}</div>
-                        <div className="text-xs mt-1">{social.followers}</div>
-                      </a>
-                    ))}
+                    <a href="#" className="flex items-center justify-center gap-2 bg-[#1877F2] text-white py-2 rounded text-xs font-medium">
+                      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                    </a>
+                    <a href="#" className="flex items-center justify-center gap-2 bg-[#1DA1F2] text-white py-2 rounded text-xs font-medium">
+                      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/></svg>
+                    </a>
+                    <a href="#" className="flex items-center justify-center gap-2 bg-[#FF0000] text-white py-2 rounded text-xs font-medium">
+                      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                    </a>
+                    <a href="#" className="flex items-center justify-center gap-2 bg-gradient-to-r from-[#833AB4] via-[#FD1D1D] to-[#F77737] text-white py-2 rounded text-xs font-medium">
+                      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                    </a>
                   </div>
                 </div>
               </div>
-            </div>
+            </aside>
 
-            {/* Right Main Content */}
-            <div className="lg:col-span-2 space-y-6">
-              {/* Featured Article 1 */}
-              <article className="bg-white rounded-lg overflow-hidden shadow-md">
-                <div className="w-full h-96 overflow-hidden">
+            {/* Main Content Area - Flexible Width */}
+            <main className="flex-1 space-y-6">
+              {/* Featured Large Post */}
+              <article className="bg-white rounded-lg shadow-sm overflow-hidden">
+                <div className="relative">
                   <img 
-                    src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80" 
-                    alt="Yellow van in desert"
-                    className="w-full h-full object-cover"
+                    src="https://images.unsplash.com/photo-1539635278303-d4002c07eae3?w=800&q=80"
+                    alt="Featured Post"
+                    className="w-full h-[400px] object-cover"
                   />
                 </div>
                 <div className="p-6">
-                  <div className="text-sm mb-2" style={{ color: '#ffab00' }}>
-                    Mar 15, 2017 - Tips and Tricks
-                  </div>
-                  <h3 className="text-2xl font-bold mb-4">
+                  <p className="text-[#FFAB00] text-sm mb-2">Mar 15, 2017 - Tips and Tricks</p>
+                  <h2 className="text-2xl font-bold text-gray-800 mb-3">
                     A traveler&apos;s guide to Penang, Malaysia - Where to Eat, Drink, Sleep and Explore
-                  </h3>
+                  </h2>
                   <p className="text-gray-600 mb-4">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus pharetra ac erat commodo non leo eget gravida viverra. Phasellus pharetra.
                   </p>
                   <div className="flex items-center gap-6 text-sm">
-                    <div className="flex items-center gap-1" style={{ color: '#ffab00' }}>
-                      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                        <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
-                      </svg>
-                      <span>Penang, Malaysia</span>
-                    </div>
-                    <div className="flex items-center gap-1" style={{ color: '#ffab00' }}>
-                      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                        <path d="M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z" />
-                      </svg>
-                      <span>Comment 53</span>
-                    </div>
+                    <span className="flex items-center gap-1 text-[#FFAB00]">
+                      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" /></svg>
+                      Penang, Malaysia
+                    </span>
+                    <span className="flex items-center gap-1 text-[#FFAB00]">
+                      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z" /></svg>
+                      Comment 53
+                    </span>
                   </div>
                 </div>
               </article>
 
-              {/* Two Smaller Articles */}
+              {/* Two Column Grid - Row 1 */}
               <div className="grid md:grid-cols-2 gap-6">
-                <article className="bg-white rounded-lg overflow-hidden shadow-md">
-                  <div className="w-full h-64 overflow-hidden">
-                    <img 
-                      src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" 
-                      alt="Van on beach"
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
+                <article className="bg-white rounded-lg shadow-sm overflow-hidden">
+                  <img 
+                    src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&q=80"
+                    alt="Beach"
+                    className="w-full h-48 object-cover"
+                  />
                   <div className="p-4">
-                    <div className="text-xs mb-1" style={{ color: '#ffab00' }}>
-                      September 17, 2018 - Tips & Tricks
-                    </div>
-                    <h4 className="font-bold mb-2">Have you read The Beach by Alex?</h4>
-                    <div className="flex items-center gap-4 text-xs">
-                      <div className="flex items-center gap-1" style={{ color: '#ffab00' }}>
-                        <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                          <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
-                        </svg>
-                        <span>Google</span>
-                      </div>
-                      <div className="flex items-center gap-1" style={{ color: '#ffab00' }}>
-                        <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                          <path d="M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z" />
-                        </svg>
-                        <span>Comment 53</span>
-                      </div>
+                    <p className="text-[#FFAB00] text-xs mb-2">September 17, 2025 - Tips & Tricks</p>
+                    <h3 className="font-bold text-gray-800 mb-3">Have you read The Beach by Alex?</h3>
+                    <div className="flex items-center justify-between text-xs">
+                      <span className="flex items-center gap-1 text-[#FFAB00]">
+                        <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" /></svg>
+                        Georgia
+                      </span>
+                      <span className="flex items-center gap-1 text-[#FFAB00]">
+                        <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path d="M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z" /></svg>
+                        Comment (52)
+                      </span>
                     </div>
                   </div>
                 </article>
 
-                <article className="bg-white rounded-lg overflow-hidden shadow-md">
-                  <div className="w-full h-64 overflow-hidden">
-                    <img 
-                      src="https://images.unsplash.com/photo-1514565131-fce0801e5785?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" 
-                      alt="City skyline"
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
+                <article className="bg-white rounded-lg shadow-sm overflow-hidden">
+                  <img 
+                    src="https://images.unsplash.com/photo-1518509562904-e7ef99cdcc86?w=600&q=80"
+                    alt="Philippines"
+                    className="w-full h-48 object-cover"
+                  />
                   <div className="p-4">
-                    <div className="text-xs mb-1" style={{ color: '#ffab00' }}>
-                      September 17, 2018 - Tips & Tricks
-                    </div>
-                    <h4 className="font-bold mb-2">The writer actually live in Philippines</h4>
-                    <div className="flex items-center gap-4 text-xs">
-                      <div className="flex items-center gap-1" style={{ color: '#ffab00' }}>
-                        <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                          <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
-                        </svg>
-                        <span>Google</span>
-                      </div>
-                      <div className="flex items-center gap-1" style={{ color: '#ffab00' }}>
-                        <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                          <path d="M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z" />
-                        </svg>
-                        <span>Comment 53</span>
-                      </div>
+                    <p className="text-[#FFAB00] text-xs mb-2">September 17, 2025 - Tips & Tricks</p>
+                    <h3 className="font-bold text-gray-800 mb-3">The writer actually live in Philippines</h3>
+                    <div className="flex items-center justify-between text-xs">
+                      <span className="flex items-center gap-1 text-[#FFAB00]">
+                        <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" /></svg>
+                        Georgia
+                      </span>
+                      <span className="flex items-center gap-1 text-[#FFAB00]">
+                        <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path d="M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z" /></svg>
+                        Comment (52)
+                      </span>
                     </div>
                   </div>
                 </article>
               </div>
 
-              {/* Video Embed */}
-              <article className="bg-white rounded-lg overflow-hidden shadow-md">
-                <div className="relative w-full h-96 overflow-hidden">
+              {/* Video Post - Into Nature's Wild */}
+              <article className="bg-white rounded-lg shadow-sm overflow-hidden">
+                <div className="relative h-[350px]">
                   <img 
-                    src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80" 
-                    alt="Video thumbnail"
+                    src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1000&q=80"
+                    alt="Nature Wild"
                     className="w-full h-full object-cover"
                   />
-                  <div className="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center">
-                    <div className="text-white text-2xl font-bold text-center">Into Nature&apos;s WILD</div>
-                  </div>
-                  <div className="absolute bottom-4 left-4 bg-red-600 text-white px-4 py-2 rounded flex items-center gap-2">
-                    <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
-                      <path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z" />
-                    </svg>
-                    YouTube
+                  <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
+                    <div className="text-center">
+                      <p className="text-white/80 text-sm mb-2">Into</p>
+                      <h3 className="text-white text-4xl font-bold mb-4">Nature&apos;s<br />WILD</h3>
+                    </div>
                   </div>
                 </div>
                 <div className="p-6">
-                  <div className="text-sm mb-2" style={{ color: '#ffab00' }}>
-                    September 17, 2018 - Tips & Tricks
-                  </div>
-                  <h3 className="text-2xl font-bold mb-4">Finding Love & home in Tbilisi, Georgia</h3>
-                  <p className="text-gray-600 mb-4">
+                  <p className="text-[#FFAB00] text-sm mb-2">September 17, 2021 - Tips & Tricks</p>
+                  <h2 className="text-xl font-bold text-gray-800 mb-3">Finding Love & home in Tbilisi, Georgia</h2>
+                  <p className="text-gray-600 text-sm mb-4">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus pharetra ac erat commodo non leo eget gravida viverra. Phasellus pharetra.
                   </p>
                   <div className="flex items-center gap-6 text-sm">
-                    <div className="flex items-center gap-1" style={{ color: '#ffab00' }}>
-                      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                        <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
-                      </svg>
-                      <span>Penang, Malaysia</span>
-                    </div>
-                    <div className="flex items-center gap-1" style={{ color: '#ffab00' }}>
-                      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                        <path d="M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z" />
-                      </svg>
-                      <span>Comment 53</span>
-                    </div>
+                    <span className="flex items-center gap-1 text-[#FFAB00]">
+                      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" /></svg>
+                      Penang, Malaysia
+                    </span>
+                    <span className="flex items-center gap-1 text-[#FFAB00]">
+                      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z" /></svg>
+                      Comment 53
+                    </span>
                   </div>
                 </div>
               </article>
 
-              {/* Purchase Banner */}
-              <div className="bg-white rounded-lg overflow-hidden shadow-md relative">
-                <div className="w-full h-64 overflow-hidden">
-                  <img 
-                    src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80" 
-                    alt="Purchase banner"
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-                  <div className="text-center text-white px-8">
-                    <h3 className="text-2xl font-bold mb-4">
-                      Want Me to Purchase Something For You That Isn&apos;t available in your Country?
+              {/* Promotional Banner */}
+              <div className="relative rounded-lg overflow-hidden h-[200px]">
+                <img 
+                  src="https://images.unsplash.com/photo-1488085061387-422e29b40080?w=1000&q=80"
+                  alt="Purchase Banner"
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
+                  <div className="text-center px-8">
+                    <h3 className="text-white text-2xl font-bold mb-4">
+                      Want Me to Purchase Something For<br />You That Isn&apos;t available in your Country?
                     </h3>
                     <Link
                       href="/purchase"
-                      className="inline-block text-white px-6 py-3 rounded transition-colors"
-                      style={{ background: '#0047FF' }}
-                      onMouseEnter={(e) => e.currentTarget.style.background = '#0036c4'}
-                      onMouseLeave={(e) => e.currentTarget.style.background = '#0047FF'}
+                      className="inline-block bg-[#3B5BDB] text-white px-8 py-3 rounded-md font-medium hover:bg-[#2f4ab8] transition-colors"
                     >
                       View Items
                     </Link>
@@ -427,141 +357,184 @@ export default function Home() {
                 </div>
               </div>
 
-              {/* More Articles - Two Side by Side */}
+              {/* Two Column Grid - Row 2 */}
               <div className="grid md:grid-cols-2 gap-6">
-                <article className="bg-white rounded-lg overflow-hidden shadow-md">
-                  <div className="w-full h-64 overflow-hidden">
-                    <img 
-                      src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" 
-                      alt="Get away from crowds"
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
+                <article className="bg-white rounded-lg shadow-sm overflow-hidden">
+                  <img 
+                    src="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=600&q=80"
+                    alt="Crowds"
+                    className="w-full h-48 object-cover"
+                  />
                   <div className="p-4">
-                    <div className="text-xs mb-1" style={{ color: '#ffab00' }}>
-                      September 17, 2018 - Tips & Tricks
-                    </div>
-                    <h4 className="font-bold mb-2">Get away from the maddening Crowds</h4>
-                    <div className="flex items-center gap-4 text-xs">
-                      <div className="flex items-center gap-1" style={{ color: '#ffab00' }}>
-                        <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                          <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
-                        </svg>
-                        <span>Google</span>
-                      </div>
-                      <div className="flex items-center gap-1" style={{ color: '#ffab00' }}>
-                        <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                          <path d="M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z" />
-                        </svg>
-                        <span>Comment 53</span>
-                      </div>
+                    <p className="text-[#FFAB00] text-xs mb-2">September 17, 2021 - Tips & Tricks</p>
+                    <h3 className="font-bold text-gray-800 mb-3">Got away from the maddening Crowds</h3>
+                    <div className="flex items-center justify-between text-xs">
+                      <span className="flex items-center gap-1 text-[#FFAB00]">
+                        <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" /></svg>
+                        Google
+                      </span>
+                      <span className="flex items-center gap-1 text-[#FFAB00]">
+                        <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path d="M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z" /></svg>
+                        Comment (40)
+                      </span>
                     </div>
                   </div>
                 </article>
 
-                <article className="bg-white rounded-lg overflow-hidden shadow-md">
-                  <div className="w-full h-64 overflow-hidden">
-                    <img 
-                      src="https://images.unsplash.com/photo-1545569341-9eb8b30979d9?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" 
-                      alt="Matsumoto Castle"
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
+                <article className="bg-white rounded-lg shadow-sm overflow-hidden">
+                  <img 
+                    src="https://images.unsplash.com/photo-1545569341-9eb8b30979d9?w=600&q=80"
+                    alt="Matsumoto Castle"
+                    className="w-full h-48 object-cover"
+                  />
                   <div className="p-4">
-                    <div className="text-xs mb-1" style={{ color: '#ffab00' }}>
-                      September 17, 2018 - Tips & Tricks
-                    </div>
-                    <h4 className="font-bold mb-2">Matsumoto Castle is considered one of</h4>
-                    <div className="flex items-center gap-4 text-xs">
-                      <div className="flex items-center gap-1" style={{ color: '#ffab00' }}>
-                        <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                          <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
-                        </svg>
-                        <span>Google</span>
-                      </div>
-                      <div className="flex items-center gap-1" style={{ color: '#ffab00' }}>
-                        <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                          <path d="M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z" />
-                        </svg>
-                        <span>Comment 53</span>
-                      </div>
+                    <p className="text-[#FFAB00] text-xs mb-2">September 17, 2021 - Tips & Tricks</p>
+                    <h3 className="font-bold text-gray-800 mb-3">Matsumoto Castle is considered one of</h3>
+                    <div className="flex items-center justify-between text-xs">
+                      <span className="flex items-center gap-1 text-[#FFAB00]">
+                        <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" /></svg>
+                        Google
+                      </span>
+                      <span className="flex items-center gap-1 text-[#FFAB00]">
+                        <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path d="M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z" /></svg>
+                        Comment (40)
+                      </span>
                     </div>
                   </div>
                 </article>
               </div>
 
-              {/* Another Two Articles */}
+              {/* Two Column Grid - Row 3 */}
               <div className="grid md:grid-cols-2 gap-6">
-                <article className="bg-white rounded-lg overflow-hidden shadow-md">
-                  <div className="w-full h-64 overflow-hidden">
-                    <img 
-                      src="https://images.unsplash.com/photo-1514565131-fce0801e5785?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" 
-                      alt="Buildings in Japan"
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
+                <article className="bg-white rounded-lg shadow-sm overflow-hidden">
+                  <img 
+                    src="https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?w=600&q=80"
+                    alt="Buildings"
+                    className="w-full h-48 object-cover"
+                  />
                   <div className="p-4">
-                    <div className="text-xs mb-1" style={{ color: '#ffab00' }}>
-                      September 17, 2018 - Tips & Tricks
-                    </div>
-                    <h4 className="font-bold mb-2">Many buildings especially in Japan</h4>
-                    <div className="flex items-center gap-4 text-xs">
-                      <div className="flex items-center gap-1" style={{ color: '#ffab00' }}>
-                        <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                          <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
-                        </svg>
-                        <span>Google</span>
-                      </div>
-                      <div className="flex items-center gap-1" style={{ color: '#ffab00' }}>
-                        <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                          <path d="M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z" />
-                        </svg>
-                        <span>Comment 53</span>
-                      </div>
+                    <p className="text-[#FFAB00] text-xs mb-2">September 17, 2021 - Tips & Tricks</p>
+                    <h3 className="font-bold text-gray-800 mb-3">Many buildings especially in Japan</h3>
+                    <div className="flex items-center justify-between text-xs">
+                      <span className="flex items-center gap-1 text-[#FFAB00]">
+                        <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" /></svg>
+                        Google
+                      </span>
+                      <span className="flex items-center gap-1 text-[#FFAB00]">
+                        <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path d="M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z" /></svg>
+                        Comment (40)
+                      </span>
                     </div>
                   </div>
                 </article>
 
-                <article className="bg-white rounded-lg overflow-hidden shadow-md">
-                  <div className="w-full h-64 overflow-hidden">
-                    <img 
-                      src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" 
-                      alt="Deer"
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
+                <article className="bg-white rounded-lg shadow-sm overflow-hidden">
+                  <img 
+                    src="https://images.unsplash.com/photo-1474511320723-9a56873571b7?w=600&q=80"
+                    alt="Deer"
+                    className="w-full h-48 object-cover"
+                  />
                   <div className="p-4">
-                    <div className="text-xs mb-1" style={{ color: '#ffab00' }}>
-                      September 17, 2018 - Tips & Tricks
-                    </div>
-                    <h4 className="font-bold mb-2">There are roughly 1200 semiwild dear</h4>
-                    <div className="flex items-center gap-4 text-xs">
-                      <div className="flex items-center gap-1" style={{ color: '#ffab00' }}>
-                        <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                          <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
-                        </svg>
-                        <span>Google</span>
-                      </div>
-                      <div className="flex items-center gap-1" style={{ color: '#ffab00' }}>
-                        <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                          <path d="M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z" />
-                        </svg>
-                        <span>Comment 53</span>
-                      </div>
+                    <p className="text-[#FFAB00] text-xs mb-2">September 17, 2021 - Tips & Tricks</p>
+                    <h3 className="font-bold text-gray-800 mb-3">There are roughly 1200 semiwild deer</h3>
+                    <div className="flex items-center justify-between text-xs">
+                      <span className="flex items-center gap-1 text-[#FFAB00]">
+                        <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" /></svg>
+                        Google
+                      </span>
+                      <span className="flex items-center gap-1 text-[#FFAB00]">
+                        <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path d="M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z" /></svg>
+                        Comment (40)
+                      </span>
                     </div>
                   </div>
                 </article>
               </div>
-            </div>
+
+              {/* Video Post 2 - Into Nature's Wild */}
+              <article className="bg-white rounded-lg shadow-sm overflow-hidden">
+                <div className="relative h-[350px]">
+                  <img 
+                    src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1000&q=80"
+                    alt="Nature Wild"
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
+                    <div className="text-center">
+                      <p className="text-white/80 text-sm mb-2">Into</p>
+                      <h3 className="text-white text-4xl font-bold mb-4">Nature&apos;s<br />WILD</h3>
+                    </div>
+                  </div>
+                </div>
+                <div className="p-6">
+                  <p className="text-[#FFAB00] text-sm mb-2">September 17, 2021 - Tips & Tricks</p>
+                  <h2 className="text-xl font-bold text-gray-800 mb-3">Finding Love & home in Tbilisi, Georgia</h2>
+                  <p className="text-gray-600 text-sm mb-4">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus pharetra ac erat commodo non leo eget gravida viverra. Phasellus pharetra.
+                  </p>
+                  <div className="flex items-center gap-6 text-sm">
+                    <span className="flex items-center gap-1 text-[#FFAB00]">
+                      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" /></svg>
+                      Penang, Malaysia
+                    </span>
+                    <span className="flex items-center gap-1 text-[#FFAB00]">
+                      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z" /></svg>
+                      Comment 53
+                    </span>
+                  </div>
+                </div>
+              </article>
+
+              {/* Two Column Grid - Row 4 */}
+              <div className="grid md:grid-cols-2 gap-6">
+                <article className="bg-white rounded-lg shadow-sm overflow-hidden">
+                  <img 
+                    src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&q=80"
+                    alt="Beach"
+                    className="w-full h-48 object-cover"
+                  />
+                  <div className="p-4">
+                    <p className="text-[#FFAB00] text-xs mb-2">September 17, 2025 - Tips & Tricks</p>
+                    <h3 className="font-bold text-gray-800 mb-3">Have you read The Beach by Alex?</h3>
+                    <div className="flex items-center justify-between text-xs">
+                      <span className="flex items-center gap-1 text-[#FFAB00]">
+                        <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" /></svg>
+                        Georgia
+                      </span>
+                      <span className="flex items-center gap-1 text-[#FFAB00]">
+                        <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path d="M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z" /></svg>
+                        Comment (52)
+                      </span>
+                    </div>
+                  </div>
+                </article>
+
+                <article className="bg-white rounded-lg shadow-sm overflow-hidden">
+                  <img 
+                    src="https://images.unsplash.com/photo-1518509562904-e7ef99cdcc86?w=600&q=80"
+                    alt="Philippines"
+                    className="w-full h-48 object-cover"
+                  />
+                  <div className="p-4">
+                    <p className="text-[#FFAB00] text-xs mb-2">September 17, 2025 - Tips & Tricks</p>
+                    <h3 className="font-bold text-gray-800 mb-3">The writer actually live in Philippines</h3>
+                    <div className="flex items-center justify-between text-xs">
+                      <span className="flex items-center gap-1 text-[#FFAB00]">
+                        <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" /></svg>
+                        Georgia
+                      </span>
+                      <span className="flex items-center gap-1 text-[#FFAB00]">
+                        <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path d="M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z" /></svg>
+                        Comment (52)
+                      </span>
+                    </div>
+                  </div>
+                </article>
+              </div>
+            </main>
           </div>
         </div>
       </section>
-
-      {/* Newsletter */}
-      <Newsletter />
-
-      {/* Instagram Feed */}
-      <InstagramFeed />
     </div>
   );
 }
