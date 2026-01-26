@@ -20,7 +20,7 @@ export default function Home() {
         </div>
 
         {/* Hero Content - Centered */}
-        <div className="relative z-10 text-center px-8 mt-8">
+        <div className="relative z-10 text-center mt-8" style={{ paddingLeft: '35px', paddingRight: '35px' }}>
           {/* Counter */}
           <p className="text-white text-lg tracking-wider mb-4">
             THE COUNTER: <span className="text-[#FFAB00] font-bold">70</span> Countries &nbsp;&nbsp;<span className="text-[#FFAB00] font-bold">1036</span> Cities
@@ -62,12 +62,12 @@ export default function Home() {
 
       {/* Main Content Area */}
       <section className="py-12 bg-[#f8f9fa]">
-        <div className="max-w-[1200px] mx-auto px-8">
-          <div className="flex gap-8">
+        <div className="max-w-[1200px] mx-auto" style={{ paddingLeft: '35px', paddingRight: '35px' }}>
+          <div className="flex gap-[100px]">
             {/* Left Sidebar - 280px */}
             <aside className="w-[280px] flex-shrink-0 space-y-6">
               {/* About Me Widget */}
-              <div className="bg-white rounded-lg shadow-sm overflow-hidden">
+              <div className="bg-white rounded-lg shadow-sm overflow-hidden" style={{ marginTop: '48px' }}>
                 <div className="p-6">
                   <h3 className="text-lg font-bold text-gray-800 mb-4">About Me</h3>
                   <div className="mb-4">
@@ -90,11 +90,15 @@ export default function Home() {
               </div>
 
               {/* Categories Widget */}
-              <div className="bg-white rounded-lg shadow-sm overflow-hidden">
-                <div className="bg-gray-100 px-4 py-3">
-                  <h3 className="font-bold text-gray-700">Categories</h3>
-                </div>
-                <div className="p-4">
+              <div className="bg-white rounded-lg shadow-sm overflow-hidden" style={{ 
+                width: '344.43px', 
+                height: '435.29px', 
+                opacity: 1,
+                marginTop: '48px',
+                marginBottom: '48px'
+              }}>
+                <div className="p-6">
+                  <h3 className="font-bold text-black text-center mb-4">Categories</h3>
                   <ul className="space-y-3">
                     {[
                       { name: 'Europe', count: '(11)' },
@@ -106,10 +110,10 @@ export default function Home() {
                       { name: 'Other', count: '(11)' },
                     ].map((cat) => (
                       <li key={cat.name} className="flex justify-between items-center">
-                        <Link href={`/category/${cat.name.toLowerCase()}`} className="text-gray-600 hover:text-[#3B5BDB] text-sm">
+                        <Link href={`/category/${cat.name.toLowerCase()}`} className="text-black" style={{ fontFamily: 'Lato', fontWeight: 500, fontSize: '24px', lineHeight: '40px', letterSpacing: '0%' }}>
                           {cat.name}
                         </Link>
-                        <span className="text-gray-400 text-sm">{cat.count}</span>
+                        <span className="text-black" style={{ fontFamily: 'Lato', fontWeight: 500, fontSize: '24px', lineHeight: '40px', letterSpacing: '0%' }}>{cat.count}</span>
                       </li>
                     ))}
                   </ul>
@@ -225,23 +229,26 @@ export default function Home() {
             {/* Main Content Area - Flexible Width */}
             <main className="flex-1 space-y-6">
               {/* Featured Large Post */}
-              <article className="bg-white rounded-lg shadow-sm overflow-hidden">
-                <div className="relative">
+              <article className="bg-white shadow-sm overflow-hidden" style={{ marginTop: '48px', marginBottom: '48px' }}>
+                <div className="relative h-[350px]">
                   <img 
                     src="https://images.unsplash.com/photo-1539635278303-d4002c07eae3?w=800&q=80"
                     alt="Featured Post"
-                    className="w-full h-[400px] object-cover"
+                    className="w-full h-full object-cover"
                   />
                 </div>
-                <div className="p-6">
-                  <p className="text-[#FFAB00] text-sm mb-2">Mar 15, 2017 - Tips and Tricks</p>
-                  <h2 className="text-2xl font-bold text-gray-800 mb-3">
+                <div className="p-6 flex flex-col" style={{ minHeight: '350px' }}>
+                  <div className="flex items-center mb-2" style={{ marginTop: '16px' }}>
+                    <div style={{ width: '4px', height: '20px', background: '#FFAB00', marginRight: '8px' }}></div>
+                    <p className="text-xs" style={{ color: '#000000' }}>Mar 15, 2017 - Tips and Tricks</p>
+                  </div>
+                  <h2 className="text-gray-800 mb-3" style={{ fontFamily: 'Lato', fontWeight: 600, fontSize: '31.64px', lineHeight: '46.98px', letterSpacing: '0%', marginTop: '18.4px' }}>
                     A traveler&apos;s guide to Penang, Malaysia - Where to Eat, Drink, Sleep and Explore
                   </h2>
-                  <p className="text-gray-600 mb-4">
+                  <p className="text-gray-600 mb-4 flex-grow" style={{ fontFamily: 'Lato', fontWeight: 500, fontSize: '24px', lineHeight: '40px', letterSpacing: '0%' }}>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus pharetra ac erat commodo non leo eget gravida viverra. Phasellus pharetra.
                   </p>
-                  <div className="flex items-center gap-6 text-sm">
+                  <div className="flex items-center justify-between text-sm mt-auto">
                     <span className="flex items-center gap-1 text-[#FFAB00]">
                       <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" /></svg>
                       Penang, Malaysia
@@ -255,17 +262,22 @@ export default function Home() {
               </article>
 
               {/* Two Column Grid - Row 1 */}
-              <div className="grid md:grid-cols-2 gap-6">
-                <article className="bg-white rounded-lg shadow-sm overflow-hidden">
+              <div className="grid md:grid-cols-2 gap-6" style={{ marginTop: '48px', marginBottom: '48px' }}>
+                <article className="bg-white shadow-sm overflow-hidden flex flex-col" style={{ width: '321px', height: '458.55px', background: '#FFFFFF', opacity: 1 }}>
                   <img 
-                    src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&q=80"
+                    src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80"
                     alt="Beach"
                     className="w-full h-48 object-cover"
                   />
-                  <div className="p-4">
-                    <p className="text-[#FFAB00] text-xs mb-2">September 17, 2025 - Tips & Tricks</p>
-                    <h3 className="font-bold text-gray-800 mb-3">Have you read The Beach by Alex?</h3>
-                    <div className="flex items-center justify-between text-xs">
+                  <div className="p-4 flex flex-col flex-grow" style={{ marginTop: '16px' }}>
+                    <div className="flex items-center mb-2">
+                      <div style={{ width: '4px', height: '20px', background: '#FFAB00', marginRight: '8px' }}></div>
+                      <p className="text-xs" style={{ color: '#000000' }}>September 17, 2025 - Tips & Tricks</p>
+                    </div>
+                    <div className="flex-1 flex items-center justify-center">
+                      <h3 className="text-gray-800 text-center" style={{ fontFamily: 'Lato', fontWeight: 700, fontSize: '25.31px', lineHeight: '37.58px', letterSpacing: '0%' }}>Have you read The Beach by Alex?</h3>
+                    </div>
+                    <div className="flex items-center justify-between text-xs" style={{ marginBottom: '16px' }}>
                       <span className="flex items-center gap-1 text-[#FFAB00]">
                         <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" /></svg>
                         Georgia
@@ -278,16 +290,21 @@ export default function Home() {
                   </div>
                 </article>
 
-                <article className="bg-white rounded-lg shadow-sm overflow-hidden">
+                <article className="bg-white shadow-sm overflow-hidden flex flex-col" style={{ width: '321px', height: '458.55px', background: '#FFFFFF', opacity: 1 }}>
                   <img 
                     src="https://images.unsplash.com/photo-1518509562904-e7ef99cdcc86?w=600&q=80"
                     alt="Philippines"
                     className="w-full h-48 object-cover"
                   />
-                  <div className="p-4">
-                    <p className="text-[#FFAB00] text-xs mb-2">September 17, 2025 - Tips & Tricks</p>
-                    <h3 className="font-bold text-gray-800 mb-3">The writer actually live in Philippines</h3>
-                    <div className="flex items-center justify-between text-xs">
+                  <div className="p-4 flex flex-col flex-grow" style={{ marginTop: '16px' }}>
+                    <div className="flex items-center mb-2">
+                      <div style={{ width: '4px', height: '20px', background: '#FFAB00', marginRight: '8px' }}></div>
+                      <p className="text-xs" style={{ color: '#000000' }}>September 17, 2025 - Tips & Tricks</p>
+                    </div>
+                    <div className="flex-1 flex items-center justify-center">
+                      <h3 className="text-gray-800 text-center" style={{ fontFamily: 'Lato', fontWeight: 700, fontSize: '25.31px', lineHeight: '37.58px', letterSpacing: '0%' }}>The writer actually live in Philippines</h3>
+                    </div>
+                    <div className="flex items-center justify-between text-xs" style={{ marginBottom: '16px' }}>
                       <span className="flex items-center gap-1 text-[#FFAB00]">
                         <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" /></svg>
                         Georgia
@@ -302,7 +319,7 @@ export default function Home() {
               </div>
 
               {/* Video Post - Into Nature's Wild */}
-              <article className="bg-white rounded-lg shadow-sm overflow-hidden">
+              <article className="bg-white shadow-sm overflow-hidden" style={{ marginTop: '48px', marginBottom: '48px' }}>
                 <div className="relative h-[350px]">
                   <img 
                     src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1000&q=80"
@@ -316,13 +333,16 @@ export default function Home() {
                     </div>
                   </div>
                 </div>
-                <div className="p-6">
-                  <p className="text-[#FFAB00] text-sm mb-2">September 17, 2021 - Tips & Tricks</p>
-                  <h2 className="text-xl font-bold text-gray-800 mb-3">Finding Love & home in Tbilisi, Georgia</h2>
-                  <p className="text-gray-600 text-sm mb-4">
+                <div className="p-6 flex flex-col" style={{ minHeight: '350px' }}>
+                  <div className="flex items-center mb-2" style={{ marginTop: '16px' }}>
+                    <div style={{ width: '4px', height: '20px', background: '#FFAB00', marginRight: '8px' }}></div>
+                    <p className="text-xs" style={{ color: '#000000' }}>September 17, 2021 - Tips & Tricks</p>
+                  </div>
+                  <h2 className="text-gray-800 mb-3" style={{ fontFamily: 'Lato', fontWeight: 600, fontSize: '31.64px', lineHeight: '46.98px', letterSpacing: '0%', marginTop: '18.4px' }}>Finding Love & home in Tbilisi, Georgia</h2>
+                  <p className="text-gray-600 mb-4 flex-grow" style={{ fontFamily: 'Lato', fontWeight: 500, fontSize: '24px', lineHeight: '40px', letterSpacing: '0%' }}>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus pharetra ac erat commodo non leo eget gravida viverra. Phasellus pharetra.
                   </p>
-                  <div className="flex items-center gap-6 text-sm">
+                  <div className="flex items-center justify-between text-sm mt-auto">
                     <span className="flex items-center gap-1 text-[#FFAB00]">
                       <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" /></svg>
                       Penang, Malaysia
@@ -343,7 +363,7 @@ export default function Home() {
                   className="w-full h-full object-cover"
                 />
                 <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
-                  <div className="text-center px-8">
+                  <div className="text-center" style={{ paddingLeft: '35px', paddingRight: '35px' }}>
                     <h3 className="text-white text-2xl font-bold mb-4">
                       Want Me to Purchase Something For<br />You That Isn&apos;t available in your Country?
                     </h3>
@@ -358,17 +378,22 @@ export default function Home() {
               </div>
 
               {/* Two Column Grid - Row 2 */}
-              <div className="grid md:grid-cols-2 gap-6">
-                <article className="bg-white rounded-lg shadow-sm overflow-hidden">
+              <div className="grid md:grid-cols-2 gap-6" style={{ marginTop: '48px', marginBottom: '48px' }}>
+                <article className="bg-white shadow-sm overflow-hidden flex flex-col" style={{ width: '321px', height: '458.55px', background: '#FFFFFF', opacity: 1 }}>
                   <img 
                     src="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=600&q=80"
                     alt="Crowds"
                     className="w-full h-48 object-cover"
                   />
-                  <div className="p-4">
-                    <p className="text-[#FFAB00] text-xs mb-2">September 17, 2021 - Tips & Tricks</p>
-                    <h3 className="font-bold text-gray-800 mb-3">Got away from the maddening Crowds</h3>
-                    <div className="flex items-center justify-between text-xs">
+                  <div className="p-4 flex flex-col flex-grow" style={{ marginTop: '16px' }}>
+                    <div className="flex items-center mb-2">
+                      <div style={{ width: '4px', height: '20px', background: '#FFAB00', marginRight: '8px' }}></div>
+                      <p className="text-xs" style={{ color: '#000000' }}>September 17, 2021 - Tips & Tricks</p>
+                    </div>
+                    <div className="flex-1 flex items-center justify-center">
+                      <h3 className="text-gray-800 text-center" style={{ fontFamily: 'Lato', fontWeight: 700, fontSize: '25.31px', lineHeight: '37.58px', letterSpacing: '0%' }}>Got away from the maddening Crowds</h3>
+                    </div>
+                    <div className="flex items-center justify-between text-xs" style={{ marginBottom: '16px' }}>
                       <span className="flex items-center gap-1 text-[#FFAB00]">
                         <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" /></svg>
                         Google
@@ -381,16 +406,21 @@ export default function Home() {
                   </div>
                 </article>
 
-                <article className="bg-white rounded-lg shadow-sm overflow-hidden">
+                <article className="bg-white shadow-sm overflow-hidden flex flex-col" style={{ width: '321px', height: '458.55px', background: '#FFFFFF', opacity: 1 }}>
                   <img 
                     src="https://images.unsplash.com/photo-1545569341-9eb8b30979d9?w=600&q=80"
                     alt="Matsumoto Castle"
                     className="w-full h-48 object-cover"
                   />
-                  <div className="p-4">
-                    <p className="text-[#FFAB00] text-xs mb-2">September 17, 2021 - Tips & Tricks</p>
-                    <h3 className="font-bold text-gray-800 mb-3">Matsumoto Castle is considered one of</h3>
-                    <div className="flex items-center justify-between text-xs">
+                  <div className="p-4 flex flex-col flex-grow" style={{ marginTop: '16px' }}>
+                    <div className="flex items-center mb-2">
+                      <div style={{ width: '4px', height: '20px', background: '#FFAB00', marginRight: '8px' }}></div>
+                      <p className="text-xs" style={{ color: '#000000' }}>September 17, 2021 - Tips & Tricks</p>
+                    </div>
+                    <div className="flex-1 flex items-center justify-center">
+                      <h3 className="text-gray-800 text-center" style={{ fontFamily: 'Lato', fontWeight: 700, fontSize: '25.31px', lineHeight: '37.58px', letterSpacing: '0%' }}>Matsumoto Castle is considered one of</h3>
+                    </div>
+                    <div className="flex items-center justify-between text-xs" style={{ marginBottom: '16px' }}>
                       <span className="flex items-center gap-1 text-[#FFAB00]">
                         <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" /></svg>
                         Google
@@ -405,17 +435,22 @@ export default function Home() {
               </div>
 
               {/* Two Column Grid - Row 3 */}
-              <div className="grid md:grid-cols-2 gap-6">
-                <article className="bg-white rounded-lg shadow-sm overflow-hidden">
+              <div className="grid md:grid-cols-2 gap-6" style={{ marginTop: '48px', marginBottom: '48px' }}>
+                <article className="bg-white shadow-sm overflow-hidden flex flex-col" style={{ width: '321px', height: '458.55px', background: '#FFFFFF', opacity: 1 }}>
                   <img 
                     src="https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?w=600&q=80"
                     alt="Buildings"
                     className="w-full h-48 object-cover"
                   />
-                  <div className="p-4">
-                    <p className="text-[#FFAB00] text-xs mb-2">September 17, 2021 - Tips & Tricks</p>
-                    <h3 className="font-bold text-gray-800 mb-3">Many buildings especially in Japan</h3>
-                    <div className="flex items-center justify-between text-xs">
+                  <div className="p-4 flex flex-col flex-grow" style={{ marginTop: '16px' }}>
+                    <div className="flex items-center mb-2">
+                      <div style={{ width: '4px', height: '20px', background: '#FFAB00', marginRight: '8px' }}></div>
+                      <p className="text-xs" style={{ color: '#000000' }}>September 17, 2021 - Tips & Tricks</p>
+                    </div>
+                    <div className="flex-1 flex items-center justify-center">
+                      <h3 className="text-gray-800 text-center" style={{ fontFamily: 'Lato', fontWeight: 700, fontSize: '25.31px', lineHeight: '37.58px', letterSpacing: '0%' }}>Many buildings especially in Japan</h3>
+                    </div>
+                    <div className="flex items-center justify-between text-xs" style={{ marginBottom: '16px' }}>
                       <span className="flex items-center gap-1 text-[#FFAB00]">
                         <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" /></svg>
                         Google
@@ -428,16 +463,21 @@ export default function Home() {
                   </div>
                 </article>
 
-                <article className="bg-white rounded-lg shadow-sm overflow-hidden">
+                <article className="bg-white shadow-sm overflow-hidden flex flex-col" style={{ width: '321px', height: '458.55px', background: '#FFFFFF', opacity: 1 }}>
                   <img 
-                    src="https://images.unsplash.com/photo-1474511320723-9a56873571b7?w=600&q=80"
+                    src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80"
                     alt="Deer"
                     className="w-full h-48 object-cover"
                   />
-                  <div className="p-4">
-                    <p className="text-[#FFAB00] text-xs mb-2">September 17, 2021 - Tips & Tricks</p>
-                    <h3 className="font-bold text-gray-800 mb-3">There are roughly 1200 semiwild deer</h3>
-                    <div className="flex items-center justify-between text-xs">
+                  <div className="p-4 flex flex-col flex-grow" style={{ marginTop: '16px' }}>
+                    <div className="flex items-center mb-2">
+                      <div style={{ width: '4px', height: '20px', background: '#FFAB00', marginRight: '8px' }}></div>
+                      <p className="text-xs" style={{ color: '#000000' }}>September 17, 2021 - Tips & Tricks</p>
+                    </div>
+                    <div className="flex-1 flex items-center justify-center">
+                      <h3 className="text-gray-800 text-center" style={{ fontFamily: 'Lato', fontWeight: 700, fontSize: '25.31px', lineHeight: '37.58px', letterSpacing: '0%' }}>There are roughly 1200 semiwild deer</h3>
+                    </div>
+                    <div className="flex items-center justify-between text-xs" style={{ marginBottom: '16px' }}>
                       <span className="flex items-center gap-1 text-[#FFAB00]">
                         <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" /></svg>
                         Google
@@ -452,7 +492,7 @@ export default function Home() {
               </div>
 
               {/* Video Post 2 - Into Nature's Wild */}
-              <article className="bg-white rounded-lg shadow-sm overflow-hidden">
+              <article className="bg-white shadow-sm overflow-hidden" style={{ marginTop: '48px', marginBottom: '48px' }}>
                 <div className="relative h-[350px]">
                   <img 
                     src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1000&q=80"
@@ -466,13 +506,16 @@ export default function Home() {
                     </div>
                   </div>
                 </div>
-                <div className="p-6">
-                  <p className="text-[#FFAB00] text-sm mb-2">September 17, 2021 - Tips & Tricks</p>
-                  <h2 className="text-xl font-bold text-gray-800 mb-3">Finding Love & home in Tbilisi, Georgia</h2>
-                  <p className="text-gray-600 text-sm mb-4">
+                <div className="p-6 flex flex-col" style={{ minHeight: '350px' }}>
+                  <div className="flex items-center mb-2" style={{ marginTop: '16px' }}>
+                    <div style={{ width: '4px', height: '20px', background: '#FFAB00', marginRight: '8px' }}></div>
+                    <p className="text-xs" style={{ color: '#000000' }}>September 17, 2021 - Tips & Tricks</p>
+                  </div>
+                  <h2 className="text-gray-800 mb-3" style={{ fontFamily: 'Lato', fontWeight: 600, fontSize: '31.64px', lineHeight: '46.98px', letterSpacing: '0%', marginTop: '18.4px' }}>Finding Love & home in Tbilisi, Georgia</h2>
+                  <p className="text-gray-600 mb-4 flex-grow" style={{ fontFamily: 'Lato', fontWeight: 500, fontSize: '24px', lineHeight: '40px', letterSpacing: '0%' }}>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus pharetra ac erat commodo non leo eget gravida viverra. Phasellus pharetra.
                   </p>
-                  <div className="flex items-center gap-6 text-sm">
+                  <div className="flex items-center justify-between text-sm mt-auto">
                     <span className="flex items-center gap-1 text-[#FFAB00]">
                       <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" /></svg>
                       Penang, Malaysia
@@ -486,17 +529,22 @@ export default function Home() {
               </article>
 
               {/* Two Column Grid - Row 4 */}
-              <div className="grid md:grid-cols-2 gap-6">
-                <article className="bg-white rounded-lg shadow-sm overflow-hidden">
+              <div className="grid md:grid-cols-2 gap-6" style={{ marginTop: '48px', marginBottom: '48px' }}>
+                <article className="bg-white shadow-sm overflow-hidden flex flex-col" style={{ width: '321px', height: '458.55px', background: '#FFFFFF', opacity: 1 }}>
                   <img 
-                    src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&q=80"
+                    src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80"
                     alt="Beach"
                     className="w-full h-48 object-cover"
                   />
-                  <div className="p-4">
-                    <p className="text-[#FFAB00] text-xs mb-2">September 17, 2025 - Tips & Tricks</p>
-                    <h3 className="font-bold text-gray-800 mb-3">Have you read The Beach by Alex?</h3>
-                    <div className="flex items-center justify-between text-xs">
+                  <div className="p-4 flex flex-col flex-grow" style={{ marginTop: '16px' }}>
+                    <div className="flex items-center mb-2">
+                      <div style={{ width: '4px', height: '20px', background: '#FFAB00', marginRight: '8px' }}></div>
+                      <p className="text-xs" style={{ color: '#000000' }}>September 17, 2025 - Tips & Tricks</p>
+                    </div>
+                    <div className="flex-1 flex items-center justify-center">
+                      <h3 className="text-gray-800 text-center" style={{ fontFamily: 'Lato', fontWeight: 700, fontSize: '25.31px', lineHeight: '37.58px', letterSpacing: '0%' }}>Have you read The Beach by Alex?</h3>
+                    </div>
+                    <div className="flex items-center justify-between text-xs" style={{ marginBottom: '16px' }}>
                       <span className="flex items-center gap-1 text-[#FFAB00]">
                         <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" /></svg>
                         Georgia
@@ -509,16 +557,21 @@ export default function Home() {
                   </div>
                 </article>
 
-                <article className="bg-white rounded-lg shadow-sm overflow-hidden">
+                <article className="bg-white shadow-sm overflow-hidden flex flex-col" style={{ width: '321px', height: '458.55px', background: '#FFFFFF', opacity: 1 }}>
                   <img 
                     src="https://images.unsplash.com/photo-1518509562904-e7ef99cdcc86?w=600&q=80"
                     alt="Philippines"
                     className="w-full h-48 object-cover"
                   />
-                  <div className="p-4">
-                    <p className="text-[#FFAB00] text-xs mb-2">September 17, 2025 - Tips & Tricks</p>
-                    <h3 className="font-bold text-gray-800 mb-3">The writer actually live in Philippines</h3>
-                    <div className="flex items-center justify-between text-xs">
+                  <div className="p-4 flex flex-col flex-grow" style={{ marginTop: '16px' }}>
+                    <div className="flex items-center mb-2">
+                      <div style={{ width: '4px', height: '20px', background: '#FFAB00', marginRight: '8px' }}></div>
+                      <p className="text-xs" style={{ color: '#000000' }}>September 17, 2025 - Tips & Tricks</p>
+                    </div>
+                    <div className="flex-1 flex items-center justify-center">
+                      <h3 className="text-gray-800 text-center" style={{ fontFamily: 'Lato', fontWeight: 700, fontSize: '25.31px', lineHeight: '37.58px', letterSpacing: '0%' }}>The writer actually live in Philippines</h3>
+                    </div>
+                    <div className="flex items-center justify-between text-xs" style={{ marginBottom: '16px' }}>
                       <span className="flex items-center gap-1 text-[#FFAB00]">
                         <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" /></svg>
                         Georgia
