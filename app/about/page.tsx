@@ -15,7 +15,7 @@ export default function AboutPage() {
 
       {/* Brief History Section */}
       <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-8">
+        <div className="max-w-7xl mx-auto" style={{ paddingLeft: '35px', paddingRight: '35px' }}>
           <div className="flex flex-col md:flex-row md:items-start gap-12">
             {/* Left Side - Heading with dotted background */}
             <div className="flex-1">
@@ -73,7 +73,7 @@ export default function AboutPage() {
             />
           </div>
 
-          <div className="space-y-6 text-gray-600 text-left" style={{ marginTop: '60px', paddingLeft: '48px' }}>
+          <div className="space-y-6 text-gray-600 text-left" style={{ marginTop: '60px', paddingLeft: '53px' }}>
             <p className="leading-relaxed">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Paribu at accusant nescitur eos, esse nemo reprehend et quasi
               dolor consequat autem. Fames dolore perferendis quas eius libero. Nostra fuga velit et repudiandae nec. Voluptatum veritatis,
@@ -93,7 +93,7 @@ export default function AboutPage() {
 
       {/* Our Story & Who Are Red Explorers */}
       <section className="py-20 bg-gray-50" style={{ marginTop: '60px', marginBottom: '60px' }}>
-        <div className="max-w-7xl mx-auto px-8">
+        <div className="max-w-7xl mx-auto" style={{ paddingLeft: '88px', paddingRight: '88px' }}>
           <div className="grid md:grid-cols-2 gap-12">
             <div>
               <h2 className="text-3xl font-bold mb-6">Our Story</h2>
@@ -128,7 +128,7 @@ export default function AboutPage() {
 
       {/* About Our Cameraman & What you'll Learn Here */}
       <section className="py-20 bg-white" style={{ marginTop: '60px', marginBottom: '60px' }}>
-        <div className="max-w-7xl mx-auto px-8">
+        <div className="max-w-7xl mx-auto" style={{ paddingLeft: '88px', paddingRight: '88px' }}>
           <div className="grid md:grid-cols-2 gap-12">
             {/* Left Column - About Our Cameraman */}
             <div>
@@ -187,7 +187,7 @@ export default function AboutPage() {
 
       {/* Partners Section */}
       <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-8">
+        <div className="max-w-7xl mx-auto" style={{ paddingLeft: '88px', paddingRight: '88px' }}>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 items-center justify-items-center">
             <Image 
               src="/assets/logos/boss-logo.png" 
@@ -223,7 +223,7 @@ export default function AboutPage() {
 
       {/* Customer Reviews */}
       <section className="py-20 bg-gray-50" style={{ marginTop: '60px', marginBottom: '60px' }}>
-        <div className="max-w-7xl mx-auto px-8">
+        <div className="max-w-7xl mx-auto" style={{ paddingLeft: '88px', paddingRight: '88px' }}>
           {/* Heading and Paragraph Section */}
           <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-12 mb-16" style={{ paddingTop: '40px', paddingBottom: '40px' }}>
             {/* Left - Heading */}
@@ -246,7 +246,7 @@ export default function AboutPage() {
           </div>
 
           {/* Testimonial Cards Grid */}
-          <div className="grid md:grid-cols-3 gap-8" style={{ paddingLeft: '48px' }}>
+          <div className="grid md:grid-cols-3 gap-8" style={{ paddingLeft: '53px' }}>
             {[
               { name: 'Joy Kim', title: 'explorer' },
               { name: 'Joy Kim', title: 'explorer' },
