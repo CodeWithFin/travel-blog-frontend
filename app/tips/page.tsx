@@ -106,7 +106,7 @@ export default function TipsPage() {
 
       {/* Content Section */}
       <section className="py-20" style={{ background: '#FFFFFF' }}>
-        <div className="max-w-7xl mx-auto px-8">
+        <div className="max-w-7xl mx-auto" style={{ paddingLeft: '35px', paddingRight: '35px' }}>
           {/* Featured Article */}
           <div className="grid md:grid-cols-2 gap-12 mb-16">
             <div>

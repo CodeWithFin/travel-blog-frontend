@@ -54,7 +54,7 @@ export default function ContactPage() {
       </div>
 
       {/* Contact Form Section */}
-      <section className="py-20" style={{ maxWidth: '800px', margin: '80px auto', padding: '0 20px', textAlign: 'center' }}>
+      <section className="py-20" style={{ maxWidth: '800px', margin: '80px auto', padding: '0 22px', textAlign: 'center' }}>
         <h2 
           className="mb-10"
           style={{

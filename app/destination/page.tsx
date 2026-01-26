@@ -108,14 +108,14 @@ export default function DestinationPage() {
         >
           <div className="absolute inset-0 bg-black/40" />
         </div>
-        <div className="relative z-10 max-w-7xl mx-auto px-8 w-full text-center">
+        <div className="relative z-10 max-w-7xl mx-auto w-full text-center" style={{ paddingLeft: '35px', paddingRight: '35px' }}>
           <h1 className="text-6xl font-bold">Destination</h1>
         </div>
       </section>
 
       {/* Content Section */}
       <section className="bg-white" style={{ paddingTop: '104px', paddingBottom: '104px' }}>
-        <div className="max-w-7xl mx-auto px-8">
+        <div className="max-w-7xl mx-auto" style={{ paddingLeft: '35px', paddingRight: '35px' }}>
           {/* Heading Section */}
           <div className="flex flex-col md:flex-row md:items-start md:justify-between" style={{ marginBottom: '62.4px', gap: '41.6px' }}>
             <div className="flex-1">
@@ -145,7 +145,7 @@ export default function DestinationPage() {
           </div>
 
           {/* Continent Tabs */}
-          <div className="mb-12" style={{ paddingLeft: '48px', paddingRight: '24px' }}>
+          <div className="mb-12" style={{ paddingLeft: '53px', paddingRight: '26px' }}>
             <div className="flex" style={{ gap: 0 }}>
             {tabs.map((tab, index) => (
               <button
@@ -186,7 +186,7 @@ export default function DestinationPage() {
           </div>
 
           {/* Destination Cards Grid */}
-          <div className="mb-12" style={{ paddingLeft: '24px', paddingRight: '24px', display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '32px', justifyContent: 'center', marginTop: '35px' }}>
+          <div className="mb-12" style={{ paddingLeft: '26px', paddingRight: '26px', display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '32px', justifyContent: 'center', marginTop: '35px' }}>
             {filteredDestinations.map((dest, i) => (
               <div key={i} style={{ position: 'relative', width: '304px', height: '441.6px', margin: '0 auto' }}>
                 {/* Image Card */}
