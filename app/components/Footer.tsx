@@ -6,7 +6,6 @@ import Image from 'next/image';
 
 export default function Footer() {
   useEffect(() => {
-    // Add Font Awesome stylesheet if not already present
     if (!document.querySelector('link[href*="font-awesome"]')) {
       const link = document.createElement('link');
       link.rel = 'stylesheet';
@@ -16,207 +15,143 @@ export default function Footer() {
   }, []);
 
   return (
-    <footer className="text-white" style={{ background: '#555555', fontSize: '14px' }}>
+    <footer className="text-white" style={{ background: '#555555', fontSize: '18.2px' }}>
+      {/* Two horizontal divider lines */}
+      <div className="bg-white" style={{ paddingTop: '20px', paddingBottom: '20px' }}>
+        <div style={{ width: '100%' }}>
+          <div style={{ 
+            borderTop: '1px solid #E5E5E5',
+            marginBottom: '15.6px',
+            width: '100%'
+          }}></div>
+          <div style={{ 
+            borderTop: '1px solid #E5E5E5',
+            width: '100%'
+          }}></div>
+        </div>
+      </div>
+      
       {/* White Header Section */}
-      <div style={{ 
-        background: '#ffffff', 
-        padding: '20px 0'
-      }}>
-        <div style={{ 
-          maxWidth: '1200px', 
-          margin: '0 auto', 
-          padding: '0 20px',
-          display: 'grid',
-          gridTemplateColumns: '2fr 1fr 1fr',
-          gap: '40px',
-          alignItems: 'center'
-        }}>
+      <div className="bg-white" style={{ paddingTop: '31.2px', paddingBottom: '31.2px' }}>
+        <div className="max-w-[1200px] mx-auto px-8 grid grid-cols-[2fr_1fr_1fr_1fr] items-start" style={{ gap: '41.6px' }}>
           {/* Logo */}
           <div>
             <Image 
               src="/assets/logos/Logo.png" 
-              alt="Red Explorers Logo" 
-              width={338} 
-              height={113}
-              style={{ height: 'auto', width: 'auto' }}
+              alt="Red7 Logo" 
+              width={130} 
+              height={45.5}
+              className="w-auto"
+              style={{ height: '45.5px' }}
             />
           </div>
 
-          {/* Navigation Links - Aligned with gray section columns */}
+          {/* Body Header */}
           <div>
-            <a 
-              href="#" 
-              style={{ color: '#000', fontWeight: '700', fontSize: '16px', textDecoration: 'none', cursor: 'pointer' }}
-            >
-              Body
-            </a>
+            <span className="text-black font-bold" style={{ fontSize: '16.64px' }}>Body</span>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '30px' }}>
-            <div>
-              <a 
-                href="#" 
-                style={{ color: '#000', fontWeight: '700', fontSize: '16px', textDecoration: 'none', cursor: 'pointer' }}
-              >
-                Travel
-              </a>
-            </div>
-            <div>
-              <a 
-                href="#" 
-                style={{ color: '#000', fontWeight: '700', fontSize: '16px', textDecoration: 'none', cursor: 'pointer' }}
-              >
-                Account
-              </a>
-            </div>
+          {/* Travel Header */}
+          <div>
+            <span className="text-black font-bold" style={{ fontSize: '16.64px' }}>Travel</span>
+          </div>
+
+          {/* Account Header */}
+          <div>
+            <span className="text-black font-bold" style={{ fontSize: '16.64px' }}>Account</span>
           </div>
         </div>
       </div>
 
-      {/* Gray Section with Content */}
-      <div style={{ 
-        background: '#555555', 
-        padding: '60px 0'
-      }}>
-        <div style={{ 
-          maxWidth: '1200px', 
-          margin: '0 auto', 
-          padding: '0 20px',
-          display: 'grid',
-          gridTemplateColumns: '2fr 1fr 1fr',
-          gap: '40px'
-        }}>
-          {/* Column 1: About Us / Company Description */}
+      {/* Gray Content Section */}
+      <div style={{ background: '#555555', paddingTop: '62.4px', paddingBottom: '62.4px' }}>
+        <div className="max-w-[1200px] mx-auto px-8 grid grid-cols-[2fr_1fr_1fr_1fr]" style={{ gap: '41.6px' }}>
+          {/* Column 1: About Us */}
           <div>
-            <p style={{ lineHeight: '1.6', marginBottom: '20px', color: '#fff' }}>
+            <p className="text-white/90 leading-relaxed mb-4">
               We are location independent bloggers, digital influencers, small group tour organizers and world travelers with a serious passion for the sun, the sea and adventure.
             </p>
-            <p style={{ lineHeight: '1.6', color: '#fff' }}>
+            <p className="text-white/90 leading-relaxed">
               Eight years and 60-something countries later and we are still on the road.
             </p>
           </div>
 
-          {/* Column 2: Contact Information */}
-          <div>
-            <p style={{ lineHeight: '1.6', marginBottom: '15px', color: '#fff' }}>Add: 221B John hope Street, Lekki, Lagos, Nigeria.</p>
-            <p style={{ lineHeight: '1.6', marginBottom: '15px', color: '#fff' }}>T: +234 706 507 8544</p>
-            <p style={{ lineHeight: '1.6', marginBottom: '15px', color: '#fff' }}>E: info@redexplorers.com</p>
-            <p style={{ lineHeight: '1.6', marginBottom: '15px', color: '#fff' }}>W: www. redexplorers.com</p>
+          {/* Column 2: Contact Info */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '15.6px' }}>
+            <p className="text-white/90">Add: 221B John hope Street, Lekki, Lagos, Nigeria.</p>
+            <p className="text-white/90">T: +234 706 507 8544</p>
+            <p className="text-white/90">E: info@redexplorers.com</p>
+            <p className="text-white/90">W: www.redexplorers.com</p>
           </div>
 
-          {/* Column 3: Navigation Links (Two Sub-columns) */}
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '30px' }}>
-            {/* Sub-column 3a: Travel Links */}
-            <div>
-              <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
-                <li style={{ marginBottom: '15px' }}>
-                  <Link href="/my-list" style={{ color: '#fff', textDecoration: 'none', transition: 'opacity 0.3s' }} onMouseEnter={(e) => e.currentTarget.style.opacity = '0.8'} onMouseLeave={(e) => e.currentTarget.style.opacity = '1'}>
-                    My List
-                  </Link>
-                </li>
-                <li style={{ marginBottom: '15px' }}>
-                  <Link href="/my-requests" style={{ color: '#fff', textDecoration: 'none', transition: 'opacity 0.3s' }} onMouseEnter={(e) => e.currentTarget.style.opacity = '0.8'} onMouseLeave={(e) => e.currentTarget.style.opacity = '1'}>
-                    My Requests
-                  </Link>
-                </li>
-                <li style={{ marginBottom: '15px' }}>
-                  <Link href="/my-credits" style={{ color: '#fff', textDecoration: 'none', transition: 'opacity 0.3s' }} onMouseEnter={(e) => e.currentTarget.style.opacity = '0.8'} onMouseLeave={(e) => e.currentTarget.style.opacity = '1'}>
-                    My Credits
-                  </Link>
-                </li>
-                <li style={{ marginBottom: '15px' }}>
-                  <Link href="/my-info" style={{ color: '#fff', textDecoration: 'none', transition: 'opacity 0.3s' }} onMouseEnter={(e) => e.currentTarget.style.opacity = '0.8'} onMouseLeave={(e) => e.currentTarget.style.opacity = '1'}>
-                    My Info
-                  </Link>
-                </li>
-                <li style={{ marginBottom: '15px' }}>
-                  <Link href="/contact" style={{ color: '#fff', textDecoration: 'none', transition: 'opacity 0.3s' }} onMouseEnter={(e) => e.currentTarget.style.opacity = '0.8'} onMouseLeave={(e) => e.currentTarget.style.opacity = '1'}>
-                    Contact
-                  </Link>
-                </li>
-              </ul>
-            </div>
+          {/* Column 3: Travel Links */}
+          <div>
+            <ul style={{ display: 'flex', flexDirection: 'column', gap: '15.6px' }}>
+              <li><Link href="/my-list" className="text-white/90 hover:text-white transition-colors">My List</Link></li>
+              <li><Link href="/my-requests" className="text-white/90 hover:text-white transition-colors">My Requests</Link></li>
+              <li><Link href="/my-credits" className="text-white/90 hover:text-white transition-colors">My Credits</Link></li>
+              <li><Link href="/my-info" className="text-white/90 hover:text-white transition-colors">My Info</Link></li>
+              <li><Link href="/contact" className="text-white/90 hover:text-white transition-colors">Contact</Link></li>
+            </ul>
+          </div>
 
-            {/* Sub-column 3b: Account Links */}
-            <div>
-              <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
-                <li style={{ marginBottom: '15px' }}>
-                  <Link href="/travel" style={{ color: '#fff', textDecoration: 'none', transition: 'opacity 0.3s' }} onMouseEnter={(e) => e.currentTarget.style.opacity = '0.8'} onMouseLeave={(e) => e.currentTarget.style.opacity = '1'}>
-                    Travel
-                  </Link>
-                </li>
-                <li style={{ marginBottom: '15px' }}>
-                  <Link href="/why-travel" style={{ color: '#fff', textDecoration: 'none', transition: 'opacity 0.3s' }} onMouseEnter={(e) => e.currentTarget.style.opacity = '0.8'} onMouseLeave={(e) => e.currentTarget.style.opacity = '1'}>
-                    Why Travel
-                  </Link>
-                </li>
-                <li style={{ marginBottom: '15px' }}>
-                  <Link href="/become-traveler" style={{ color: '#fff', textDecoration: 'none', transition: 'opacity 0.3s' }} onMouseEnter={(e) => e.currentTarget.style.opacity = '0.8'} onMouseLeave={(e) => e.currentTarget.style.opacity = '1'}>
-                    Become a Traveler
-                  </Link>
-                </li>
-                <li style={{ marginBottom: '15px' }}>
-                  <Link href="/how-it-works" style={{ color: '#fff', textDecoration: 'none', transition: 'opacity 0.3s' }} onMouseEnter={(e) => e.currentTarget.style.opacity = '0.8'} onMouseLeave={(e) => e.currentTarget.style.opacity = '1'}>
-                    How Its Works
-                  </Link>
-                </li>
-                <li style={{ marginBottom: '15px' }}>
-                  <Link href="/traveling-faqs" style={{ color: '#fff', textDecoration: 'none', transition: 'opacity 0.3s' }} onMouseEnter={(e) => e.currentTarget.style.opacity = '0.8'} onMouseLeave={(e) => e.currentTarget.style.opacity = '1'}>
-                    Traveling FAQs
-                  </Link>
-                </li>
-              </ul>
-            </div>
+          {/* Column 4: Account Links */}
+          <div>
+            <ul style={{ display: 'flex', flexDirection: 'column', gap: '15.6px' }}>
+              <li><Link href="/travel" className="text-white/90 hover:text-white transition-colors">Travel</Link></li>
+              <li><Link href="/why-travel" className="text-white/90 hover:text-white transition-colors">Why Travel</Link></li>
+              <li><Link href="/become-traveler" className="text-white/90 hover:text-white transition-colors">Become a Traveler</Link></li>
+              <li><Link href="/how-it-works" className="text-white/90 hover:text-white transition-colors">How Its Works</Link></li>
+              <li><Link href="/traveling-faqs" className="text-white/90 hover:text-white transition-colors">Traveling FAQs</Link></li>
+            </ul>
           </div>
         </div>
       </div>
 
-      {/* Divider Line */}
-      <div style={{ borderTop: '1px solid #777', width: '100%' }}></div>
+      {/* Divider */}
+      <div className="border-t border-white/20" />
 
       {/* Bottom Bar */}
-      <div style={{ 
-        maxWidth: '1200px', 
-        margin: '0 auto', 
-        padding: '25px 20px', 
-        display: 'flex', 
-        justifyContent: 'space-between', 
-        alignItems: 'center', 
-        fontSize: '13px', 
-        color: '#ddd' 
-      }}>
-        <div>
-          <Image 
-            src="/assets/logos/sideHustle.png" 
-            alt="SideHustle Logo" 
-            width={120} 
-            height={40}
-            style={{ height: 'auto', width: 'auto' }}
-          />
-        </div>
-        
-        <div style={{ display: 'flex', gap: '20px' }}>
-          <a href="#" style={{ color: '#fff', fontSize: '16px', transition: 'opacity 0.3s' }} onMouseEnter={(e) => e.currentTarget.style.opacity = '0.8'} onMouseLeave={(e) => e.currentTarget.style.opacity = '1'}>
-            <i className="fab fa-facebook-f"></i>
-          </a>
-          <a href="#" style={{ color: '#fff', fontSize: '16px', transition: 'opacity 0.3s' }} onMouseEnter={(e) => e.currentTarget.style.opacity = '0.8'} onMouseLeave={(e) => e.currentTarget.style.opacity = '1'}>
-            <i className="fab fa-twitter"></i>
-          </a>
-          <a href="#" style={{ color: '#fff', fontSize: '16px', transition: 'opacity 0.3s' }} onMouseEnter={(e) => e.currentTarget.style.opacity = '0.8'} onMouseLeave={(e) => e.currentTarget.style.opacity = '1'}>
-            <i className="fab fa-google-plus-g"></i>
-          </a>
-          <a href="#" style={{ color: '#fff', fontSize: '16px', transition: 'opacity 0.3s' }} onMouseEnter={(e) => e.currentTarget.style.opacity = '0.8'} onMouseLeave={(e) => e.currentTarget.style.opacity = '1'}>
-            <i className="fab fa-linkedin-in"></i>
-          </a>
-        </div>
+      <div style={{ background: '#555555', paddingTop: '31.2px', paddingBottom: '31.2px' }}>
+        <div className="max-w-[1200px] mx-auto px-8 flex items-center justify-between">
+          {/* SideHustle Logo */}
+          <div>
+            <Image 
+              src="/assets/logos/sideHustle.png" 
+              alt="SideHustle Logo" 
+              width={130} 
+              height={39}
+              className="w-auto"
+              style={{ height: '39px' }}
+            />
+          </div>
 
-        <div style={{ color: '#ddd' }}>
-          <span>&copy; 2021 RedExplorers. All rights reserved &nbsp;|&nbsp; </span>
-          <Link href="/terms" style={{ color: '#ddd', transition: 'opacity 0.3s' }} onMouseEnter={(e) => e.currentTarget.style.opacity = '0.8'} onMouseLeave={(e) => e.currentTarget.style.opacity = '1'}>Terms</Link>
-          <span> &nbsp;|&nbsp; </span>
-          <Link href="/privacy" style={{ color: '#ddd', transition: 'opacity 0.3s' }} onMouseEnter={(e) => e.currentTarget.style.opacity = '0.8'} onMouseLeave={(e) => e.currentTarget.style.opacity = '1'}>Privacy</Link>
-          <span> &nbsp;|&nbsp; </span>
-          <Link href="/sitemap" style={{ color: '#ddd', transition: 'opacity 0.3s' }} onMouseEnter={(e) => e.currentTarget.style.opacity = '0.8'} onMouseLeave={(e) => e.currentTarget.style.opacity = '1'}>Site Map</Link>
+          {/* Social Icons */}
+          <div className="flex" style={{ gap: '20.8px' }}>
+            <a href="#" className="text-white hover:text-white/80 transition-colors">
+              <i className="fab fa-facebook-f"></i>
+            </a>
+            <a href="#" className="text-white hover:text-white/80 transition-colors">
+              <i className="fab fa-twitter"></i>
+            </a>
+            <a href="#" className="text-white hover:text-white/80 transition-colors">
+              <i className="fab fa-google-plus-g"></i>
+            </a>
+            <a href="#" className="text-white hover:text-white/80 transition-colors">
+              <i className="fab fa-linkedin-in"></i>
+            </a>
+          </div>
+
+          {/* Copyright */}
+          <div className="text-white/70" style={{ fontSize: '18.2px' }}>
+            <span>&copy; 2021 RedExplorers. All rights reserved</span>
+            <span className="mx-2">|</span>
+            <Link href="/terms" className="hover:text-white transition-colors">Terms</Link>
+            <span className="mx-2">|</span>
+            <Link href="/privacy" className="hover:text-white transition-colors">Privacy</Link>
+            <span className="mx-2">|</span>
+            <Link href="/sitemap" className="hover:text-white transition-colors">Site Map</Link>
+          </div>
         </div>
       </div>
     </footer>
