@@ -1,96 +1,32 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
-
-const destinations = [
-  {
-    title: 'Finding Love & Home In Tbilisi, Georgia',
-    date: 'September 15, 2018',
-    category: 'Tips & Tricks',
-    location: 'Georgia',
-    comments: 25,
-    continent: 'Europe',
-    image: 'https://images.unsplash.com/photo-1539635278303-d4002c07eae3?w=600&q=80',
-  },
-  {
-    title: 'Have you read the Beach by Alex?',
-    date: 'September 15, 2018',
-    category: 'Tips & Tricks',
-    location: 'Georgia',
-    comments: 132,
-    continent: 'Europe',
-    image: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&q=80',
-  },
-  {
-    title: 'The writer actually live in philippines',
-    date: 'September 15, 2018',
-    category: 'Tips & Tricks',
-    location: 'Georgia',
-    comments: 13,
-    continent: 'Asia',
-    image: 'https://images.unsplash.com/photo-1518509562904-e7ef99cdcc86?w=600&q=80',
-  },
-  {
-    title: "Honestly it's almost ridiculous how",
-    date: 'September 15, 2018',
-    category: 'Tips & Tricks',
-    location: 'Georgia',
-    comments: 53,
-    continent: 'Europe',
-    image: 'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=600&q=80',
-  },
-  {
-    title: 'The only way to see the islands',
-    date: 'September 15, 2018',
-    category: 'Tips & Tricks',
-    location: 'Georgia',
-    comments: 23,
-    continent: 'Europe',
-    image: 'https://images.unsplash.com/photo-1545569341-9eb8b30979d9?w=600&q=80',
-  },
-  {
-    title: 'Get away from the maddening crowds',
-    date: 'September 15, 2018',
-    category: 'Tips & Tricks',
-    location: 'Georgia',
-    comments: 32,
-    continent: 'North America',
-    image: 'https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?w=600&q=80',
-  },
-  {
-    title: 'Matsumoto castle is considered one of',
-    date: 'September 15, 2018',
-    category: 'Tips & Tricks',
-    location: 'Georgia',
-    comments: 28,
-    continent: 'Asia',
-    image: 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=600&q=80',
-  },
-  {
-    title: 'Many buildings especially in japan',
-    date: 'September 15, 2018',
-    category: 'Tips & Tricks',
-    location: 'Georgia',
-    comments: 23,
-    continent: 'Asia',
-    image: 'https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=600&q=80',
-  },
-  {
-    title: 'There are roughly 1200 semiwild deer',
-    date: 'September 15, 2018',
-    category: 'Tips & Tricks',
-    location: 'Georgia',
-    comments: 28,
-    continent: 'Asia',
-    image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80',
-  },
-];
+import { destinationsAPI } from '@/lib/api';
 
 const tabs = ['South America', 'North America', 'Europe', 'Africa', 'Asia'];
 
 export default function DestinationPage() {
   const [activeTab, setActiveTab] = useState('Europe');
+  const [destinations, setDestinations] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    loadDestinations();
+  }, []);
+
+  const loadDestinations = async () => {
+    try {
+      const data = await destinationsAPI.getAll();
+      setDestinations(data);
+    } catch (error) {
+      console.error('Error loading destinations:', error);
+      // Fallback to empty array if API fails - UI will still render
+      setDestinations([]);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const filteredDestinations = destinations.filter(
     (dest) => dest.continent === activeTab
@@ -99,7 +35,7 @@ export default function DestinationPage() {
   return (
     <div>
       {/* Hero Section */}
-      <section className="relative h-[500px] flex items-center text-white">
+      <section className="relative h-[300px] md:h-[400px] lg:h-[500px] flex items-center text-white">
         <div 
           className="absolute inset-0 bg-cover bg-center"
           style={{
@@ -108,22 +44,18 @@ export default function DestinationPage() {
         >
           <div className="absolute inset-0 bg-black/40" />
         </div>
-        <div className="relative z-10 max-w-7xl mx-auto w-full text-center" style={{ paddingLeft: '35px', paddingRight: '35px' }}>
-          <h1 className="text-6xl font-bold">Destination</h1>
+        <div className="relative z-10 max-w-7xl mx-auto w-full text-center px-4 md:px-8 lg:px-[35px]">
+          <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold">Destination</h1>
         </div>
       </section>
 
       {/* Content Section */}
-      <section className="bg-white" style={{ paddingTop: '104px', paddingBottom: '104px' }}>
-        <div className="max-w-7xl mx-auto" style={{ paddingLeft: '35px', paddingRight: '35px' }}>
+      <section className="bg-white py-12 md:py-16 lg:py-[104px]">
+        <div className="max-w-7xl mx-auto px-4 md:px-8 lg:px-[35px]">
           {/* Heading Section */}
-          <div className="flex flex-col md:flex-row md:items-start md:justify-between" style={{ marginBottom: '62.4px', gap: '41.6px' }}>
+          <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-8 md:mb-12 lg:mb-[62.4px] gap-6 md:gap-8 lg:gap-[41.6px]">
             <div className="flex-1">
-              <h2 className="font-bold" style={{ 
-                fontSize: 'clamp(46.8px, 5vw, 62.4px)',
-                marginBottom: '31.2px',
-                lineHeight: '1.2'
-              }}>
+              <h2 className="font-bold text-3xl md:text-4xl lg:text-5xl xl:text-[62.4px] mb-4 md:mb-6 lg:mb-[31.2px] leading-tight">
                 <span style={{ color: '#FFAB00' }}>Where do</span> you want to go?
               </h2>
             </div>
@@ -186,8 +118,12 @@ export default function DestinationPage() {
           </div>
 
           {/* Destination Cards Grid */}
-          <div className="mb-12" style={{ paddingLeft: '26px', paddingRight: '26px', display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '32px', justifyContent: 'center', marginTop: '35px' }}>
-            {filteredDestinations.map((dest, i) => (
+          <div className="mb-12" style={{ paddingLeft: '26px', paddingRight: '26px', display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '64px 48px', justifyContent: 'center', marginTop: '60px', rowGap: '80px' }}>
+            {loading ? (
+              <div className="col-span-3 text-center py-12">Loading destinations...</div>
+            ) : filteredDestinations.length === 0 ? (
+              <div className="col-span-3 text-center py-12">No destinations found for {activeTab}.</div>
+            ) : filteredDestinations.map((dest, i) => (
               <div key={i} style={{ position: 'relative', width: '304px', height: '441.6px', margin: '0 auto' }}>
                 {/* Image Card */}
                 <div style={{ 
@@ -199,7 +135,7 @@ export default function DestinationPage() {
                   left: 0
                 }}>
                   <img 
-                    src={dest.image} 
+                    src={dest.image_url} 
                     alt={dest.title}
                     style={{ 
                       width: '100%',

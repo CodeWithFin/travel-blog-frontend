@@ -1,92 +1,29 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
-
-const tips = [
-  {
-    title: 'Going to the Extreme -The Northern Pole',
-    date: 'January 15, 2019',
-    category: 'Travel Tips',
-    location: 'North Pole',
-    comments: 12,
-    rating: 4.8,
-    image: 'https://images.unsplash.com/photo-1511593358241-7eea1f3c84e5?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80',
-  },
-  {
-    title: 'Summer Vibes... Where to spend the energy.',
-    date: 'January 15, 2019',
-    category: 'Travel Tips',
-    location: 'North Pole',
-    comments: 12,
-    rating: 4.8,
-    image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80',
-  },
-  {
-    title: 'Smartet cites and how to enjoy them.',
-    date: 'January 15, 2019',
-    category: 'Travel Tips',
-    location: 'North Pole',
-    comments: 12,
-    rating: 4.8,
-    image: 'https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80',
-  },
-  {
-    title: 'Going to the wild? What should you pack?',
-    date: 'January 15, 2019',
-    category: 'Travel Tips',
-    location: 'North Pole',
-    comments: 12,
-    rating: 4.8,
-    image: 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80',
-  },
-  {
-    title: 'Foods to try when you Visit Australia.',
-    date: 'January 15, 2019',
-    category: 'Travel Tips',
-    location: 'North Pole',
-    comments: 12,
-    rating: 4.8,
-    image: 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80',
-  },
-  {
-    title: 'Beaches And how to enjoy them the most.',
-    date: 'January 15, 2019',
-    category: 'Travel Tips',
-    location: 'North Pole',
-    comments: 12,
-    rating: 4.8,
-    image: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80',
-  },
-  {
-    title: 'Road Trip 101 Things you need to know.',
-    date: 'January 15, 2019',
-    category: 'Travel Tips',
-    location: 'North Pole',
-    comments: 12,
-    rating: 4.8,
-    image: 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80',
-  },
-  {
-    title: 'Water front precautions to take during travels.',
-    date: 'January 15, 2019',
-    category: 'Travel Tips',
-    location: 'North Pole',
-    comments: 12,
-    rating: 4.8,
-    image: 'https://images.unsplash.com/photo-1501555088652-021faa106b9b?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80',
-  },
-  {
-    title: 'Going to the Extreme -The Northern Pole',
-    date: 'January 15, 2019',
-    category: 'Travel Tips',
-    location: 'North Pole',
-    comments: 12,
-    rating: 4.8,
-    image: 'https://images.unsplash.com/photo-1511593358241-7eea1f3c84e5?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80',
-  },
-];
+import { tipsAPI } from '@/lib/api';
 
 export default function TipsPage() {
+  const [tips, setTips] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    loadTips();
+  }, []);
+
+  const loadTips = async () => {
+    try {
+      const data = await tipsAPI.getAll();
+      setTips(data);
+    } catch (error) {
+      console.error('Error loading tips:', error);
+      // Fallback to empty array if API fails
+      setTips([]);
+    } finally {
+      setLoading(false);
+    }
+  };
   return (
     <div style={{ background: '#FFFFFF' }}>
       {/* Hero Section with Dark Green Forest Background */}
@@ -138,8 +75,12 @@ export default function TipsPage() {
           </div>
 
           {/* Tips Grid - 3x3 */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3" style={{ gap: '22px' }}>
-            {tips.map((tip, i) => (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3" style={{ gap: '48px 32px', rowGap: '64px' }}>
+            {loading ? (
+              <div className="col-span-3 text-center py-12">Loading tips...</div>
+            ) : tips.length === 0 ? (
+              <div className="col-span-3 text-center py-12">No tips available at the moment.</div>
+            ) : tips.map((tip, i) => (
               <div
                 key={i}
                 className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow flex flex-col"
@@ -148,7 +89,7 @@ export default function TipsPage() {
                 {/* Image with rounded top corners only */}
                 <div className="w-full overflow-hidden flex-shrink-0" style={{ height: '168px' }}>
                   <img 
-                    src={tip.image} 
+                    src={tip.image_url} 
                     alt={tip.title}
                     className="w-full h-full object-cover"
                     style={{ 

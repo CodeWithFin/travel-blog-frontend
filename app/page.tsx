@@ -1,14 +1,69 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+import { postsAPI, productsAPI } from '@/lib/api';
+
+interface Post {
+  id: number;
+  title: string;
+  excerpt: string;
+  date: string;
+  category_name?: string;
+  location: string;
+  comments: number;
+  image_url: string;
+  is_featured?: boolean;
+}
+
+interface Product {
+  id: number;
+  name: string;
+  price: string;
+  image_url: string;
+}
+
+const FALLBACK_PRODUCTS: Product[] = [
+  { id: 1, name: 'Apple MacBook Air MJV2ELL/A 13-inch Laptop', price: '$514', image_url: 'https://images.unsplash.com/photo-1541807084-5c52b6b3adef?w=100&q=80' },
+  { id: 2, name: 'Iphone Xs case, Iphone X case, SUPCASE', price: '$267', image_url: 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=100&q=80' },
+  { id: 3, name: 'Master Sport band for Apple wrist watch', price: '$378', image_url: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=100&q=80' },
+];
 
 export default function Home() {
+  const router = useRouter();
+  const [posts, setPosts] = useState<Post[]>([]);
+  const [products, setProducts] = useState<Product[]>(FALLBACK_PRODUCTS);
+  const [apiUnreachable, setApiUnreachable] = useState(false);
+
+  const navigateToBlog = (postId: number) => {
+    router.push(`/blog/${postId}`);
+  };
+
+  useEffect(() => {
+    postsAPI
+      .getAll({ limit: 5 })
+      .then((data) => {
+        setPosts(Array.isArray(data) ? data : []);
+        setApiUnreachable(false);
+      })
+      .catch(() => {
+        setPosts([]);
+        setApiUnreachable(true);
+      });
+    productsAPI.getAll().then((data) => Array.isArray(data) && data.length > 0 ? setProducts(data) : null).catch(() => {});
+  }, []);
 
   return (
     <div className="bg-white">
+      {apiUnreachable && (
+        <div className="bg-amber-50 border-b border-amber-200 px-4 py-2 text-center text-sm text-amber-800">
+          Could not load posts. Start the backend: <code className="bg-amber-100 px-1 rounded">cd travel-blog-backend &amp;&amp; npm run dev</code>
+        </div>
+      )}
       {/* Hero Section */}
-      <section className="relative h-[620px] flex flex-col items-center justify-center">
+      <section className="relative h-[500px] md:h-[620px] flex flex-col items-center justify-center mb-16 md:mb-24 lg:mb-32">
         {/* Background Image - Hiker on mountain */}
         <div 
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
@@ -20,24 +75,30 @@ export default function Home() {
         </div>
 
         {/* Hero Content - Centered */}
-        <div className="relative z-10 text-center mt-8" style={{ paddingLeft: '35px', paddingRight: '35px' }}>
+        <div className="relative z-10 text-center mt-8 px-4 md:px-8 lg:px-[35px]">
           {/* Counter */}
-          <p className="text-white text-lg tracking-wider mb-4">
+          <p className="text-white text-sm md:text-lg tracking-wider mb-4">
             THE COUNTER: <span className="text-[#FFAB00] font-bold">70</span> Countries &nbsp;&nbsp;<span className="text-[#FFAB00] font-bold">1036</span> Cities
           </p>
           
           {/* Main Heading */}
-          <h1 className="text-white text-4xl md:text-5xl font-bold leading-tight mb-8">
-            Leave your mark on all<br />over the world
+          <h1 className="text-white text-3xl md:text-4xl lg:text-5xl font-bold leading-tight mb-8 max-w-2xl mx-auto">
+            Leave your mark on all<br className="hidden md:block" /> over the world
           </h1>
           
           {/* CTA Button */}
           <Link
             href="/read-more"
-            className="inline-block text-white text-lg font-medium px-16 py-5 transition-all hover:opacity-90"
+            className="text-center bg-[#3B5BDB] text-white rounded-md font-medium hover:bg-[#2f4ab8] transition-colors inline-flex w-[145.6px] h-[56.8px] items-center justify-center"
             style={{
-              background: '#0047FF',
-              boxShadow: '0px 4px 20px rgba(0, 71, 255, 0.4)'
+              boxShadow: `
+                0px 2.77px 6.23px 0px rgba(0, 0, 0, 0.05),
+                0px 6.65px 14.96px 0px rgba(0, 0, 0, 0.07),
+                0px 12.52px 28.17px 0px rgba(0, 0, 0, 0.09),
+                0px 22.34px 50.26px 0px rgba(0, 0, 0, 0.11),
+                0px 41.78px 94px 0px rgba(0, 0, 0, 0.13),
+                0px 100px 225px 0px rgba(0, 0, 0, 0.18)
+              `
             }}
           >
             Read More
@@ -45,7 +106,7 @@ export default function Home() {
         </div>
 
         {/* Scroll Down Indicator */}
-        <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex flex-col items-center gap-1 z-10">
+        <div className="hidden md:flex absolute bottom-6 left-1/2 transform -translate-x-1/2 flex-col items-center gap-1 z-10">
           <span className="text-white text-sm font-medium">Scroll Down to Continue</span>
           <svg className="w-6 h-6 text-[#0047FF]" fill="currentColor" viewBox="0 0 20 20">
             <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
@@ -53,7 +114,7 @@ export default function Home() {
         </div>
 
         {/* Location Pin - Bottom Right */}
-        <div className="absolute bottom-6 right-12 z-10">
+        <div className="hidden md:block absolute bottom-6 right-12 z-10">
           <svg className="w-10 h-10 text-[#0047FF]" fill="currentColor" viewBox="0 0 20 20">
             <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
           </svg>
@@ -61,11 +122,11 @@ export default function Home() {
       </section>
 
       {/* Main Content Area */}
-      <section className="py-12 bg-[#f8f9fa]">
-        <div className="max-w-[1200px] mx-auto" style={{ paddingLeft: '35px', paddingRight: '35px' }}>
-          <div className="flex gap-[100px]">
-            {/* Left Sidebar - 280px */}
-            <aside className="w-[280px] flex-shrink-0 space-y-6">
+      <section className="py-8 md:py-12 bg-[#f8f9fa]">
+        <div className="max-w-[1200px] mx-auto px-4 md:px-6 lg:px-[35px]">
+          <div className="flex flex-col lg:flex-row gap-8 lg:gap-[100px]">
+            {/* Left Sidebar - 280px on desktop, full width on mobile */}
+            <aside className="w-full lg:w-[280px] flex-shrink-0 space-y-6 order-2 lg:order-1">
               {/* About Me Widget */}
               <div className="bg-white rounded-lg shadow-sm overflow-hidden" style={{ 
                 width: '344.43px', 
@@ -275,28 +336,12 @@ export default function Home() {
                 <h3 className="font-bold text-black text-center" style={{ fontSize: '20.7px' }}>Product That I Have</h3>
               </div>
 
-              {/* Product Cards */}
+              {/* Product Cards - from API or fallback */}
               <div style={{ marginTop: '48px', marginBottom: '48px' }}>
-                {[
-                  { 
-                    image: 'https://images.unsplash.com/photo-1541807084-5c52b6b3adef?w=100&q=80',
-                    name: 'Apple MacBook Air MJV2ELL/A 13-inch Laptop',
-                    price: '$514'
-                  },
-                  { 
-                    image: 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=100&q=80',
-                    name: 'Iphone Xs case, Iphone X case, SUPCASE',
-                    price: '$267'
-                  },
-                  { 
-                    image: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=100&q=80',
-                    name: 'Master Sport band for Apple wrist watch',
-                    price: '$378'
-                  }
-                ].map((product, i) => (
-                  <div key={i} className="overflow-hidden flex gap-3" style={{ marginTop: '16px', marginBottom: '16px' }}>
+                {products.map((product) => (
+                  <div key={product.id} className="overflow-hidden flex gap-3" style={{ marginTop: '16px', marginBottom: '16px' }}>
                     <img 
-                      src={product.image}
+                      src={product.image_url || 'https://images.unsplash.com/photo-1541807084-5c52b6b3adef?w=100&q=80'}
                       alt={product.name}
                       className="object-cover rounded flex-shrink-0"
                       style={{ width: '70.4px', height: '70.4px' }}
@@ -373,99 +418,112 @@ export default function Home() {
             </aside>
 
             {/* Main Content Area - Flexible Width */}
-            <main className="flex-1 space-y-6">
-              {/* Featured Large Post */}
-              <article className="bg-white shadow-sm overflow-hidden" style={{ marginTop: '48px', marginBottom: '48px' }}>
-                <div className="relative h-[350px]">
-                  <img 
-                    src="https://images.unsplash.com/photo-1539635278303-d4002c07eae3?w=800&q=80"
-                    alt="Featured Post"
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                <div className="p-6 flex flex-col" style={{ minHeight: '350px' }}>
-                  <div className="flex items-center mb-2" style={{ marginTop: '16px' }}>
-                    <div style={{ width: '4px', height: '20px', background: '#FFAB00', marginRight: '8px' }}></div>
-                    <p className="text-xs" style={{ color: '#000000' }}>Mar 15, 2017 - Tips and Tricks</p>
+            <main className="w-full lg:flex-1 space-y-6 order-1 lg:order-2">
+              {/* Featured Large Post - from API or fallback */}
+              {(posts[0] ? (
+                <article
+                  role="button"
+                  tabIndex={0}
+                  onClick={() => navigateToBlog(posts[0].id)}
+                  onKeyDown={(e) => e.key === 'Enter' && navigateToBlog(posts[0].id)}
+                  className="bg-white shadow-sm overflow-hidden mt-16 md:mt-24 mb-16 md:mb-24 cursor-pointer hover:shadow-lg transition-shadow"
+                >
+                  <div className="relative h-[250px] md:h-[350px]">
+                    <img src={posts[0].image_url || 'https://images.unsplash.com/photo-1539635278303-d4002c07eae3?w=800&q=80'} alt={posts[0].title} className="w-full h-full object-cover" />
                   </div>
-                  <h2 className="text-gray-800 mb-3" style={{ fontFamily: 'Lato', fontWeight: 600, fontSize: '31.64px', lineHeight: '46.98px', letterSpacing: '0%', marginTop: '18.4px' }}>
-                    A traveler&apos;s guide to Penang, Malaysia - Where to Eat, Drink, Sleep and Explore
-                  </h2>
-                  <p className="text-gray-600 mb-4 flex-grow" style={{ fontFamily: 'Lato', fontWeight: 500, fontSize: '24px', lineHeight: '40px', letterSpacing: '0%' }}>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus pharetra ac erat commodo non leo eget gravida viverra. Phasellus pharetra.
-                  </p>
-                  <div className="flex items-center justify-between text-sm mt-auto">
-                    <span className="flex items-center gap-1 text-[#FFAB00]">
-                      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" /></svg>
-                      Penang, Malaysia
-                    </span>
-                    <span className="flex items-center gap-1 text-[#FFAB00]">
-                      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z" /></svg>
-                      Comment 53
-                    </span>
-                  </div>
-                </div>
-              </article>
-
-              {/* Two Column Grid - Row 1 */}
-              <div className="grid md:grid-cols-2 gap-6" style={{ marginTop: '48px', marginBottom: '48px' }}>
-                <article className="bg-white shadow-sm overflow-hidden flex flex-col" style={{ width: '321px', height: '458.55px', background: '#FFFFFF', opacity: 1 }}>
-                  <img 
-                    src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80"
-                    alt="Beach"
-                    className="w-full h-48 object-cover"
-                  />
-                  <div className="p-4 flex flex-col flex-grow" style={{ marginTop: '16px' }}>
-                    <div className="flex items-center mb-2">
+                  <div className="p-6 flex flex-col" style={{ minHeight: '350px' }}>
+                    <div className="flex items-center mb-2" style={{ marginTop: '16px' }}>
                       <div style={{ width: '4px', height: '20px', background: '#FFAB00', marginRight: '8px' }}></div>
-                      <p className="text-xs" style={{ color: '#000000' }}>September 17, 2025 - Tips & Tricks</p>
+                      <p className="text-xs" style={{ color: '#000000' }}>{posts[0].date} - {posts[0].category_name || 'Travel'}</p>
                     </div>
-                    <div className="flex-1 flex items-center justify-center">
-                      <h3 className="text-gray-800 text-center" style={{ fontFamily: 'Lato', fontWeight: 700, fontSize: '25.31px', lineHeight: '37.58px', letterSpacing: '0%' }}>Have you read The Beach by Alex?</h3>
-                    </div>
-                    <div className="flex items-center justify-between text-xs" style={{ marginBottom: '16px' }}>
+                    <h2 className="text-gray-800 mb-3 hover:text-[#0047FF] transition-colors" style={{ fontFamily: 'Lato', fontWeight: 600, fontSize: '31.64px', lineHeight: '46.98px', letterSpacing: '0%', marginTop: '18.4px' }}>{posts[0].title}</h2>
+                    <p className="text-gray-600 mb-4 flex-grow" style={{ fontFamily: 'Lato', fontWeight: 500, fontSize: '24px', lineHeight: '40px', letterSpacing: '0%' }}>{posts[0].excerpt || 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus pharetra ac erat commodo non leo eget gravida viverra. Phasellus pharetra.'}</p>
+                    <div className="flex items-center justify-between text-sm mt-auto">
                       <span className="flex items-center gap-1 text-[#FFAB00]">
-                        <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" /></svg>
-                        Georgia
+                        <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" /></svg>
+                        {posts[0].location}
                       </span>
                       <span className="flex items-center gap-1 text-[#FFAB00]">
-                        <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path d="M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z" /></svg>
-                        Comment (52)
+                        <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z" /></svg>
+                        Comment {posts[0].comments}
                       </span>
                     </div>
                   </div>
                 </article>
-
-                <article className="bg-white shadow-sm overflow-hidden flex flex-col" style={{ width: '321px', height: '458.55px', background: '#FFFFFF', opacity: 1 }}>
-                  <img 
-                    src="https://images.unsplash.com/photo-1518509562904-e7ef99cdcc86?w=600&q=80"
-                    alt="Philippines"
-                    className="w-full h-48 object-cover"
-                  />
-                  <div className="p-4 flex flex-col flex-grow" style={{ marginTop: '16px' }}>
-                    <div className="flex items-center mb-2">
+              ) : (
+                <article
+                  role="button"
+                  tabIndex={0}
+                  onClick={() => navigateToBlog(8)}
+                  onKeyDown={(e) => e.key === 'Enter' && navigateToBlog(8)}
+                  className="bg-white shadow-sm overflow-hidden mt-16 md:mt-24 mb-16 md:mb-24 cursor-pointer hover:shadow-lg transition-shadow"
+                >
+                  <div className="relative h-[250px] md:h-[350px]">
+                    <img src="https://images.unsplash.com/photo-1539635278303-d4002c07eae3?w=800&q=80" alt="Featured Post" className="w-full h-full object-cover" />
+                  </div>
+                  <div className="p-6 flex flex-col" style={{ minHeight: '350px' }}>
+                    <div className="flex items-center mb-2" style={{ marginTop: '16px' }}>
                       <div style={{ width: '4px', height: '20px', background: '#FFAB00', marginRight: '8px' }}></div>
-                      <p className="text-xs" style={{ color: '#000000' }}>September 17, 2025 - Tips & Tricks</p>
+                      <p className="text-xs" style={{ color: '#000000' }}>Mar 15, 2017 - Tips and Tricks</p>
                     </div>
-                    <div className="flex-1 flex items-center justify-center">
-                      <h3 className="text-gray-800 text-center" style={{ fontFamily: 'Lato', fontWeight: 700, fontSize: '25.31px', lineHeight: '37.58px', letterSpacing: '0%' }}>The writer actually live in Philippines</h3>
-                    </div>
-                    <div className="flex items-center justify-between text-xs" style={{ marginBottom: '16px' }}>
-                      <span className="flex items-center gap-1 text-[#FFAB00]">
-                        <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" /></svg>
-                        Georgia
-                      </span>
-                      <span className="flex items-center gap-1 text-[#FFAB00]">
-                        <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path d="M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z" /></svg>
-                        Comment (52)
-                      </span>
+                    <h2 className="text-gray-800 mb-3 hover:text-[#0047FF] transition-colors" style={{ fontFamily: 'Lato', fontWeight: 600, fontSize: '31.64px', lineHeight: '46.98px', letterSpacing: '0%', marginTop: '18.4px' }}>A traveler&apos;s guide to Penang, Malaysia - Where to Eat, Drink, Sleep and Explore</h2>
+                    <p className="text-gray-600 mb-4 flex-grow" style={{ fontFamily: 'Lato', fontWeight: 500, fontSize: '24px', lineHeight: '40px', letterSpacing: '0%' }}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus pharetra ac erat commodo non leo eget gravida viverra. Phasellus pharetra.</p>
+                    <div className="flex items-center justify-between text-sm mt-auto">
+                      <span className="flex items-center gap-1 text-[#FFAB00]"><svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" /></svg>Penang, Malaysia</span>
+                      <span className="flex items-center gap-1 text-[#FFAB00]"><svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z" /></svg>Comment 53</span>
                     </div>
                   </div>
                 </article>
+              ))}
+
+              {/* Two Column Grid - Row 1 - from API or fallback */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 mt-20 md:mt-28 mb-20 md:mb-28">
+                {(posts[1] ? (
+                  <article role="button" tabIndex={0} onClick={() => navigateToBlog(posts[1].id)} onKeyDown={(e) => e.key === 'Enter' && navigateToBlog(posts[1].id)} className="bg-white shadow-sm overflow-hidden flex flex-col w-full max-w-[321px] mx-auto md:mx-0 cursor-pointer hover:shadow-lg transition-shadow" style={{ background: '#FFFFFF', opacity: 1, marginTop: '48px', marginBottom: '48px' }}>
+                    <img src={posts[1].image_url || 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80'} alt={posts[1].title} className="w-full h-48 object-cover" />
+                    <div className="p-4 flex flex-col flex-grow" style={{ marginTop: '16px' }}>
+                      <div className="flex items-center mb-2"><div style={{ width: '4px', height: '20px', background: '#FFAB00', marginRight: '8px' }}></div><p className="text-xs" style={{ color: '#000000' }}>{posts[1].date} - {posts[1].category_name || 'Travel'}</p></div>
+                      <div className="flex-1 flex items-center justify-center"><h3 className="text-gray-800 text-center hover:text-[#0047FF] transition-colors" style={{ fontFamily: 'Lato', fontWeight: 700, fontSize: '25.31px', lineHeight: '37.58px', letterSpacing: '0%' }}>{posts[1].title}</h3></div>
+                      <div className="flex items-center justify-between text-xs" style={{ marginBottom: '16px' }}>
+                        <span className="flex items-center gap-1 text-[#FFAB00]"><svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" /></svg>{posts[1].location}</span>
+                        <span className="flex items-center gap-1 text-[#FFAB00]"><svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path d="M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z" /></svg>Comment ({posts[1].comments})</span>
+                      </div>
+                    </div>
+                  </article>
+                ) : (
+                  <article role="button" tabIndex={0} onClick={() => navigateToBlog(1)} onKeyDown={(e) => e.key === 'Enter' && navigateToBlog(1)} className="bg-white shadow-sm overflow-hidden flex flex-col w-full max-w-[321px] mx-auto md:mx-0 cursor-pointer hover:shadow-lg transition-shadow" style={{ background: '#FFFFFF', opacity: 1, marginTop: '48px', marginBottom: '48px' }}>
+                    <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80" alt="Beach" className="w-full h-48 object-cover" />
+                    <div className="p-4 flex flex-col flex-grow" style={{ marginTop: '16px' }}>
+                      <div className="flex items-center mb-2"><div style={{ width: '4px', height: '20px', background: '#FFAB00', marginRight: '8px' }}></div><p className="text-xs" style={{ color: '#000000' }}>September 17, 2025 - Tips & Tricks</p></div>
+                      <div className="flex-1 flex items-center justify-center"><h3 className="text-gray-800 text-center hover:text-[#0047FF] transition-colors" style={{ fontFamily: 'Lato', fontWeight: 700, fontSize: '25.31px', lineHeight: '37.58px', letterSpacing: '0%' }}>Have you read The Beach by Alex?</h3></div>
+                      <div className="flex items-center justify-between text-xs" style={{ marginBottom: '16px' }}><span className="flex items-center gap-1 text-[#FFAB00]"><svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" /></svg>Georgia</span><span className="flex items-center gap-1 text-[#FFAB00]"><svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path d="M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z" /></svg>Comment (52)</span></div></div>
+                  </article>
+                ))}
+                {(posts[2] ? (
+                  <article role="button" tabIndex={0} onClick={() => navigateToBlog(posts[2].id)} onKeyDown={(e) => e.key === 'Enter' && navigateToBlog(posts[2].id)} className="bg-white shadow-sm overflow-hidden flex flex-col w-full max-w-[321px] mx-auto md:mx-0 cursor-pointer hover:shadow-lg transition-shadow" style={{ background: '#FFFFFF', opacity: 1, marginTop: '48px', marginBottom: '48px' }}>
+                    <img src={posts[2].image_url || 'https://images.unsplash.com/photo-1518509562904-e7ef99cdcc86?w=600&q=80'} alt={posts[2].title} className="w-full h-48 object-cover" />
+                    <div className="p-4 flex flex-col flex-grow" style={{ marginTop: '16px' }}>
+                      <div className="flex items-center mb-2"><div style={{ width: '4px', height: '20px', background: '#FFAB00', marginRight: '8px' }}></div><p className="text-xs" style={{ color: '#000000' }}>{posts[2].date} - {posts[2].category_name || 'Travel'}</p></div>
+                      <div className="flex-1 flex items-center justify-center"><h3 className="text-gray-800 text-center hover:text-[#0047FF] transition-colors" style={{ fontFamily: 'Lato', fontWeight: 700, fontSize: '25.31px', lineHeight: '37.58px', letterSpacing: '0%' }}>{posts[2].title}</h3></div>
+                      <div className="flex items-center justify-between text-xs" style={{ marginBottom: '16px' }}>
+                        <span className="flex items-center gap-1 text-[#FFAB00]"><svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" /></svg>{posts[2].location}</span>
+                        <span className="flex items-center gap-1 text-[#FFAB00]"><svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path d="M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z" /></svg>Comment ({posts[2].comments})</span>
+                      </div>
+                    </div>
+                  </article>
+                ) : (
+                  <article role="button" tabIndex={0} onClick={() => navigateToBlog(2)} onKeyDown={(e) => e.key === 'Enter' && navigateToBlog(2)} className="bg-white shadow-sm overflow-hidden flex flex-col w-full max-w-[321px] mx-auto md:mx-0 cursor-pointer hover:shadow-lg transition-shadow" style={{ background: '#FFFFFF', opacity: 1, marginTop: '48px', marginBottom: '48px' }}>
+                    <img src="https://images.unsplash.com/photo-1518509562904-e7ef99cdcc86?w=600&q=80" alt="Philippines" className="w-full h-48 object-cover" />
+                    <div className="p-4 flex flex-col flex-grow" style={{ marginTop: '16px' }}>
+                      <div className="flex items-center mb-2"><div style={{ width: '4px', height: '20px', background: '#FFAB00', marginRight: '8px' }}></div><p className="text-xs" style={{ color: '#000000' }}>September 17, 2025 - Tips & Tricks</p></div>
+                      <div className="flex-1 flex items-center justify-center"><h3 className="text-gray-800 text-center hover:text-[#0047FF] transition-colors" style={{ fontFamily: 'Lato', fontWeight: 700, fontSize: '25.31px', lineHeight: '37.58px', letterSpacing: '0%' }}>The writer actually live in Philippines</h3></div>
+                      <div className="flex items-center justify-between text-xs" style={{ marginBottom: '16px' }}><span className="flex items-center gap-1 text-[#FFAB00]"><svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" /></svg>Georgia</span><span className="flex items-center gap-1 text-[#FFAB00]"><svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path d="M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z" /></svg>Comment (52)</span></div></div>
+                  </article>
+                ))}
               </div>
 
               {/* Video Post - Into Nature's Wild */}
-              <article className="bg-white shadow-sm overflow-hidden" style={{ marginTop: '48px', marginBottom: '48px' }}>
+              <article className="bg-white shadow-sm overflow-hidden" style={{ marginTop: '80px', marginBottom: '80px' }}>
                 <div className="relative h-[350px]">
                   <img 
                     src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1000&q=80"
@@ -524,8 +582,8 @@ export default function Home() {
               </div>
 
               {/* Two Column Grid - Row 2 */}
-              <div className="grid md:grid-cols-2 gap-6" style={{ marginTop: '48px', marginBottom: '48px' }}>
-                <article className="bg-white shadow-sm overflow-hidden flex flex-col" style={{ width: '321px', height: '458.55px', background: '#FFFFFF', opacity: 1 }}>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16" style={{ marginTop: '100px', marginBottom: '100px' }}>
+                <article className="bg-white shadow-sm overflow-hidden flex flex-col w-full max-w-[321px] mx-auto md:mx-0 my-6" style={{ background: '#FFFFFF', opacity: 1, marginTop: '48px', marginBottom: '48px' }}>
                   <img 
                     src="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=600&q=80"
                     alt="Crowds"
@@ -552,7 +610,7 @@ export default function Home() {
                   </div>
                 </article>
 
-                <article className="bg-white shadow-sm overflow-hidden flex flex-col" style={{ width: '321px', height: '458.55px', background: '#FFFFFF', opacity: 1 }}>
+                <article className="bg-white shadow-sm overflow-hidden flex flex-col w-full max-w-[321px] mx-auto md:mx-0 my-6" style={{ background: '#FFFFFF', opacity: 1, marginTop: '48px', marginBottom: '48px' }}>
                   <img 
                     src="https://images.unsplash.com/photo-1545569341-9eb8b30979d9?w=600&q=80"
                     alt="Matsumoto Castle"
@@ -581,8 +639,8 @@ export default function Home() {
               </div>
 
               {/* Two Column Grid - Row 3 */}
-              <div className="grid md:grid-cols-2 gap-6" style={{ marginTop: '48px', marginBottom: '48px' }}>
-                <article className="bg-white shadow-sm overflow-hidden flex flex-col" style={{ width: '321px', height: '458.55px', background: '#FFFFFF', opacity: 1 }}>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16" style={{ marginTop: '100px', marginBottom: '100px' }}>
+                <article className="bg-white shadow-sm overflow-hidden flex flex-col w-full max-w-[321px] mx-auto md:mx-0 my-6" style={{ background: '#FFFFFF', opacity: 1, marginTop: '48px', marginBottom: '48px' }}>
                   <img 
                     src="https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?w=600&q=80"
                     alt="Buildings"
@@ -609,9 +667,9 @@ export default function Home() {
                   </div>
                 </article>
 
-                <article className="bg-white shadow-sm overflow-hidden flex flex-col" style={{ width: '321px', height: '458.55px', background: '#FFFFFF', opacity: 1 }}>
+                <article className="bg-white shadow-sm overflow-hidden flex flex-col w-full max-w-[321px] mx-auto md:mx-0" style={{ background: '#FFFFFF', opacity: 1, marginTop: '48px', marginBottom: '48px' }}>
                   <img 
-                    src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80"
+                    src={'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1000&q=80'}
                     alt="Deer"
                     className="w-full h-48 object-cover"
                   />
@@ -638,7 +696,7 @@ export default function Home() {
               </div>
 
               {/* Video Post 2 - Into Nature's Wild */}
-              <article className="bg-white shadow-sm overflow-hidden" style={{ marginTop: '48px', marginBottom: '48px' }}>
+              <article className="bg-white shadow-sm overflow-hidden" style={{ marginTop: '80px', marginBottom: '80px' }}>
                 <div className="relative h-[350px]">
                   <img 
                     src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1000&q=80"
@@ -675,8 +733,8 @@ export default function Home() {
               </article>
 
               {/* Two Column Grid - Row 4 */}
-              <div className="grid md:grid-cols-2 gap-6" style={{ marginTop: '48px', marginBottom: '48px' }}>
-                <article className="bg-white shadow-sm overflow-hidden flex flex-col" style={{ width: '321px', height: '458.55px', background: '#FFFFFF', opacity: 1 }}>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16" style={{ marginTop: '100px', marginBottom: '100px' }}>
+                <article className="bg-white shadow-sm overflow-hidden flex flex-col w-full max-w-[321px] mx-auto md:mx-0 my-6" style={{ background: '#FFFFFF', opacity: 1, marginTop: '48px', marginBottom: '48px' }}>
                   <img 
                     src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80"
                     alt="Beach"
@@ -703,9 +761,9 @@ export default function Home() {
                   </div>
                 </article>
 
-                <article className="bg-white shadow-sm overflow-hidden flex flex-col" style={{ width: '321px', height: '458.55px', background: '#FFFFFF', opacity: 1 }}>
+                <article className="bg-white shadow-sm overflow-hidden flex flex-col w-full max-w-[321px] mx-auto md:mx-0" style={{ background: '#FFFFFF', opacity: 1, marginTop: '48px', marginBottom: '48px' }}>
                   <img 
-                    src="https://images.unsplash.com/photo-1518509562904-e7ef99cdcc86?w=600&q=80"
+                    src={'https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=1000&q=80'}
                     alt="Philippines"
                     className="w-full h-48 object-cover"
                   />
@@ -734,6 +792,7 @@ export default function Home() {
           </div>
         </div>
       </section>
+
     </div>
   );
 }

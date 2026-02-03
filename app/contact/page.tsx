@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { contactsAPI } from '@/lib/api';
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -12,18 +13,35 @@ export default function ContactPage() {
     subject: '',
     message: '',
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
-    setFormData({
-      firstName: '',
-      lastName: '',
-      email: '',
-      subject: '',
-      message: '',
-    });
-    alert('Thank you for your message! We will get back to you soon.');
+    setIsSubmitting(true);
+    
+    try {
+      await contactsAPI.submit({
+        first_name: formData.firstName,
+        last_name: formData.lastName,
+        email: formData.email,
+        subject: formData.subject,
+        message: formData.message,
+      });
+      
+      setFormData({
+        firstName: '',
+        lastName: '',
+        email: '',
+        subject: '',
+        message: '',
+      });
+      alert('Thank you for your message! We will get back to you soon.');
+    } catch (error) {
+      console.error('Contact form error:', error);
+      alert('Failed to send message. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (
@@ -202,6 +220,7 @@ export default function ContactPage() {
           
           <button
             type="submit"
+            disabled={isSubmitting}
             className="col-span-1 md:col-span-2 justify-self-center mt-5"
             style={{
               background: '#0037ff',
@@ -211,17 +230,20 @@ export default function ContactPage() {
               fontSize: '16px',
               fontWeight: '600',
               borderRadius: '4px',
-              cursor: 'pointer',
+              cursor: isSubmitting ? 'not-allowed' : 'pointer',
               width: '200px',
+              opacity: isSubmitting ? 0.7 : 1,
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.background = '#002ed6';
+              if (!isSubmitting) {
+                e.currentTarget.style.background = '#002ed6';
+              }
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.background = '#0037ff';
             }}
           >
-            Submit
+            {isSubmitting ? 'Submitting...' : 'Submit'}
           </button>
         </form>
       </section>

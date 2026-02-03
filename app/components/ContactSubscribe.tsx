@@ -1,15 +1,33 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { subscribersAPI } from '@/lib/api';
 
 export default function ContactSubscribe() {
   const [subscribeEmail, setSubscribeEmail] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [subscriberCount, setSubscriberCount] = useState<number | null>(null);
 
-  const handleSubscribe = (e: React.FormEvent) => {
+  useEffect(() => {
+    subscribersAPI.getCount()
+      .then((data) => setSubscriberCount(data.count ?? null))
+      .catch(() => setSubscriberCount(null));
+  }, []);
+
+  const handleSubscribe = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Subscribe:', subscribeEmail);
-    setSubscribeEmail('');
-    alert('Thank you for subscribing!');
+    setIsSubmitting(true);
+    
+    try {
+      await subscribersAPI.subscribe(subscribeEmail);
+      setSubscribeEmail('');
+      alert('Thank you for subscribing!');
+    } catch (error) {
+      console.error('Subscription error:', error);
+      alert('Failed to subscribe. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -22,7 +40,7 @@ export default function ContactSubscribe() {
       }}
     >
       <div style={{ fontSize: '24px', color: '#111' }}>
-        Join <span style={{ color: '#0037ff', fontWeight: 'bold' }}>98,641</span> Monthly Readers.<br />Subscribe Today!
+        Join <span style={{ color: '#0037ff', fontWeight: 'bold' }}>{subscriberCount != null ? subscriberCount.toLocaleString() : '98,641'}</span> Monthly Readers.<br />Subscribe Today!
       </div>
       <form onSubmit={handleSubscribe} className="flex flex-col md:flex-row gap-4 w-full md:w-auto">
         <input
@@ -50,6 +68,7 @@ export default function ContactSubscribe() {
         />
         <button
           type="submit"
+          disabled={isSubmitting}
           className="w-full md:w-auto"
           style={{
             background: '#0037ff',
@@ -58,16 +77,19 @@ export default function ContactSubscribe() {
             padding: '15px 30px',
             borderRadius: '4px',
             fontWeight: '600',
-            cursor: 'pointer',
+            cursor: isSubmitting ? 'not-allowed' : 'pointer',
+            opacity: isSubmitting ? 0.7 : 1,
           }}
           onMouseEnter={(e) => {
-            e.currentTarget.style.background = '#002ed6';
+            if (!isSubmitting) {
+              e.currentTarget.style.background = '#002ed6';
+            }
           }}
           onMouseLeave={(e) => {
             e.currentTarget.style.background = '#0037ff';
           }}
         >
-          Subscribe
+          {isSubmitting ? 'Subscribing...' : 'Subscribe'}
         </button>
       </form>
     </section>
