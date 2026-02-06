@@ -131,7 +131,14 @@ export default function AboutPage() {
         <div className="max-w-7xl mx-auto" style={{ paddingLeft: '88px', paddingRight: '88px' }}>
           <div className="grid md:grid-cols-2 gap-12">
             {/* Left Column - About Our Cameraman */}
-            <div>
+            <div style={{ 
+              width: '438.2314453125px', 
+              height: '598px',
+              position: 'relative',
+              top: '687px',
+              left: '69.77px',
+              opacity: 1
+            }}>
               <h2 className="text-3xl font-bold mb-6">About Our Cameraman</h2>
               <div className="space-y-4 text-gray-600">
                 {[1, 2, 3, 4].map((i) => (

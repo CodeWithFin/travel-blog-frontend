@@ -1,14 +1,15 @@
-# Travel Blog Frontend
+# Travel Blog (Monolithic)
 
-A modern, responsive travel blog built with Next.js 16, React 19, and Tailwind CSS. The frontend connects to a backend API for dynamic content management.
+A modern, responsive travel blog built with Next.js 16, React 19, and Tailwind CSS. **The app is monolithic:** the same Next.js server serves the UI and the API (Supabase-backed). No separate backend is required.
 
 ## 🚀 Features
 
+- **Monolithic:** One app, one server – API routes live under `/api/*` in this repo
 - Server-side rendering with Next.js 16
 - Modern UI with Tailwind CSS 4
 - Responsive design
 - TypeScript for type safety
-- API integration with backend
+- Supabase for database (posts, categories, destinations, tips, subscribers, contacts, gallery, etc.)
 - Fallback data for offline/development mode
 - Dynamic content loading
 - Newsletter subscription
@@ -19,7 +20,7 @@ A modern, responsive travel blog built with Next.js 16, React 19, and Tailwind C
 
 - Node.js (v18 or higher)
 - npm or yarn
-- Backend API running (see `travel-blog-backend` folder)
+- Supabase project (for database and optional image storage)
 
 ## 🛠️ Installation
 
@@ -35,44 +36,44 @@ A modern, responsive travel blog built with Next.js 16, React 19, and Tailwind C
 
 3. **Set up environment variables:**
    
-   Create a `.env.local` file in the root directory:
+   Copy `.env.example` to `.env.local` and fill in your Supabase credentials:
+   ```bash
+   cp .env.example .env.local
+   ```
+   
+   In `.env.local`:
+   ```env
+   SUPABASE_URL=https://your-project.supabase.co
+   SUPABASE_ANON_KEY=your-anon-key
+   ```
+   
+   **Optional:** To use a **separate** backend instead of the built-in API, set:
    ```env
    NEXT_PUBLIC_API_URL=http://localhost:5000/api
-   NEXT_PUBLIC_USE_API=true
    ```
-
-   **Environment Variables Explained:**
-   - `NEXT_PUBLIC_API_URL`: Backend API URL (required)
-   - `NEXT_PUBLIC_USE_API`: Set to `false` to use hardcoded fallback data (optional)
+   **Environment variables for monolithic mode:**
+   - `SUPABASE_URL` – your Supabase project URL (required)
+   - `SUPABASE_ANON_KEY` – your Supabase anon/public key (required)
+   - `SUPABASE_SERVICE_ROLE_KEY` – optional; use for image uploads if anon key has no storage write
+   - `NEXT_PUBLIC_API_URL` – optional; set only if you use a separate backend (e.g. `http://localhost:5000/api`)
 
 4. **Start the development server:**
    ```bash
    npm run dev
    ```
 
-   The app will start at `http://localhost:3000`
+   The app (UI + API) runs at `http://localhost:3000`.
 
 ## 🔧 Configuration
 
-### Connecting to Backend
+### Monolithic vs separate backend
 
-The frontend is configured to connect to the backend API automatically. Make sure:
+- **Monolithic (default):** Do not set `NEXT_PUBLIC_API_URL`. The app uses same-origin `/api/*` routes, which talk to Supabase. One server, one deploy.
+- **Separate backend:** Set `NEXT_PUBLIC_API_URL=http://localhost:5000/api` (or your backend URL) to use the Express backend in `travel-blog-backend` instead of the built-in API.
 
-1. The backend server is running at `http://localhost:5000` (or your configured URL)
-2. The backend database is seeded with initial data
-3. CORS is enabled on the backend for your frontend URL
+### Database (Supabase)
 
-### API Configuration
-
-The API configuration is managed in `/lib/api.ts` and `/lib/config.ts`:
-
-```typescript
-// lib/config.ts
-export const API_CONFIG = {
-  baseURL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api',
-  timeout: 10000,
-};
-```
+Ensure your Supabase project has the schema and tables (e.g. `posts`, `categories`, `destinations`, `tips`, `subscribers`, `contacts`, `gallery_images`, `social_stats`, `site_settings`, `products`, `testimonials`, `post_comments`). Use the Supabase dashboard or SQL migrations to create them; seed data can be added via the API or Supabase SQL editor.
 
 ### Fallback Data
 
@@ -259,6 +260,14 @@ If build fails:
 3. Check for TypeScript errors
 4. Verify all imports are correct
 
+### No blog posts showing (monolithic)
+
+If the homepage or blog pages are empty or show “Could not load posts”:
+
+1. **Use the built-in API:** Remove `NEXT_PUBLIC_API_URL` from `.env.local` (or leave it unset). If it’s set to e.g. `http://localhost:5000/api`, the browser will try that URL and fail because there is no separate backend.
+2. **Restart the dev server** after changing env vars (`npm run dev`).
+3. **Check Supabase:** Ensure `.env.local` has `SUPABASE_URL` and `SUPABASE_ANON_KEY`, and that your Supabase project has the `posts` table with data (seed or add rows in the Supabase dashboard).
+
 ### Styling Issues
 
 If styles don't apply:
@@ -275,17 +284,9 @@ If styles don't apply:
 - Loading states provide better UX
 - Error handling is implemented throughout
 
-## 🤝 Backend Setup
+## 🤝 Admin app
 
-Make sure you have set up the backend first:
-
-1. Navigate to `travel-blog-backend`
-2. Follow the README instructions
-3. Set up Neon database
-4. Run database seeding
-5. Start the backend server
-
-Then start this frontend app.
+The `travel-blog-admin` app (if present in the repo) can use this app’s API by setting `NEXT_PUBLIC_API_URL=http://localhost:3000/api` in its env.
 
 ## 📚 Documentation
 
@@ -300,10 +301,10 @@ ISC
 
 ## 🎉 Success!
 
-If everything is set up correctly, you should see:
-- ✅ Frontend running at http://localhost:3000
-- ✅ Backend API at http://localhost:5000
-- ✅ Dynamic content loading from database
-- ✅ All features working perfectly
+If everything is set up correctly (monolithic):
+- ✅ App (UI + API) running at http://localhost:3000
+- ✅ API at http://localhost:3000/api (e.g. `/api/health`, `/api/posts`)
+- ✅ Dynamic content loading from Supabase
+- ✅ All features working with a single server
 
 Enjoy your travel blog! 🌍✈️

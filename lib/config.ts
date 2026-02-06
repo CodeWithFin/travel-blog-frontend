@@ -1,6 +1,10 @@
-// API Configuration
+// API Configuration (monolithic: defaults to same-origin /api when NEXT_PUBLIC_API_URL is unset)
+const externalApi = process.env.NEXT_PUBLIC_API_URL?.replace(/\/api\/?$/, '') || '';
+const API_BASE =
+  externalApi ||
+  (typeof window !== 'undefined' ? '' : process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3000');
 export const API_CONFIG = {
-  baseURL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api',
+  baseURL: `${API_BASE}/api`,
   timeout: 10000,
 };
 

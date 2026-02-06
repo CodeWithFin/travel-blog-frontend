@@ -1,9 +1,14 @@
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
+// Monolithic: use same-origin /api when NEXT_PUBLIC_API_URL is unset. Do NOT set NEXT_PUBLIC_API_URL to a separate backend URL unless you run one.
+const externalApi = (process.env.NEXT_PUBLIC_API_URL ?? '').trim().replace(/\/api\/?$/, '') || '';
+const isBrowser = typeof window !== 'undefined';
+const API_BASE =
+  externalApi || (isBrowser ? '' : process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3000');
+const API_ROOT = `${API_BASE}/api`;
 
 // Generic fetch function with error handling
 async function fetchAPI(endpoint: string, options: RequestInit = {}) {
   try {
-    const response = await fetch(`${API_URL}${endpoint}`, {
+    const response = await fetch(`${API_ROOT}${endpoint}`, {
       ...options,
       headers: {
         'Content-Type': 'application/json',
@@ -25,7 +30,9 @@ async function fetchAPI(endpoint: string, options: RequestInit = {}) {
       (error.message === 'Failed to fetch' || (error as Error).message?.includes('fetch'));
     if (isNetworkError) {
       const friendly = new Error(
-        `Cannot reach the API at ${API_URL}. Make sure the backend is running (e.g. \`cd travel-blog-backend && npm run dev\`).`
+        API_ROOT
+          ? `Cannot reach the API at ${API_ROOT}. Make sure the server is running.`
+          : `Cannot reach the API. Make sure the app is running (e.g. \`npm run dev\`).`
       );
       console.warn(friendly.message);
       throw friendly;

@@ -122,7 +122,7 @@ export default function Home() {
       </section>
 
       {/* Main Content Area */}
-      <section className="py-8 md:py-12 bg-[#f8f9fa]">
+      <section className="pt-16 md:pt-24 lg:pt-28 pb-8 md:pb-12 bg-[#f8f9fa]">
         <div className="max-w-[1200px] mx-auto px-4 md:px-6 lg:px-[35px]">
           <div className="flex flex-col lg:flex-row gap-8 lg:gap-[100px]">
             {/* Left Sidebar - 280px on desktop, full width on mobile */}
@@ -426,7 +426,7 @@ export default function Home() {
                   tabIndex={0}
                   onClick={() => navigateToBlog(posts[0].id)}
                   onKeyDown={(e) => e.key === 'Enter' && navigateToBlog(posts[0].id)}
-                  className="bg-white shadow-sm overflow-hidden mt-16 md:mt-24 mb-16 md:mb-24 cursor-pointer hover:shadow-lg transition-shadow"
+                  className="bg-white shadow-sm overflow-hidden mb-16 md:mb-24 cursor-pointer hover:shadow-lg transition-shadow"
                 >
                   <div className="relative h-[250px] md:h-[350px]">
                     <img src={posts[0].image_url || 'https://images.unsplash.com/photo-1539635278303-d4002c07eae3?w=800&q=80'} alt={posts[0].title} className="w-full h-full object-cover" />
@@ -456,7 +456,7 @@ export default function Home() {
                   tabIndex={0}
                   onClick={() => navigateToBlog(8)}
                   onKeyDown={(e) => e.key === 'Enter' && navigateToBlog(8)}
-                  className="bg-white shadow-sm overflow-hidden mt-16 md:mt-24 mb-16 md:mb-24 cursor-pointer hover:shadow-lg transition-shadow"
+                  className="bg-white shadow-sm overflow-hidden mb-16 md:mb-24 cursor-pointer hover:shadow-lg transition-shadow"
                 >
                   <div className="relative h-[250px] md:h-[350px]">
                     <img src="https://images.unsplash.com/photo-1539635278303-d4002c07eae3?w=800&q=80" alt="Featured Post" className="w-full h-full object-cover" />

@@ -68,43 +68,76 @@ export default function BlogDetailPage() {
   }
 
   return (
-    <div className="bg-white min-h-screen pt-8 md:pt-10">
-      {/* Hero Image */}
-      <section className="relative h-[400px] md:h-[500px] lg:h-[600px]">
-        <div 
-          className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: `url(${post.image_url})` }}
-        >
-          <div className="absolute inset-0 bg-black/40" />
-        </div>
-        <div className="relative z-10 h-full flex items-end">
-          <div className="max-w-[1200px] mx-auto w-full px-4 md:px-8 lg:px-[35px] pb-12">
-            <div className="inline-block px-4 py-2 bg-[#FFAB00] text-white text-sm font-medium rounded mb-4">
-              {post.date} - {post.category_name || 'Travel'}
+    <div className="bg-[#f8f9fa] min-h-screen pt-8 md:pt-10">
+      {/* Content Card */}
+      <section className="pb-12 md:pb-16 lg:pb-20">
+        <div className="max-w-[794px] px-4 md:px-8 lg:px-[35px]" style={{ marginLeft: '20%' }}>
+          <article 
+            className="bg-white overflow-hidden"
+            style={{
+              opacity: 1,
+              boxShadow: `
+                0px 2.77px 6.23px 0px rgba(0, 0, 0, 0.05),
+                0px 6.65px 14.96px 0px rgba(0, 0, 0, 0.07),
+                0px 12.52px 28.17px 0px rgba(0, 0, 0, 0.09),
+                0px 22.34px 50.26px 0px rgba(0, 0, 0, 0.11),
+                0px 41.78px 94px 0px rgba(0, 0, 0, 0.13),
+                0px 100px 225px 0px rgba(0, 0, 0, 0.18)
+              `
+            }}
+          >
+            {/* Hero Image */}
+            <div className="relative h-[400px]">
+              <div 
+                className="absolute inset-0 bg-cover bg-center"
+                style={{ backgroundImage: `url(${post.image_url})` }}
+              >
+                <div className="absolute inset-0 bg-black/40" />
+              </div>
             </div>
-            <h1 className="text-white text-3xl md:text-4xl lg:text-5xl font-bold mb-4 leading-tight">
-              {post.title}
-            </h1>
-            <div className="flex items-center gap-6 text-white">
+
+            {/* Date Badge */}
+            <div className="px-6 md:px-12 pt-6">
+              <div className="inline-block px-3 py-1 bg-[#FFAB00] text-white text-xs font-medium">
+                {post.date} - {post.category_name || 'Travel'}
+              </div>
+            </div>
+
+            {/* Title */}
+            <div className="px-6 md:px-12 pt-4">
+              <h1 className="text-gray-900 text-2xl md:text-3xl lg:text-4xl font-bold leading-tight">
+                {post.title}
+              </h1>
+            </div>
+
+            {/* Excerpt */}
+            <div className="px-6 md:px-12 pt-6">
+              <p className="text-gray-700 text-base md:text-lg leading-relaxed">
+                {post.excerpt || 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus pharetra ac erat commodo non leo eget gravida viverra. Phasellus pharetra.'}
+              </p>
+            </div>
+
+            {/* Meta Info */}
+            <div className="px-6 md:px-12 pt-6 pb-8 flex items-center justify-between text-sm text-[#FFAB00]">
               <div className="flex items-center gap-2">
-                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
                 </svg>
                 <span>{post.location}</span>
               </div>
               <div className="flex items-center gap-2">
-                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                   <path d="M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z" />
                 </svg>
-                <span>{post.comments} Comments</span>
+                <span>Comment {post.comments}</span>
               </div>
             </div>
-          </div>
+          </article>
         </div>
       </section>
 
       {/* Breadcrumb */}
-      <div className="bg-[#f8f9fa] py-4 mt-10 md:mt-14 lg:mt-16">
+      <div className="bg-white py-4 mt-10 md:mt-14 lg:mt-16" style={{ display: 'none' }}>
         <div className="max-w-[1200px] mx-auto px-4 md:px-8 lg:px-[35px]">
           <div className="flex items-center gap-2 text-sm">
             <Link href="/" className="text-[#0047FF] hover:underline">Home</Link>
@@ -116,8 +149,8 @@ export default function BlogDetailPage() {
         </div>
       </div>
 
-      {/* Content */}
-      <section className="pt-16 md:pt-24 lg:pt-32 pb-12 md:pb-16 lg:pb-20">
+      {/* Additional Content - Hidden for now */}
+      <section className="pt-16 md:pt-24 lg:pt-32 pb-12 md:pb-16 lg:pb-20" style={{ display: 'none' }}>
         <div className="max-w-[900px] mx-auto px-4 md:px-8 lg:px-[35px]">
           {/* Excerpt */}
           {post.excerpt && (

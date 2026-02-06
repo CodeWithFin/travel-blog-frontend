@@ -32,3 +32,17 @@ body {
 html {
   scroll-behavior: smooth;
 }
+
+/* Blog detail: Lato body, drop-cap first letter (editorial) */
+.blog-article {
+  font-family: var(--font-lato), 'Lato', sans-serif;
+}
+.blog-article .drop-cap::first-letter {
+  float: left;
+  font-size: 3rem; /* text-5xl */
+  line-height: 1;
+  margin-right: 0.75rem; /* mr-3 */
+  margin-top: 0.1rem;
+  font-weight: 700;
+  color: var(--primary-blue);
+}

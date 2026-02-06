@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Poppins } from "next/font/google";
+import { Poppins, Lato } from "next/font/google";
 import "./globals.css";
 import Header from "./components/Header";
 import ImageStrip from "./components/ImageStrip";
@@ -10,6 +10,12 @@ const poppins = Poppins({
   weight: ['300', '400', '600', '700'],
   subsets: ["latin"],
   variable: "--font-poppins",
+});
+
+const lato = Lato({
+  weight: ['300', '400', '700'],
+  subsets: ["latin"],
+  variable: "--font-lato",
 });
 
 export const metadata: Metadata = {
@@ -24,7 +30,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${poppins.variable} font-sans antialiased`}>
+      <body className={`${poppins.variable} ${lato.variable} font-sans antialiased`}>
         <Header />
         <main>{children}</main>
         <ImageStrip />
