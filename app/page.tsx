@@ -123,8 +123,8 @@ export default function Home() {
 
       {/* Main Content Area */}
       <section className="pt-16 md:pt-24 lg:pt-28 pb-8 md:pb-12 bg-[#f8f9fa]">
-        <div className="max-w-[1200px] mx-auto px-4 md:px-6 lg:px-[35px]">
-          <div className="flex flex-col lg:flex-row gap-8 lg:gap-[100px]">
+        <div className="max-w-[1339px] mx-auto px-4 md:px-6 lg:px-[35px]" style={{ paddingLeft: '50px', paddingRight: '20px' }}>
+          <div className="flex flex-col lg:flex-row gap-8 lg:gap-[150px]">
             {/* Left Sidebar - 280px on desktop, full width on mobile */}
             <aside className="w-full lg:w-[280px] flex-shrink-0 space-y-6 order-2 lg:order-1">
               {/* About Me Widget */}
@@ -132,7 +132,8 @@ export default function Home() {
                 width: '344.43px', 
                 height: '478.82px', 
                 opacity: 1,
-                marginTop: '48px' 
+                marginTop: '48px',
+                marginBottom: '48px'
               }}>
                 <div className="flex flex-col h-full" style={{ padding: '32px', paddingTop: '0' }}>
                   <h3 className="text-gray-800 mb-4 text-center" style={{ fontSize: '25.25px', marginTop: '0', fontWeight: 560 }}>About Me</h3>
@@ -209,8 +210,8 @@ export default function Home() {
                 width: '299.04px', 
                 height: '85.6px', 
                 opacity: 1,
-                marginTop: '24px',
-                marginBottom: '24px'
+                marginTop: '48px',
+                marginBottom: '48px'
               }}>
                 <h3 className="font-bold text-black text-center" style={{ fontSize: '20.7px' }}>Popular Post</h3>
               </div>
@@ -219,7 +220,8 @@ export default function Home() {
               <div className="relative rounded-lg shadow-sm overflow-hidden" style={{ 
                 width: '299.04px',
                 height: '272px',
-                marginBottom: '24px'
+                marginTop: '48px',
+                marginBottom: '48px'
               }}>
                 <div 
                   className="absolute inset-0 bg-cover bg-center"
@@ -257,8 +259,8 @@ export default function Home() {
                 width: '299.04px', 
                 height: '85.6px', 
                 opacity: 1,
-                marginTop: '24px',
-                marginBottom: '24px'
+                marginTop: '48px',
+                marginBottom: '48px'
               }}>
                 <h3 className="font-bold text-black text-center" style={{ fontSize: '20.7px' }}>Recent Post</h3>
               </div>
@@ -330,8 +332,8 @@ export default function Home() {
                 width: '299.04px', 
                 height: '85.6px', 
                 opacity: 1,
-                marginTop: '24px',
-                marginBottom: '24px'
+                marginTop: '48px',
+                marginBottom: '48px'
               }}>
                 <h3 className="font-bold text-black text-center" style={{ fontSize: '20.7px' }}>Product That I Have</h3>
               </div>
@@ -363,8 +365,8 @@ export default function Home() {
                 width: '299.04px', 
                 height: '85.6px', 
                 opacity: 1,
-                marginTop: '24px',
-                marginBottom: '24px'
+                marginTop: '48px',
+                marginBottom: '48px'
               }}>
                 <h3 className="font-bold text-black text-center" style={{ fontSize: '20.7px' }}>Get in Touch</h3>
               </div>
@@ -418,7 +420,7 @@ export default function Home() {
             </aside>
 
             {/* Main Content Area - Flexible Width */}
-            <main className="w-full lg:flex-1 space-y-6 order-1 lg:order-2">
+            <main className="w-full lg:flex-1 space-y-6 order-1 lg:order-2" style={{ marginTop: '64px' }}>
               {/* Featured Large Post - from API or fallback */}
               {(posts[0] ? (
                 <article
@@ -476,10 +478,12 @@ export default function Home() {
                 </article>
               ))}
 
+              {/* Content below featured card - constrained width so grid cards stay same size */}
+              <div className="max-w-[706px] w-full">
               {/* Two Column Grid - Row 1 - from API or fallback */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 mt-20 md:mt-28 mb-20 md:mb-28">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-32 md:gap-48" style={{ marginTop: '120px', marginBottom: '100px' }}>
                 {(posts[1] ? (
-                  <article role="button" tabIndex={0} onClick={() => navigateToBlog(posts[1].id)} onKeyDown={(e) => e.key === 'Enter' && navigateToBlog(posts[1].id)} className="bg-white shadow-sm overflow-hidden flex flex-col w-full max-w-[321px] mx-auto md:mx-0 cursor-pointer hover:shadow-lg transition-shadow" style={{ background: '#FFFFFF', opacity: 1, marginTop: '48px', marginBottom: '48px' }}>
+                  <article role="button" tabIndex={0} onClick={() => navigateToBlog(posts[1].id)} onKeyDown={(e) => e.key === 'Enter' && navigateToBlog(posts[1].id)} className="bg-white shadow-sm overflow-hidden flex flex-col w-full mx-auto md:mx-0 cursor-pointer hover:shadow-lg transition-shadow" style={{ background: '#FFFFFF', width: '382.8px', height: '636.8728637695312px', opacity: 1, top: '1604px', left: '584px', transform: 'rotate(0deg)' }}>
                     <img src={posts[1].image_url || 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80'} alt={posts[1].title} className="w-full h-48 object-cover" />
                     <div className="p-4 flex flex-col flex-grow" style={{ marginTop: '16px' }}>
                       <div className="flex items-center mb-2"><div style={{ width: '4px', height: '20px', background: '#FFAB00', marginRight: '8px' }}></div><p className="text-xs" style={{ color: '#000000' }}>{posts[1].date} - {posts[1].category_name || 'Travel'}</p></div>
@@ -491,7 +495,7 @@ export default function Home() {
                     </div>
                   </article>
                 ) : (
-                  <article role="button" tabIndex={0} onClick={() => navigateToBlog(1)} onKeyDown={(e) => e.key === 'Enter' && navigateToBlog(1)} className="bg-white shadow-sm overflow-hidden flex flex-col w-full max-w-[321px] mx-auto md:mx-0 cursor-pointer hover:shadow-lg transition-shadow" style={{ background: '#FFFFFF', opacity: 1, marginTop: '48px', marginBottom: '48px' }}>
+                  <article role="button" tabIndex={0} onClick={() => navigateToBlog(1)} onKeyDown={(e) => e.key === 'Enter' && navigateToBlog(1)} className="bg-white shadow-sm overflow-hidden flex flex-col w-full mx-auto md:mx-0 cursor-pointer hover:shadow-lg transition-shadow" style={{ background: '#FFFFFF', width: '382.8px', height: '636.8728637695312px', opacity: 1, top: '1604px', left: '584px', transform: 'rotate(0deg)' }}>
                     <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80" alt="Beach" className="w-full h-48 object-cover" />
                     <div className="p-4 flex flex-col flex-grow" style={{ marginTop: '16px' }}>
                       <div className="flex items-center mb-2"><div style={{ width: '4px', height: '20px', background: '#FFAB00', marginRight: '8px' }}></div><p className="text-xs" style={{ color: '#000000' }}>September 17, 2025 - Tips & Tricks</p></div>
@@ -500,7 +504,7 @@ export default function Home() {
                   </article>
                 ))}
                 {(posts[2] ? (
-                  <article role="button" tabIndex={0} onClick={() => navigateToBlog(posts[2].id)} onKeyDown={(e) => e.key === 'Enter' && navigateToBlog(posts[2].id)} className="bg-white shadow-sm overflow-hidden flex flex-col w-full max-w-[321px] mx-auto md:mx-0 cursor-pointer hover:shadow-lg transition-shadow" style={{ background: '#FFFFFF', opacity: 1, marginTop: '48px', marginBottom: '48px' }}>
+                  <article role="button" tabIndex={0} onClick={() => navigateToBlog(posts[2].id)} onKeyDown={(e) => e.key === 'Enter' && navigateToBlog(posts[2].id)} className="bg-white shadow-sm overflow-hidden flex flex-col w-full mx-auto md:mx-0 cursor-pointer hover:shadow-lg transition-shadow" style={{ background: '#FFFFFF', width: '382.8px', height: '636.8728637695312px', opacity: 1, top: '1604px', left: '584px', transform: 'rotate(0deg)' }}>
                     <img src={posts[2].image_url || 'https://images.unsplash.com/photo-1518509562904-e7ef99cdcc86?w=600&q=80'} alt={posts[2].title} className="w-full h-48 object-cover" />
                     <div className="p-4 flex flex-col flex-grow" style={{ marginTop: '16px' }}>
                       <div className="flex items-center mb-2"><div style={{ width: '4px', height: '20px', background: '#FFAB00', marginRight: '8px' }}></div><p className="text-xs" style={{ color: '#000000' }}>{posts[2].date} - {posts[2].category_name || 'Travel'}</p></div>
@@ -512,7 +516,7 @@ export default function Home() {
                     </div>
                   </article>
                 ) : (
-                  <article role="button" tabIndex={0} onClick={() => navigateToBlog(2)} onKeyDown={(e) => e.key === 'Enter' && navigateToBlog(2)} className="bg-white shadow-sm overflow-hidden flex flex-col w-full max-w-[321px] mx-auto md:mx-0 cursor-pointer hover:shadow-lg transition-shadow" style={{ background: '#FFFFFF', opacity: 1, marginTop: '48px', marginBottom: '48px' }}>
+                  <article role="button" tabIndex={0} onClick={() => navigateToBlog(2)} onKeyDown={(e) => e.key === 'Enter' && navigateToBlog(2)} className="bg-white shadow-sm overflow-hidden flex flex-col w-full mx-auto md:mx-0 cursor-pointer hover:shadow-lg transition-shadow" style={{ background: '#FFFFFF', width: '382.8px', height: '636.8728637695312px', opacity: 1, top: '1604px', left: '584px', transform: 'rotate(0deg)' }}>
                     <img src="https://images.unsplash.com/photo-1518509562904-e7ef99cdcc86?w=600&q=80" alt="Philippines" className="w-full h-48 object-cover" />
                     <div className="p-4 flex flex-col flex-grow" style={{ marginTop: '16px' }}>
                       <div className="flex items-center mb-2"><div style={{ width: '4px', height: '20px', background: '#FFAB00', marginRight: '8px' }}></div><p className="text-xs" style={{ color: '#000000' }}>September 17, 2025 - Tips & Tricks</p></div>
@@ -521,8 +525,9 @@ export default function Home() {
                   </article>
                 ))}
               </div>
+              </div>
 
-              {/* Video Post - Into Nature's Wild */}
+              {/* Video Post - Into Nature's Wild - full width like featured card */}
               <article className="bg-white shadow-sm overflow-hidden" style={{ marginTop: '80px', marginBottom: '80px' }}>
                 <div className="relative h-[350px]">
                   <img 
@@ -559,7 +564,7 @@ export default function Home() {
                 </div>
               </article>
 
-              {/* Promotional Banner */}
+              {/* Promotional Banner - full width like blog cards above */}
               <div className="relative rounded-lg overflow-hidden h-[200px]">
                 <img 
                   src="https://images.unsplash.com/photo-1488085061387-422e29b40080?w=1000&q=80"
@@ -581,9 +586,10 @@ export default function Home() {
                 </div>
               </div>
 
+              <div className="max-w-[692px] w-full">
               {/* Two Column Grid - Row 2 */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16" style={{ marginTop: '100px', marginBottom: '100px' }}>
-                <article className="bg-white shadow-sm overflow-hidden flex flex-col w-full max-w-[321px] mx-auto md:mx-0 my-6" style={{ background: '#FFFFFF', opacity: 1, marginTop: '48px', marginBottom: '48px' }}>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-32 md:gap-48" style={{ marginTop: '120px', marginBottom: '100px' }}>
+                <article className="bg-white shadow-sm overflow-hidden flex flex-col w-full mx-auto md:mx-0 my-6" style={{ background: '#FFFFFF', width: '382.8px', height: '636.8728637695312px', opacity: 1, top: '1604px', left: '584px', transform: 'rotate(0deg)' }}>
                   <img 
                     src="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=600&q=80"
                     alt="Crowds"
@@ -610,7 +616,7 @@ export default function Home() {
                   </div>
                 </article>
 
-                <article className="bg-white shadow-sm overflow-hidden flex flex-col w-full max-w-[321px] mx-auto md:mx-0 my-6" style={{ background: '#FFFFFF', opacity: 1, marginTop: '48px', marginBottom: '48px' }}>
+                <article className="bg-white shadow-sm overflow-hidden flex flex-col w-full mx-auto md:mx-0 my-6" style={{ background: '#FFFFFF', width: '382.8px', height: '636.8728637695312px', opacity: 1, top: '1604px', left: '584px', transform: 'rotate(0deg)' }}>
                   <img 
                     src="https://images.unsplash.com/photo-1545569341-9eb8b30979d9?w=600&q=80"
                     alt="Matsumoto Castle"
@@ -639,8 +645,8 @@ export default function Home() {
               </div>
 
               {/* Two Column Grid - Row 3 */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16" style={{ marginTop: '100px', marginBottom: '100px' }}>
-                <article className="bg-white shadow-sm overflow-hidden flex flex-col w-full max-w-[321px] mx-auto md:mx-0 my-6" style={{ background: '#FFFFFF', opacity: 1, marginTop: '48px', marginBottom: '48px' }}>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-32 md:gap-48" style={{ marginTop: '120px', marginBottom: '100px' }}>
+                <article className="bg-white shadow-sm overflow-hidden flex flex-col w-full mx-auto md:mx-0 my-6" style={{ background: '#FFFFFF', width: '382.8px', height: '636.8728637695312px', opacity: 1, top: '1604px', left: '584px', transform: 'rotate(0deg)' }}>
                   <img 
                     src="https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?w=600&q=80"
                     alt="Buildings"
@@ -667,7 +673,7 @@ export default function Home() {
                   </div>
                 </article>
 
-                <article className="bg-white shadow-sm overflow-hidden flex flex-col w-full max-w-[321px] mx-auto md:mx-0" style={{ background: '#FFFFFF', opacity: 1, marginTop: '48px', marginBottom: '48px' }}>
+                <article className="bg-white shadow-sm overflow-hidden flex flex-col w-full mx-auto md:mx-0" style={{ background: '#FFFFFF', width: '382.8px', height: '636.8728637695312px', opacity: 1, top: '1604px', left: '584px', transform: 'rotate(0deg)' }}>
                   <img 
                     src={'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1000&q=80'}
                     alt="Deer"
@@ -694,8 +700,9 @@ export default function Home() {
                   </div>
                 </article>
               </div>
+              </div>
 
-              {/* Video Post 2 - Into Nature's Wild */}
+              {/* Video Post 2 - Into Nature's Wild - full width like featured card */}
               <article className="bg-white shadow-sm overflow-hidden" style={{ marginTop: '80px', marginBottom: '80px' }}>
                 <div className="relative h-[350px]">
                   <img 
@@ -732,9 +739,10 @@ export default function Home() {
                 </div>
               </article>
 
+              <div className="max-w-[692px] w-full">
               {/* Two Column Grid - Row 4 */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16" style={{ marginTop: '100px', marginBottom: '100px' }}>
-                <article className="bg-white shadow-sm overflow-hidden flex flex-col w-full max-w-[321px] mx-auto md:mx-0 my-6" style={{ background: '#FFFFFF', opacity: 1, marginTop: '48px', marginBottom: '48px' }}>
+                <article className="bg-white shadow-sm overflow-hidden flex flex-col w-full max-w-[325px] mx-auto md:mx-0 my-6" style={{ background: '#FFFFFF', opacity: 1, marginTop: '48px', marginBottom: '48px' }}>
                   <img 
                     src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80"
                     alt="Beach"
@@ -761,7 +769,7 @@ export default function Home() {
                   </div>
                 </article>
 
-                <article className="bg-white shadow-sm overflow-hidden flex flex-col w-full max-w-[321px] mx-auto md:mx-0" style={{ background: '#FFFFFF', opacity: 1, marginTop: '48px', marginBottom: '48px' }}>
+                <article className="bg-white shadow-sm overflow-hidden flex flex-col w-full max-w-[325px] mx-auto md:mx-0" style={{ background: '#FFFFFF', opacity: 1, marginTop: '48px', marginBottom: '48px' }}>
                   <img 
                     src={'https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=1000&q=80'}
                     alt="Philippines"
@@ -787,6 +795,7 @@ export default function Home() {
                     </div>
                   </div>
                 </article>
+              </div>
               </div>
             </main>
           </div>
