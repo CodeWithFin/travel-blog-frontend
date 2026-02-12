@@ -741,8 +741,8 @@ export default function Home() {
 
               <div className="max-w-[692px] w-full">
               {/* Two Column Grid - Row 4 */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16" style={{ marginTop: '100px', marginBottom: '100px' }}>
-                <article className="bg-white shadow-sm overflow-hidden flex flex-col w-full max-w-[325px] mx-auto md:mx-0 my-6" style={{ background: '#FFFFFF', opacity: 1, marginTop: '48px', marginBottom: '48px' }}>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-32 md:gap-48" style={{ marginTop: '100px', marginBottom: '100px' }}>
+                <article className="bg-white shadow-sm overflow-hidden flex flex-col w-full mx-auto md:mx-0 my-6" style={{ background: '#FFFFFF', width: '382.8px', height: '636.8728637695312px', opacity: 1, top: '1604px', left: '584px', transform: 'rotate(0deg)' }}>
                   <img 
                     src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80"
                     alt="Beach"
@@ -769,7 +769,7 @@ export default function Home() {
                   </div>
                 </article>
 
-                <article className="bg-white shadow-sm overflow-hidden flex flex-col w-full max-w-[325px] mx-auto md:mx-0" style={{ background: '#FFFFFF', opacity: 1, marginTop: '48px', marginBottom: '48px' }}>
+                <article className="bg-white shadow-sm overflow-hidden flex flex-col w-full mx-auto md:mx-0" style={{ background: '#FFFFFF', width: '382.8px', height: '636.8728637695312px', opacity: 1, top: '1604px', left: '584px', transform: 'rotate(0deg)' }}>
                   <img 
                     src={'https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=1000&q=80'}
                     alt="Philippines"
