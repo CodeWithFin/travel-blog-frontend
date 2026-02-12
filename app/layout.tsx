@@ -21,6 +21,9 @@ const lato = Lato({
 export const metadata: Metadata = {
   title: "Red Explorers - Travel Blog",
   description: "Location independent bloggers and world travelers sharing adventures across 60+ countries",
+  icons: {
+    icon: "/assets/logos/Logo.png",
+  },
 };
 
 export default function RootLayout({

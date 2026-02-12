@@ -141,7 +141,7 @@ export default function Home() {
                     <img 
                       src="https://images.unsplash.com/photo-1539635278303-d4002c07eae3?w=400&q=80"
                       alt="About Me"
-                      className="w-full h-48 object-cover rounded"
+                      className="w-full h-[318px] object-cover rounded"
                     />
                   </div>
                   <p className="text-gray-600 text-sm leading-relaxed mb-4 flex-grow">
@@ -484,7 +484,7 @@ export default function Home() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-32 md:gap-48" style={{ marginTop: '120px', marginBottom: '100px' }}>
                 {(posts[1] ? (
                   <article role="button" tabIndex={0} onClick={() => navigateToBlog(posts[1].id)} onKeyDown={(e) => e.key === 'Enter' && navigateToBlog(posts[1].id)} className="bg-white shadow-sm overflow-hidden flex flex-col w-full mx-auto md:mx-0 cursor-pointer hover:shadow-lg transition-shadow" style={{ background: '#FFFFFF', width: '382.8px', height: '636.8728637695312px', opacity: 1, top: '1604px', left: '584px', transform: 'rotate(0deg)' }}>
-                    <img src={posts[1].image_url || 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80'} alt={posts[1].title} className="w-full h-48 object-cover" />
+                    <img src={posts[1].image_url || 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80'} alt={posts[1].title} className="w-full h-[318px] object-cover" />
                     <div className="p-4 flex flex-col flex-grow" style={{ marginTop: '16px' }}>
                       <div className="flex items-center mb-2"><div style={{ width: '4px', height: '20px', background: '#FFAB00', marginRight: '8px' }}></div><p className="text-xs" style={{ color: '#000000' }}>{posts[1].date} - {posts[1].category_name || 'Travel'}</p></div>
                       <div className="flex-1 flex items-center justify-center"><h3 className="text-gray-800 text-center hover:text-[#0047FF] transition-colors" style={{ fontFamily: 'Lato', fontWeight: 700, fontSize: '25.31px', lineHeight: '37.58px', letterSpacing: '0%' }}>{posts[1].title}</h3></div>
@@ -496,7 +496,7 @@ export default function Home() {
                   </article>
                 ) : (
                   <article role="button" tabIndex={0} onClick={() => navigateToBlog(1)} onKeyDown={(e) => e.key === 'Enter' && navigateToBlog(1)} className="bg-white shadow-sm overflow-hidden flex flex-col w-full mx-auto md:mx-0 cursor-pointer hover:shadow-lg transition-shadow" style={{ background: '#FFFFFF', width: '382.8px', height: '636.8728637695312px', opacity: 1, top: '1604px', left: '584px', transform: 'rotate(0deg)' }}>
-                    <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80" alt="Beach" className="w-full h-48 object-cover" />
+                    <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80" alt="Beach" className="w-full h-[318px] object-cover" />
                     <div className="p-4 flex flex-col flex-grow" style={{ marginTop: '16px' }}>
                       <div className="flex items-center mb-2"><div style={{ width: '4px', height: '20px', background: '#FFAB00', marginRight: '8px' }}></div><p className="text-xs" style={{ color: '#000000' }}>September 17, 2025 - Tips & Tricks</p></div>
                       <div className="flex-1 flex items-center justify-center"><h3 className="text-gray-800 text-center hover:text-[#0047FF] transition-colors" style={{ fontFamily: 'Lato', fontWeight: 700, fontSize: '25.31px', lineHeight: '37.58px', letterSpacing: '0%' }}>Have you read The Beach by Alex?</h3></div>
@@ -505,7 +505,7 @@ export default function Home() {
                 ))}
                 {(posts[2] ? (
                   <article role="button" tabIndex={0} onClick={() => navigateToBlog(posts[2].id)} onKeyDown={(e) => e.key === 'Enter' && navigateToBlog(posts[2].id)} className="bg-white shadow-sm overflow-hidden flex flex-col w-full mx-auto md:mx-0 cursor-pointer hover:shadow-lg transition-shadow" style={{ background: '#FFFFFF', width: '382.8px', height: '636.8728637695312px', opacity: 1, top: '1604px', left: '584px', transform: 'rotate(0deg)' }}>
-                    <img src={posts[2].image_url || 'https://images.unsplash.com/photo-1518509562904-e7ef99cdcc86?w=600&q=80'} alt={posts[2].title} className="w-full h-48 object-cover" />
+                    <img src={posts[2].image_url || 'https://images.unsplash.com/photo-1518509562904-e7ef99cdcc86?w=600&q=80'} alt={posts[2].title} className="w-full h-[318px] object-cover" />
                     <div className="p-4 flex flex-col flex-grow" style={{ marginTop: '16px' }}>
                       <div className="flex items-center mb-2"><div style={{ width: '4px', height: '20px', background: '#FFAB00', marginRight: '8px' }}></div><p className="text-xs" style={{ color: '#000000' }}>{posts[2].date} - {posts[2].category_name || 'Travel'}</p></div>
                       <div className="flex-1 flex items-center justify-center"><h3 className="text-gray-800 text-center hover:text-[#0047FF] transition-colors" style={{ fontFamily: 'Lato', fontWeight: 700, fontSize: '25.31px', lineHeight: '37.58px', letterSpacing: '0%' }}>{posts[2].title}</h3></div>
@@ -517,7 +517,7 @@ export default function Home() {
                   </article>
                 ) : (
                   <article role="button" tabIndex={0} onClick={() => navigateToBlog(2)} onKeyDown={(e) => e.key === 'Enter' && navigateToBlog(2)} className="bg-white shadow-sm overflow-hidden flex flex-col w-full mx-auto md:mx-0 cursor-pointer hover:shadow-lg transition-shadow" style={{ background: '#FFFFFF', width: '382.8px', height: '636.8728637695312px', opacity: 1, top: '1604px', left: '584px', transform: 'rotate(0deg)' }}>
-                    <img src="https://images.unsplash.com/photo-1518509562904-e7ef99cdcc86?w=600&q=80" alt="Philippines" className="w-full h-48 object-cover" />
+                    <img src="https://images.unsplash.com/photo-1518509562904-e7ef99cdcc86?w=600&q=80" alt="Philippines" className="w-full h-[318px] object-cover" />
                     <div className="p-4 flex flex-col flex-grow" style={{ marginTop: '16px' }}>
                       <div className="flex items-center mb-2"><div style={{ width: '4px', height: '20px', background: '#FFAB00', marginRight: '8px' }}></div><p className="text-xs" style={{ color: '#000000' }}>September 17, 2025 - Tips & Tricks</p></div>
                       <div className="flex-1 flex items-center justify-center"><h3 className="text-gray-800 text-center hover:text-[#0047FF] transition-colors" style={{ fontFamily: 'Lato', fontWeight: 700, fontSize: '25.31px', lineHeight: '37.58px', letterSpacing: '0%' }}>The writer actually live in Philippines</h3></div>
@@ -593,7 +593,7 @@ export default function Home() {
                   <img 
                     src="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=600&q=80"
                     alt="Crowds"
-                    className="w-full h-48 object-cover"
+                    className="w-full h-[318px] object-cover"
                   />
                   <div className="p-4 flex flex-col flex-grow" style={{ marginTop: '16px' }}>
                     <div className="flex items-center mb-2">
@@ -620,7 +620,7 @@ export default function Home() {
                   <img 
                     src="https://images.unsplash.com/photo-1545569341-9eb8b30979d9?w=600&q=80"
                     alt="Matsumoto Castle"
-                    className="w-full h-48 object-cover"
+                    className="w-full h-[318px] object-cover"
                   />
                   <div className="p-4 flex flex-col flex-grow" style={{ marginTop: '16px' }}>
                     <div className="flex items-center mb-2">
@@ -650,7 +650,7 @@ export default function Home() {
                   <img 
                     src="https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?w=600&q=80"
                     alt="Buildings"
-                    className="w-full h-48 object-cover"
+                    className="w-full h-[318px] object-cover"
                   />
                   <div className="p-4 flex flex-col flex-grow" style={{ marginTop: '16px' }}>
                     <div className="flex items-center mb-2">
@@ -677,7 +677,7 @@ export default function Home() {
                   <img 
                     src={'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1000&q=80'}
                     alt="Deer"
-                    className="w-full h-48 object-cover"
+                    className="w-full h-[318px] object-cover"
                   />
                   <div className="p-4 flex flex-col flex-grow" style={{ marginTop: '16px' }}>
                     <div className="flex items-center mb-2">
@@ -746,7 +746,7 @@ export default function Home() {
                   <img 
                     src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80"
                     alt="Beach"
-                    className="w-full h-48 object-cover"
+                    className="w-full h-[318px] object-cover"
                   />
                   <div className="p-4 flex flex-col flex-grow" style={{ marginTop: '16px' }}>
                     <div className="flex items-center mb-2">
@@ -773,7 +773,7 @@ export default function Home() {
                   <img 
                     src={'https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=1000&q=80'}
                     alt="Philippines"
-                    className="w-full h-48 object-cover"
+                    className="w-full h-[318px] object-cover"
                   />
                   <div className="p-4 flex flex-col flex-grow" style={{ marginTop: '16px' }}>
                     <div className="flex items-center mb-2">
