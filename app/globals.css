@@ -33,6 +33,41 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Prevent horizontal scroll on mobile only; desktop unchanged */
+@media (max-width: 767px) {
+  html,
+  body {
+    overflow-x: hidden;
+    max-width: 100vw;
+  }
+  main {
+    overflow-x: hidden;
+    max-width: 100vw;
+  }
+
+  /* Even distribution of blog cards on mobile; desktop unchanged */
+  .blog-cards-grid {
+    gap: 2rem !important;
+    margin-top: 2rem !important;
+    margin-bottom: 2rem !important;
+  }
+  .blog-cards-grid article {
+    margin: 0 !important;
+  }
+}
+
+/* Responsive blog cards: full width on mobile, fixed size from md up; no horizontal scroll */
+.blog-card-responsive {
+  width: 100%;
+  max-width: 382.8px;
+  height: auto;
+}
+@media (min-width: 768px) {
+  .blog-card-responsive {
+    height: 636.8728637695312px;
+  }
+}
+
 /* Blog detail: Lato body, drop-cap first letter (editorial) */
 .blog-article {
   font-family: var(--font-lato), 'Lato', sans-serif;

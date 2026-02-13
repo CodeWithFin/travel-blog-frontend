@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { getSupabase } from '@/lib/supabase-server';
 
 export async function GET() {
@@ -19,6 +19,28 @@ export async function GET() {
     console.error('Error fetching settings:', error);
     return NextResponse.json(
       { error: 'Failed to fetch settings', message: (error as Error).message },
+      { status: 500 }
+    );
+  }
+}
+
+export async function POST(request: NextRequest) {
+  try {
+    const body = await request.json();
+    const { key, value } = body;
+    if (!key || value === undefined) {
+      return NextResponse.json({ error: 'key and value are required' }, { status: 400 });
+    }
+    const supabase = getSupabase();
+    const { error } = await supabase
+      .from('site_settings')
+      .upsert({ key, value: String(value) }, { onConflict: 'key' });
+    if (error) throw error;
+    return NextResponse.json({ key, value: String(value) });
+  } catch (error) {
+    console.error('Error saving setting:', error);
+    return NextResponse.json(
+      { error: 'Failed to save setting', message: (error as Error).message },
       { status: 500 }
     );
   }

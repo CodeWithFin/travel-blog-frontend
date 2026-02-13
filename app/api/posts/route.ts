@@ -1,6 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getSupabase } from '@/lib/supabase-server';
 
+// Always fetch fresh data so admin changes appear on the homepage
+export const dynamic = 'force-dynamic';
+
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
@@ -14,7 +17,9 @@ export async function GET(request: NextRequest) {
     let query = supabase
       .from('posts')
       .select(`*, categories:category_id(name)`)
+      .order('is_featured', { ascending: false })
       .order('created_at', { ascending: false })
+      .order('id', { ascending: false })
       .range(offsetNum, offsetNum + limitNum - 1);
 
     if (featured === 'true') {
@@ -24,11 +29,34 @@ export async function GET(request: NextRequest) {
     const { data, error } = await query;
     if (error) throw error;
 
-    const result = (data || []).map((post: Record<string, unknown>) => ({
-      ...post,
-      category_name: (post.categories as { name?: string } | null)?.name ?? null,
-    }));
-    return NextResponse.json(result);
+    const posts = data || [];
+    const postIds = posts.map((p: Record<string, unknown>) => p.id).filter(Boolean);
+
+    // Fetch actual comment counts from post_comments so homepage shows real numbers
+    let commentCounts: Record<number, number> = {};
+    if (postIds.length > 0) {
+      const { data: commentsData } = await supabase
+        .from('post_comments')
+        .select('post_id')
+        .in('post_id', postIds);
+      const list = commentsData || [];
+      list.forEach((row: { post_id: number }) => {
+        commentCounts[row.post_id] = (commentCounts[row.post_id] ?? 0) + 1;
+      });
+    }
+
+    const result = posts.map((post: Record<string, unknown>) => {
+      const id = post.id as number;
+      const actualCount = id != null ? (commentCounts[id] ?? 0) : 0;
+      return {
+        ...post,
+        category_name: (post.categories as { name?: string } | null)?.name ?? null,
+        comments: actualCount,
+      };
+    });
+    return NextResponse.json(result, {
+      headers: { 'Cache-Control': 'no-store, max-age=0' },
+    });
   } catch (error) {
     console.error('Error fetching posts:', error);
     return NextResponse.json(

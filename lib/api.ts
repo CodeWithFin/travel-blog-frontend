@@ -7,9 +7,11 @@ const API_ROOT = `${API_BASE}/api`;
 
 // Generic fetch function with error handling
 async function fetchAPI(endpoint: string, options: RequestInit = {}) {
+  const url = `${API_ROOT}${endpoint}`;
   try {
-    const response = await fetch(`${API_ROOT}${endpoint}`, {
+    const response = await fetch(url, {
       ...options,
+      cache: 'no-store',
       headers: {
         'Content-Type': 'application/json',
         ...options.headers,
@@ -20,18 +22,22 @@ async function fetchAPI(endpoint: string, options: RequestInit = {}) {
 
     if (!response.ok) {
       const message = (data && typeof data.message === 'string') ? data.message : response.statusText;
-      throw new Error(message || `API Error: ${response.status}`);
+      throw new Error(message ? `${message} (${response.status} ${url})` : `API Error: ${response.status} ${url}`);
     }
 
     return data;
   } catch (error) {
+    const msg = (error as Error).message ?? '';
     const isNetworkError =
-      error instanceof TypeError &&
-      (error.message === 'Failed to fetch' || (error as Error).message?.includes('fetch'));
+      error instanceof TypeError ||
+      msg === 'Failed to fetch' ||
+      msg === 'fetch failed' ||
+      msg.includes('fetch failed') ||
+      msg.includes('Failed to fetch');
     if (isNetworkError) {
       const friendly = new Error(
         API_ROOT
-          ? `Cannot reach the API at ${API_ROOT}. Make sure the server is running.`
+          ? `Cannot reach the API at ${API_ROOT}. Make sure the dev server is running (e.g. \`npm run dev\` in travel-blog-frontend).`
           : `Cannot reach the API. Make sure the app is running (e.g. \`npm run dev\`).`
       );
       console.warn(friendly.message);

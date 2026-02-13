@@ -43,7 +43,7 @@ export default function Home() {
 
   useEffect(() => {
     postsAPI
-      .getAll({ limit: 5 })
+      .getAll({ limit: 20 })
       .then((data) => {
         setPosts(Array.isArray(data) ? data : []);
         setApiUnreachable(false);
@@ -217,38 +217,28 @@ export default function Home() {
               </div>
 
               {/* Popular Post Image Card */}
-              <div className="relative rounded-lg shadow-sm overflow-hidden" style={{ 
-                width: '299.04px',
-                height: '272px',
-                marginTop: '48px',
-                marginBottom: '48px'
-              }}>
-                <div 
-                  className="absolute inset-0 bg-cover bg-center"
-                  style={{
-                    backgroundImage: 'url(https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80)',
-                    filter: 'hue-rotate(200deg) saturate(0.8)'
-                  }}
-                >
+              <div
+                role="button"
+                tabIndex={0}
+                onClick={() => navigateToBlog(posts[3]?.id ?? 12)}
+                onKeyDown={(e) => e.key === 'Enter' && navigateToBlog(posts[3]?.id ?? 12)}
+                className="relative rounded-lg shadow-sm overflow-hidden cursor-pointer hover:shadow-lg transition-shadow"
+                style={{ width: '299.04px', height: '272px', marginTop: '48px', marginBottom: '48px' }}
+              >
+                <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80)', filter: 'hue-rotate(200deg) saturate(0.8)' }}>
                   <div className="absolute inset-0 bg-blue-900/40"></div>
                 </div>
                 <div className="relative z-10 h-full flex flex-col justify-between" style={{ padding: '24px', paddingTop: '0' }}>
-                  <p className="text-white text-sm mb-3" style={{ fontSize: '14px', marginTop: '0', paddingTop: '0' }}>September 17, 2018 - Tips & Tricks</p>
+                  <p className="text-white text-sm mb-3" style={{ fontSize: '14px', marginTop: '0', paddingTop: '0' }}>{posts[3] ? `${posts[3].date} - Tips & Tricks` : 'September 17, 2018 - Tips & Tricks'}</p>
                   <div className="flex-1 flex flex-col items-center justify-center">
-                    <h4 className="text-white font-bold text-center" style={{ fontSize: '24px', lineHeight: '1.3' }}>
-                      Finding Love & home in<br />Tbilisi, Georgia
-                    </h4>
+                    <h4 className="text-white font-bold text-center" style={{ fontSize: '24px', lineHeight: '1.3' }}>{posts[3]?.title ?? 'Finding Love & home in Tbilisi, Georgia'}</h4>
                   </div>
                   <div className="flex gap-3">
-                    <button className="bg-white rounded shadow-md w-10 h-10 flex items-center justify-center hover:bg-blue-50 transition-colors">
-                      <svg className="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                      </svg>
+                    <button type="button" className="bg-white rounded shadow-md w-10 h-10 flex items-center justify-center hover:bg-blue-50 transition-colors" onClick={(e) => { e.stopPropagation(); navigateToBlog(posts[3]?.id ?? 12); }}>
+                      <svg className="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
                     </button>
-                    <button className="bg-white rounded shadow-md w-10 h-10 flex items-center justify-center hover:bg-blue-50 transition-colors">
-                      <svg className="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                      </svg>
+                    <button type="button" className="bg-white rounded shadow-md w-10 h-10 flex items-center justify-center hover:bg-blue-50 transition-colors" onClick={(e) => { e.stopPropagation(); navigateToBlog(posts[3]?.id ?? 12); }}>
+                      <svg className="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
                     </button>
                   </div>
                 </div>
@@ -267,22 +257,27 @@ export default function Home() {
 
               {/* Recent Post Cards */}
               <div style={{ marginTop: '48px', marginBottom: '48px' }}>
-                {[1, 2, 3].map((i) => (
-                  <div key={i} className="overflow-hidden flex gap-3" style={{ marginTop: '16px', marginBottom: '16px' }}>
-                    <img 
-                      src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=100&q=80"
-                      alt="Recent Post"
-                      className="object-cover rounded flex-shrink-0"
-                      style={{ width: '70.4px', height: '70.4px' }}
-                    />
-                    <div className="flex-1 flex flex-col justify-center">
-                      <p className="text-gray-500 mb-1" style={{ fontSize: '11px' }}>September 17, 2018 - Tips & Tricks</p>
-                      <h4 className="font-bold text-gray-800 leading-tight" style={{ fontSize: '14px' }}>
-                        Finding Love & home in Tbilisi,<br />Georgia
-                      </h4>
+                {[0, 1, 2].map((i) => {
+                  const post = posts[i + 3]; // posts[3], posts[4], posts[5] for recent
+                  const id = post?.id ?? (12 + i);
+                  return (
+                    <div
+                      key={i}
+                      role="button"
+                      tabIndex={0}
+                      onClick={() => navigateToBlog(id)}
+                      onKeyDown={(e) => e.key === 'Enter' && navigateToBlog(id)}
+                      className="overflow-hidden flex gap-3 cursor-pointer hover:opacity-90 transition-opacity"
+                      style={{ marginTop: '16px', marginBottom: '16px' }}
+                    >
+                      <img src={post?.image_url || 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=100&q=80'} alt={post?.title ?? 'Recent Post'} className="object-cover rounded flex-shrink-0" style={{ width: '70.4px', height: '70.4px' }} />
+                      <div className="flex-1 flex flex-col justify-center">
+                        <p className="text-gray-500 mb-1" style={{ fontSize: '11px' }}>{post ? `${post.date} - Tips & Tricks` : 'September 17, 2018 - Tips & Tricks'}</p>
+                        <h4 className="font-bold text-gray-800 leading-tight hover:text-[#0047FF] transition-colors" style={{ fontSize: '14px' }}>{post?.title ?? 'Finding Love & home in Tbilisi, Georgia'}</h4>
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
 
               {/* Gear I Use Widget */}
@@ -472,7 +467,7 @@ export default function Home() {
                     <p className="text-gray-600 mb-4 flex-grow" style={{ fontFamily: 'Lato', fontWeight: 500, fontSize: '24px', lineHeight: '40px', letterSpacing: '0%' }}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus pharetra ac erat commodo non leo eget gravida viverra. Phasellus pharetra.</p>
                     <div className="flex items-center justify-between text-sm mt-auto">
                       <span className="flex items-center gap-1 text-[#FFAB00]"><svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" /></svg>Penang, Malaysia</span>
-                      <span className="flex items-center gap-1 text-[#FFAB00]"><svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z" /></svg>Comment 53</span>
+                      <span className="flex items-center gap-1 text-[#FFAB00]"><svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z" /></svg>Comment {posts[0]?.comments ?? 0}</span>
                     </div>
                   </div>
                 </article>
@@ -481,7 +476,7 @@ export default function Home() {
               {/* Content below featured card - constrained width so grid cards stay same size */}
               <div className="max-w-[706px] w-full">
               {/* Two Column Grid - Row 1 - from API or fallback */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-32 md:gap-48" style={{ marginTop: '120px', marginBottom: '100px' }}>
+              <div className="blog-cards-grid grid grid-cols-1 md:grid-cols-2 gap-32 md:gap-48" style={{ marginTop: '120px', marginBottom: '100px' }}>
                 {(posts[1] ? (
                   <article role="button" tabIndex={0} onClick={() => navigateToBlog(posts[1].id)} onKeyDown={(e) => e.key === 'Enter' && navigateToBlog(posts[1].id)} className="bg-white shadow-sm overflow-hidden flex flex-col w-full mx-auto md:mx-0 cursor-pointer hover:shadow-lg transition-shadow" style={{ background: '#FFFFFF', width: '382.8px', height: '636.8728637695312px', opacity: 1, top: '1604px', left: '584px', transform: 'rotate(0deg)' }}>
                     <img src={posts[1].image_url || 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80'} alt={posts[1].title} className="w-full h-[318px] object-cover" />
@@ -500,7 +495,7 @@ export default function Home() {
                     <div className="p-4 flex flex-col flex-grow" style={{ marginTop: '16px' }}>
                       <div className="flex items-center mb-2"><div style={{ width: '4px', height: '20px', background: '#FFAB00', marginRight: '8px' }}></div><p className="text-xs" style={{ color: '#000000' }}>September 17, 2025 - Tips & Tricks</p></div>
                       <div className="flex-1 flex items-center justify-center"><h3 className="text-gray-800 text-center hover:text-[#0047FF] transition-colors" style={{ fontFamily: 'Lato', fontWeight: 700, fontSize: '25.31px', lineHeight: '37.58px', letterSpacing: '0%' }}>Have you read The Beach by Alex?</h3></div>
-                      <div className="flex items-center justify-between text-xs" style={{ marginBottom: '16px' }}><span className="flex items-center gap-1 text-[#FFAB00]"><svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" /></svg>Georgia</span><span className="flex items-center gap-1 text-[#FFAB00]"><svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path d="M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z" /></svg>Comment (52)</span></div></div>
+                      <div className="flex items-center justify-between text-xs" style={{ marginBottom: '16px' }}><span className="flex items-center gap-1 text-[#FFAB00]"><svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" /></svg>Georgia</span><span className="flex items-center gap-1 text-[#FFAB00]"><svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path d="M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z" /></svg>Comment ({posts[1]?.comments ?? 0})</span></div></div>
                   </article>
                 ))}
                 {(posts[2] ? (
@@ -521,17 +516,24 @@ export default function Home() {
                     <div className="p-4 flex flex-col flex-grow" style={{ marginTop: '16px' }}>
                       <div className="flex items-center mb-2"><div style={{ width: '4px', height: '20px', background: '#FFAB00', marginRight: '8px' }}></div><p className="text-xs" style={{ color: '#000000' }}>September 17, 2025 - Tips & Tricks</p></div>
                       <div className="flex-1 flex items-center justify-center"><h3 className="text-gray-800 text-center hover:text-[#0047FF] transition-colors" style={{ fontFamily: 'Lato', fontWeight: 700, fontSize: '25.31px', lineHeight: '37.58px', letterSpacing: '0%' }}>The writer actually live in Philippines</h3></div>
-                      <div className="flex items-center justify-between text-xs" style={{ marginBottom: '16px' }}><span className="flex items-center gap-1 text-[#FFAB00]"><svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" /></svg>Georgia</span><span className="flex items-center gap-1 text-[#FFAB00]"><svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path d="M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z" /></svg>Comment (52)</span></div></div>
+                      <div className="flex items-center justify-between text-xs" style={{ marginBottom: '16px' }}><span className="flex items-center gap-1 text-[#FFAB00]"><svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" /></svg>Georgia</span><span className="flex items-center gap-1 text-[#FFAB00]"><svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path d="M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z" /></svg>Comment ({posts[2]?.comments ?? 0})</span></div></div>
                   </article>
                 ))}
               </div>
               </div>
 
               {/* Video Post - Into Nature's Wild - full width like featured card */}
-              <article className="bg-white shadow-sm overflow-hidden" style={{ marginTop: '80px', marginBottom: '80px' }}>
+              <article
+                role="button"
+                tabIndex={0}
+                onClick={() => navigateToBlog(posts[3]?.id ?? 12)}
+                onKeyDown={(e) => e.key === 'Enter' && navigateToBlog(posts[3]?.id ?? 12)}
+                className="bg-white shadow-sm overflow-hidden cursor-pointer hover:shadow-lg transition-shadow"
+                style={{ marginTop: '80px', marginBottom: '80px' }}
+              >
                 <div className="relative h-[350px]">
                   <img 
-                    src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1000&q=80"
+                    src={posts[3]?.image_url || "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1000&q=80"}
                     alt="Nature Wild"
                     className="w-full h-full object-cover"
                   />
@@ -545,20 +547,20 @@ export default function Home() {
                 <div className="p-6 flex flex-col" style={{ minHeight: '350px' }}>
                   <div className="flex items-center mb-2" style={{ marginTop: '16px' }}>
                     <div style={{ width: '4px', height: '20px', background: '#FFAB00', marginRight: '8px' }}></div>
-                    <p className="text-xs" style={{ color: '#000000' }}>September 17, 2021 - Tips & Tricks</p>
+                    <p className="text-xs" style={{ color: '#000000' }}>{posts[3] ? `${posts[3].date} - ${posts[3].category_name || 'Tips & Tricks'}` : 'September 17, 2021 - Tips & Tricks'}</p>
                   </div>
-                  <h2 className="text-gray-800 mb-3" style={{ fontFamily: 'Lato', fontWeight: 600, fontSize: '31.64px', lineHeight: '46.98px', letterSpacing: '0%', marginTop: '18.4px' }}>Finding Love & home in Tbilisi, Georgia</h2>
+                  <h2 className="text-gray-800 mb-3 hover:text-[#0047FF] transition-colors" style={{ fontFamily: 'Lato', fontWeight: 600, fontSize: '31.64px', lineHeight: '46.98px', letterSpacing: '0%', marginTop: '18.4px' }}>{posts[3]?.title ?? 'Finding Love & home in Tbilisi, Georgia'}</h2>
                   <p className="text-gray-600 mb-4 flex-grow" style={{ fontFamily: 'Lato', fontWeight: 500, fontSize: '24px', lineHeight: '40px', letterSpacing: '0%' }}>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus pharetra ac erat commodo non leo eget gravida viverra. Phasellus pharetra.
+                    {posts[3]?.excerpt ?? 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus pharetra ac erat commodo non leo eget gravida viverra. Phasellus pharetra.'}
                   </p>
                   <div className="flex items-center justify-between text-sm mt-auto">
                     <span className="flex items-center gap-1 text-[#FFAB00]">
                       <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" /></svg>
-                      Penang, Malaysia
+                      {posts[3]?.location ?? 'Penang, Malaysia'}
                     </span>
                     <span className="flex items-center gap-1 text-[#FFAB00]">
                       <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z" /></svg>
-                      Comment 53
+                      Comment {posts[3]?.comments ?? 0}
                     </span>
                   </div>
                 </div>
@@ -588,128 +590,57 @@ export default function Home() {
 
               <div className="max-w-[692px] w-full">
               {/* Two Column Grid - Row 2 */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-32 md:gap-48" style={{ marginTop: '120px', marginBottom: '100px' }}>
-                <article className="bg-white shadow-sm overflow-hidden flex flex-col w-full mx-auto md:mx-0 my-6" style={{ background: '#FFFFFF', width: '382.8px', height: '636.8728637695312px', opacity: 1, top: '1604px', left: '584px', transform: 'rotate(0deg)' }}>
-                  <img 
-                    src="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=600&q=80"
-                    alt="Crowds"
-                    className="w-full h-[318px] object-cover"
-                  />
+              <div className="blog-cards-grid grid grid-cols-1 md:grid-cols-2 gap-32 md:gap-48" style={{ marginTop: '120px', marginBottom: '100px' }}>
+                <article role="button" tabIndex={0} onClick={() => navigateToBlog(posts[4]?.id ?? 13)} onKeyDown={(e) => e.key === 'Enter' && navigateToBlog(posts[4]?.id ?? 13)} className="bg-white shadow-sm overflow-hidden flex flex-col w-full mx-auto md:mx-0 my-6 cursor-pointer hover:shadow-lg transition-shadow" style={{ background: '#FFFFFF', width: '382.8px', height: '636.8728637695312px', opacity: 1, top: '1604px', left: '584px', transform: 'rotate(0deg)' }}>
+                  <img src={posts[4]?.image_url || "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=600&q=80"} alt={posts[4]?.title ?? 'Crowds'} className="w-full h-[318px] object-cover" />
                   <div className="p-4 flex flex-col flex-grow" style={{ marginTop: '16px' }}>
-                    <div className="flex items-center mb-2">
-                      <div style={{ width: '4px', height: '20px', background: '#FFAB00', marginRight: '8px' }}></div>
-                      <p className="text-xs" style={{ color: '#000000' }}>September 17, 2021 - Tips & Tricks</p>
-                    </div>
-                    <div className="flex-1 flex items-center justify-center">
-                      <h3 className="text-gray-800 text-center" style={{ fontFamily: 'Lato', fontWeight: 700, fontSize: '25.31px', lineHeight: '37.58px', letterSpacing: '0%' }}>Got away from the maddening Crowds</h3>
-                    </div>
-                    <div className="flex items-center justify-between text-xs" style={{ marginBottom: '16px' }}>
-                      <span className="flex items-center gap-1 text-[#FFAB00]">
-                        <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" /></svg>
-                        Google
-                      </span>
-                      <span className="flex items-center gap-1 text-[#FFAB00]">
-                        <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path d="M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z" /></svg>
-                        Comment (40)
-                      </span>
-                    </div>
+                    <div className="flex items-center mb-2"><div style={{ width: '4px', height: '20px', background: '#FFAB00', marginRight: '8px' }}></div><p className="text-xs" style={{ color: '#000000' }}>{posts[4] ? `${posts[4].date} - ${posts[4].category_name || 'Tips & Tricks'}` : 'September 17, 2021 - Tips & Tricks'}</p></div>
+                    <div className="flex-1 flex items-center justify-center"><h3 className="text-gray-800 text-center hover:text-[#0047FF] transition-colors" style={{ fontFamily: 'Lato', fontWeight: 700, fontSize: '25.31px', lineHeight: '37.58px', letterSpacing: '0%' }}>{posts[4]?.title ?? 'Got away from the maddening Crowds'}</h3></div>
+                    <div className="flex items-center justify-between text-xs" style={{ marginBottom: '16px' }}><span className="flex items-center gap-1 text-[#FFAB00]"><svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" /></svg>{posts[4]?.location ?? 'Google'}</span><span className="flex items-center gap-1 text-[#FFAB00]"><svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path d="M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z" /></svg>Comment ({posts[4]?.comments ?? 0})</span></div>
                   </div>
                 </article>
-
-                <article className="bg-white shadow-sm overflow-hidden flex flex-col w-full mx-auto md:mx-0 my-6" style={{ background: '#FFFFFF', width: '382.8px', height: '636.8728637695312px', opacity: 1, top: '1604px', left: '584px', transform: 'rotate(0deg)' }}>
-                  <img 
-                    src="https://images.unsplash.com/photo-1545569341-9eb8b30979d9?w=600&q=80"
-                    alt="Matsumoto Castle"
-                    className="w-full h-[318px] object-cover"
-                  />
+                <article role="button" tabIndex={0} onClick={() => navigateToBlog(posts[5]?.id ?? 14)} onKeyDown={(e) => e.key === 'Enter' && navigateToBlog(posts[5]?.id ?? 14)} className="bg-white shadow-sm overflow-hidden flex flex-col w-full mx-auto md:mx-0 my-6 cursor-pointer hover:shadow-lg transition-shadow" style={{ background: '#FFFFFF', width: '382.8px', height: '636.8728637695312px', opacity: 1, top: '1604px', left: '584px', transform: 'rotate(0deg)' }}>
+                  <img src={posts[5]?.image_url || "https://images.unsplash.com/photo-1545569341-9eb8b30979d9?w=600&q=80"} alt={posts[5]?.title ?? 'Matsumoto Castle'} className="w-full h-[318px] object-cover" />
                   <div className="p-4 flex flex-col flex-grow" style={{ marginTop: '16px' }}>
-                    <div className="flex items-center mb-2">
-                      <div style={{ width: '4px', height: '20px', background: '#FFAB00', marginRight: '8px' }}></div>
-                      <p className="text-xs" style={{ color: '#000000' }}>September 17, 2021 - Tips & Tricks</p>
-                    </div>
-                    <div className="flex-1 flex items-center justify-center">
-                      <h3 className="text-gray-800 text-center" style={{ fontFamily: 'Lato', fontWeight: 700, fontSize: '25.31px', lineHeight: '37.58px', letterSpacing: '0%' }}>Matsumoto Castle is considered one of</h3>
-                    </div>
-                    <div className="flex items-center justify-between text-xs" style={{ marginBottom: '16px' }}>
-                      <span className="flex items-center gap-1 text-[#FFAB00]">
-                        <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" /></svg>
-                        Google
-                      </span>
-                      <span className="flex items-center gap-1 text-[#FFAB00]">
-                        <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path d="M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z" /></svg>
-                        Comment (40)
-                      </span>
-                    </div>
+                    <div className="flex items-center mb-2"><div style={{ width: '4px', height: '20px', background: '#FFAB00', marginRight: '8px' }}></div><p className="text-xs" style={{ color: '#000000' }}>{posts[5] ? `${posts[5].date} - ${posts[5].category_name || 'Tips & Tricks'}` : 'September 17, 2021 - Tips & Tricks'}</p></div>
+                    <div className="flex-1 flex items-center justify-center"><h3 className="text-gray-800 text-center hover:text-[#0047FF] transition-colors" style={{ fontFamily: 'Lato', fontWeight: 700, fontSize: '25.31px', lineHeight: '37.58px', letterSpacing: '0%' }}>{posts[5]?.title ?? 'Matsumoto Castle is considered one of'}</h3></div>
+                    <div className="flex items-center justify-between text-xs" style={{ marginBottom: '16px' }}><span className="flex items-center gap-1 text-[#FFAB00]"><svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" /></svg>{posts[5]?.location ?? 'Google'}</span><span className="flex items-center gap-1 text-[#FFAB00]"><svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path d="M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z" /></svg>Comment ({posts[5]?.comments ?? 0})</span></div>
                   </div>
                 </article>
               </div>
 
               {/* Two Column Grid - Row 3 */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-32 md:gap-48" style={{ marginTop: '120px', marginBottom: '100px' }}>
-                <article className="bg-white shadow-sm overflow-hidden flex flex-col w-full mx-auto md:mx-0 my-6" style={{ background: '#FFFFFF', width: '382.8px', height: '636.8728637695312px', opacity: 1, top: '1604px', left: '584px', transform: 'rotate(0deg)' }}>
-                  <img 
-                    src="https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?w=600&q=80"
-                    alt="Buildings"
-                    className="w-full h-[318px] object-cover"
-                  />
+              <div className="blog-cards-grid grid grid-cols-1 md:grid-cols-2 gap-32 md:gap-48" style={{ marginTop: '120px', marginBottom: '100px' }}>
+                <article role="button" tabIndex={0} onClick={() => navigateToBlog(posts[6]?.id ?? 15)} onKeyDown={(e) => e.key === 'Enter' && navigateToBlog(posts[6]?.id ?? 15)} className="bg-white shadow-sm overflow-hidden flex flex-col w-full mx-auto md:mx-0 my-6 cursor-pointer hover:shadow-lg transition-shadow" style={{ background: '#FFFFFF', width: '382.8px', height: '636.8728637695312px', opacity: 1, top: '1604px', left: '584px', transform: 'rotate(0deg)' }}>
+                  <img src={posts[6]?.image_url || "https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?w=600&q=80"} alt={posts[6]?.title ?? 'Buildings'} className="w-full h-[318px] object-cover" />
                   <div className="p-4 flex flex-col flex-grow" style={{ marginTop: '16px' }}>
-                    <div className="flex items-center mb-2">
-                      <div style={{ width: '4px', height: '20px', background: '#FFAB00', marginRight: '8px' }}></div>
-                      <p className="text-xs" style={{ color: '#000000' }}>September 17, 2021 - Tips & Tricks</p>
-                    </div>
-                    <div className="flex-1 flex items-center justify-center">
-                      <h3 className="text-gray-800 text-center" style={{ fontFamily: 'Lato', fontWeight: 700, fontSize: '25.31px', lineHeight: '37.58px', letterSpacing: '0%' }}>Many buildings especially in Japan</h3>
-                    </div>
-                    <div className="flex items-center justify-between text-xs" style={{ marginBottom: '16px' }}>
-                      <span className="flex items-center gap-1 text-[#FFAB00]">
-                        <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" /></svg>
-                        Google
-                      </span>
-                      <span className="flex items-center gap-1 text-[#FFAB00]">
-                        <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path d="M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z" /></svg>
-                        Comment (40)
-                      </span>
-                    </div>
+                    <div className="flex items-center mb-2"><div style={{ width: '4px', height: '20px', background: '#FFAB00', marginRight: '8px' }}></div><p className="text-xs" style={{ color: '#000000' }}>{posts[6] ? `${posts[6].date} - ${posts[6].category_name || 'Tips & Tricks'}` : 'September 17, 2021 - Tips & Tricks'}</p></div>
+                    <div className="flex-1 flex items-center justify-center"><h3 className="text-gray-800 text-center hover:text-[#0047FF] transition-colors" style={{ fontFamily: 'Lato', fontWeight: 700, fontSize: '25.31px', lineHeight: '37.58px', letterSpacing: '0%' }}>{posts[6]?.title ?? 'Many buildings especially in Japan'}</h3></div>
+                    <div className="flex items-center justify-between text-xs" style={{ marginBottom: '16px' }}><span className="flex items-center gap-1 text-[#FFAB00]"><svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" /></svg>{posts[6]?.location ?? 'Google'}</span><span className="flex items-center gap-1 text-[#FFAB00]"><svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path d="M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z" /></svg>Comment ({posts[6]?.comments ?? 0})</span></div>
                   </div>
                 </article>
-
-                <article className="bg-white shadow-sm overflow-hidden flex flex-col w-full mx-auto md:mx-0" style={{ background: '#FFFFFF', width: '382.8px', height: '636.8728637695312px', opacity: 1, top: '1604px', left: '584px', transform: 'rotate(0deg)' }}>
-                  <img 
-                    src={'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1000&q=80'}
-                    alt="Deer"
-                    className="w-full h-[318px] object-cover"
-                  />
+                <article role="button" tabIndex={0} onClick={() => navigateToBlog(posts[7]?.id ?? 16)} onKeyDown={(e) => e.key === 'Enter' && navigateToBlog(posts[7]?.id ?? 16)} className="bg-white shadow-sm overflow-hidden flex flex-col w-full mx-auto md:mx-0 cursor-pointer hover:shadow-lg transition-shadow" style={{ background: '#FFFFFF', width: '382.8px', height: '636.8728637695312px', opacity: 1, top: '1604px', left: '584px', transform: 'rotate(0deg)' }}>
+                  <img src={posts[7]?.image_url || 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1000&q=80'} alt={posts[7]?.title ?? 'Deer'} className="w-full h-[318px] object-cover" />
                   <div className="p-4 flex flex-col flex-grow" style={{ marginTop: '16px' }}>
-                    <div className="flex items-center mb-2">
-                      <div style={{ width: '4px', height: '20px', background: '#FFAB00', marginRight: '8px' }}></div>
-                      <p className="text-xs" style={{ color: '#000000' }}>September 17, 2021 - Tips & Tricks</p>
-                    </div>
-                    <div className="flex-1 flex items-center justify-center">
-                      <h3 className="text-gray-800 text-center" style={{ fontFamily: 'Lato', fontWeight: 700, fontSize: '25.31px', lineHeight: '37.58px', letterSpacing: '0%' }}>There are roughly 1200 semiwild deer</h3>
-                    </div>
-                    <div className="flex items-center justify-between text-xs" style={{ marginBottom: '16px' }}>
-                      <span className="flex items-center gap-1 text-[#FFAB00]">
-                        <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" /></svg>
-                        Google
-                      </span>
-                      <span className="flex items-center gap-1 text-[#FFAB00]">
-                        <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path d="M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z" /></svg>
-                        Comment (40)
-                      </span>
-                    </div>
+                    <div className="flex items-center mb-2"><div style={{ width: '4px', height: '20px', background: '#FFAB00', marginRight: '8px' }}></div><p className="text-xs" style={{ color: '#000000' }}>{posts[7] ? `${posts[7].date} - ${posts[7].category_name || 'Tips & Tricks'}` : 'September 17, 2021 - Tips & Tricks'}</p></div>
+                    <div className="flex-1 flex items-center justify-center"><h3 className="text-gray-800 text-center hover:text-[#0047FF] transition-colors" style={{ fontFamily: 'Lato', fontWeight: 700, fontSize: '25.31px', lineHeight: '37.58px', letterSpacing: '0%' }}>{posts[7]?.title ?? 'There are roughly 1200 semiwild deer'}</h3></div>
+                    <div className="flex items-center justify-between text-xs" style={{ marginBottom: '16px' }}><span className="flex items-center gap-1 text-[#FFAB00]"><svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" /></svg>{posts[7]?.location ?? 'Google'}</span><span className="flex items-center gap-1 text-[#FFAB00]"><svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path d="M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z" /></svg>Comment ({posts[7]?.comments ?? 0})</span></div>
                   </div>
                 </article>
               </div>
               </div>
 
               {/* Video Post 2 - Into Nature's Wild - full width like featured card */}
-              <article className="bg-white shadow-sm overflow-hidden" style={{ marginTop: '80px', marginBottom: '80px' }}>
+              <article
+                role="button"
+                tabIndex={0}
+                onClick={() => navigateToBlog(posts[3]?.id ?? 12)}
+                onKeyDown={(e) => e.key === 'Enter' && navigateToBlog(posts[3]?.id ?? 12)}
+                className="bg-white shadow-sm overflow-hidden cursor-pointer hover:shadow-lg transition-shadow"
+                style={{ marginTop: '80px', marginBottom: '80px' }}
+              >
                 <div className="relative h-[350px]">
-                  <img 
-                    src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1000&q=80"
-                    alt="Nature Wild"
-                    className="w-full h-full object-cover"
-                  />
+                  <img src={posts[3]?.image_url || "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1000&q=80"} alt="Nature Wild" className="w-full h-full object-cover" />
                   <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
                     <div className="text-center">
                       <p className="text-white/80 text-sm mb-2">Into</p>
@@ -720,79 +651,36 @@ export default function Home() {
                 <div className="p-6 flex flex-col" style={{ minHeight: '350px' }}>
                   <div className="flex items-center mb-2" style={{ marginTop: '16px' }}>
                     <div style={{ width: '4px', height: '20px', background: '#FFAB00', marginRight: '8px' }}></div>
-                    <p className="text-xs" style={{ color: '#000000' }}>September 17, 2021 - Tips & Tricks</p>
+                    <p className="text-xs" style={{ color: '#000000' }}>{posts[3] ? `${posts[3].date} - ${posts[3].category_name || 'Tips & Tricks'}` : 'September 17, 2021 - Tips & Tricks'}</p>
                   </div>
-                  <h2 className="text-gray-800 mb-3" style={{ fontFamily: 'Lato', fontWeight: 600, fontSize: '31.64px', lineHeight: '46.98px', letterSpacing: '0%', marginTop: '18.4px' }}>Finding Love & home in Tbilisi, Georgia</h2>
+                  <h2 className="text-gray-800 mb-3 hover:text-[#0047FF] transition-colors" style={{ fontFamily: 'Lato', fontWeight: 600, fontSize: '31.64px', lineHeight: '46.98px', letterSpacing: '0%', marginTop: '18.4px' }}>{posts[3]?.title ?? 'Finding Love & home in Tbilisi, Georgia'}</h2>
                   <p className="text-gray-600 mb-4 flex-grow" style={{ fontFamily: 'Lato', fontWeight: 500, fontSize: '24px', lineHeight: '40px', letterSpacing: '0%' }}>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus pharetra ac erat commodo non leo eget gravida viverra. Phasellus pharetra.
+                    {posts[3]?.excerpt ?? 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus pharetra ac erat commodo non leo eget gravida viverra. Phasellus pharetra.'}
                   </p>
                   <div className="flex items-center justify-between text-sm mt-auto">
-                    <span className="flex items-center gap-1 text-[#FFAB00]">
-                      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" /></svg>
-                      Penang, Malaysia
-                    </span>
-                    <span className="flex items-center gap-1 text-[#FFAB00]">
-                      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z" /></svg>
-                      Comment 53
-                    </span>
+                    <span className="flex items-center gap-1 text-[#FFAB00]"><svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" /></svg>{posts[3]?.location ?? 'Penang, Malaysia'}</span>
+                    <span className="flex items-center gap-1 text-[#FFAB00]"><svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z" /></svg>Comment {posts[3]?.comments ?? 0}</span>
                   </div>
                 </div>
               </article>
 
               <div className="max-w-[692px] w-full">
               {/* Two Column Grid - Row 4 */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-32 md:gap-48" style={{ marginTop: '100px', marginBottom: '100px' }}>
-                <article className="bg-white shadow-sm overflow-hidden flex flex-col w-full mx-auto md:mx-0 my-6" style={{ background: '#FFFFFF', width: '382.8px', height: '636.8728637695312px', opacity: 1, top: '1604px', left: '584px', transform: 'rotate(0deg)' }}>
-                  <img 
-                    src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80"
-                    alt="Beach"
-                    className="w-full h-[318px] object-cover"
-                  />
+              <div className="blog-cards-grid grid grid-cols-1 md:grid-cols-2 gap-32 md:gap-48" style={{ marginTop: '100px', marginBottom: '100px' }}>
+                <article role="button" tabIndex={0} onClick={() => navigateToBlog(posts[1]?.id ?? 10)} onKeyDown={(e) => e.key === 'Enter' && navigateToBlog(posts[1]?.id ?? 10)} className="bg-white shadow-sm overflow-hidden flex flex-col w-full mx-auto md:mx-0 my-6 cursor-pointer hover:shadow-lg transition-shadow" style={{ background: '#FFFFFF', width: '382.8px', height: '636.8728637695312px', opacity: 1, top: '1604px', left: '584px', transform: 'rotate(0deg)' }}>
+                  <img src={posts[1]?.image_url || "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80"} alt={posts[1]?.title ?? 'Beach'} className="w-full h-[318px] object-cover" />
                   <div className="p-4 flex flex-col flex-grow" style={{ marginTop: '16px' }}>
-                    <div className="flex items-center mb-2">
-                      <div style={{ width: '4px', height: '20px', background: '#FFAB00', marginRight: '8px' }}></div>
-                      <p className="text-xs" style={{ color: '#000000' }}>September 17, 2025 - Tips & Tricks</p>
-                    </div>
-                    <div className="flex-1 flex items-center justify-center">
-                      <h3 className="text-gray-800 text-center" style={{ fontFamily: 'Lato', fontWeight: 700, fontSize: '25.31px', lineHeight: '37.58px', letterSpacing: '0%' }}>Have you read The Beach by Alex?</h3>
-                    </div>
-                    <div className="flex items-center justify-between text-xs" style={{ marginBottom: '16px' }}>
-                      <span className="flex items-center gap-1 text-[#FFAB00]">
-                        <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" /></svg>
-                        Georgia
-                      </span>
-                      <span className="flex items-center gap-1 text-[#FFAB00]">
-                        <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path d="M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z" /></svg>
-                        Comment (52)
-                      </span>
-                    </div>
+                    <div className="flex items-center mb-2"><div style={{ width: '4px', height: '20px', background: '#FFAB00', marginRight: '8px' }}></div><p className="text-xs" style={{ color: '#000000' }}>{posts[1] ? `${posts[1].date} - ${posts[1].category_name || 'Tips & Tricks'}` : 'September 17, 2025 - Tips & Tricks'}</p></div>
+                    <div className="flex-1 flex items-center justify-center"><h3 className="text-gray-800 text-center hover:text-[#0047FF] transition-colors" style={{ fontFamily: 'Lato', fontWeight: 700, fontSize: '25.31px', lineHeight: '37.58px', letterSpacing: '0%' }}>{posts[1]?.title ?? 'Have you read The Beach by Alex?'}</h3></div>
+                    <div className="flex items-center justify-between text-xs" style={{ marginBottom: '16px' }}><span className="flex items-center gap-1 text-[#FFAB00]"><svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" /></svg>{posts[1]?.location ?? 'Georgia'}</span><span className="flex items-center gap-1 text-[#FFAB00]"><svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path d="M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z" /></svg>Comment ({posts[1]?.comments ?? 0})</span></div>
                   </div>
                 </article>
-
-                <article className="bg-white shadow-sm overflow-hidden flex flex-col w-full mx-auto md:mx-0" style={{ background: '#FFFFFF', width: '382.8px', height: '636.8728637695312px', opacity: 1, top: '1604px', left: '584px', transform: 'rotate(0deg)' }}>
-                  <img 
-                    src={'https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=1000&q=80'}
-                    alt="Philippines"
-                    className="w-full h-[318px] object-cover"
-                  />
+                <article role="button" tabIndex={0} onClick={() => navigateToBlog(posts[2]?.id ?? 11)} onKeyDown={(e) => e.key === 'Enter' && navigateToBlog(posts[2]?.id ?? 11)} className="bg-white shadow-sm overflow-hidden flex flex-col w-full mx-auto md:mx-0 cursor-pointer hover:shadow-lg transition-shadow" style={{ background: '#FFFFFF', width: '382.8px', height: '636.8728637695312px', opacity: 1, top: '1604px', left: '584px', transform: 'rotate(0deg)' }}>
+                  <img src={posts[2]?.image_url || 'https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=1000&q=80'} alt={posts[2]?.title ?? 'Philippines'} className="w-full h-[318px] object-cover" />
                   <div className="p-4 flex flex-col flex-grow" style={{ marginTop: '16px' }}>
-                    <div className="flex items-center mb-2">
-                      <div style={{ width: '4px', height: '20px', background: '#FFAB00', marginRight: '8px' }}></div>
-                      <p className="text-xs" style={{ color: '#000000' }}>September 17, 2025 - Tips & Tricks</p>
-                    </div>
-                    <div className="flex-1 flex items-center justify-center">
-                      <h3 className="text-gray-800 text-center" style={{ fontFamily: 'Lato', fontWeight: 700, fontSize: '25.31px', lineHeight: '37.58px', letterSpacing: '0%' }}>The writer actually live in Philippines</h3>
-                    </div>
-                    <div className="flex items-center justify-between text-xs" style={{ marginBottom: '16px' }}>
-                      <span className="flex items-center gap-1 text-[#FFAB00]">
-                        <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" /></svg>
-                        Georgia
-                      </span>
-                      <span className="flex items-center gap-1 text-[#FFAB00]">
-                        <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path d="M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z" /></svg>
-                        Comment (52)
-                      </span>
-                    </div>
+                    <div className="flex items-center mb-2"><div style={{ width: '4px', height: '20px', background: '#FFAB00', marginRight: '8px' }}></div><p className="text-xs" style={{ color: '#000000' }}>{posts[2] ? `${posts[2].date} - ${posts[2].category_name || 'Tips & Tricks'}` : 'September 17, 2025 - Tips & Tricks'}</p></div>
+                    <div className="flex-1 flex items-center justify-center"><h3 className="text-gray-800 text-center hover:text-[#0047FF] transition-colors" style={{ fontFamily: 'Lato', fontWeight: 700, fontSize: '25.31px', lineHeight: '37.58px', letterSpacing: '0%' }}>{posts[2]?.title ?? 'The writer actually live in Philippines'}</h3></div>
+                    <div className="flex items-center justify-between text-xs" style={{ marginBottom: '16px' }}><span className="flex items-center gap-1 text-[#FFAB00]"><svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" /></svg>{posts[2]?.location ?? 'Georgia'}</span><span className="flex items-center gap-1 text-[#FFAB00]"><svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path d="M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z" /></svg>Comment ({posts[2]?.comments ?? 0})</span></div>
                   </div>
                 </article>
               </div>
